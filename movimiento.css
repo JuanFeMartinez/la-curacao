@@ -6,10 +6,11 @@
 
    Principios:
    - Curvas propias (las de CSS por defecto se sienten flojas).
-   - Animar transform/opacity siempre que se pueda (van por GPU).
+   - Animar transform/opacity/clip-path siempre que se pueda (GPU).
+   - Interfaz por debajo de 300ms; solo lo que se ve una vez puede durar más.
    - Toda pieza presionable responde al clic (scale sutil en :active).
    - Las salidas son más rápidas que las entradas.
-   - Los hover decorativos solo existen con mouse real.
+   - Los hover que mueven cosas solo existen con mouse real.
    - "Reducir movimiento" del sistema se respeta (bloque final).
    ===================================================================== */
 
@@ -20,23 +21,26 @@
 
   --t-press: 140ms;   /* respuesta al presionar */
   --t-hover: 220ms;   /* cambios de color y hover */
-  --t-ui: 300ms;      /* elementos pequeños de interfaz */
-  --t-panel: 440ms;   /* paneles, acordeones, tarjetas que se expanden */
+  --t-ui: 280ms;      /* elementos pequeños de interfaz */
+  --t-panel: 420ms;   /* paneles grandes: menú móvil, hoja de aliados */
 }
 
 
 /* ---------------------------------------------------------------------
    1. Transición entre páginas
    La página vieja se va rápido; la nueva entra con un leve ascenso.
+   Es la ÚNICA entrada al navegar: el hero y los bloques visibles al
+   cargar no se animan encima de ella.
    --------------------------------------------------------------------- */
 ::view-transition-old(root) {
   animation: vt-salir 160ms var(--ease-out) both;
 }
 ::view-transition-new(root) {
-  animation: vt-entrar 380ms var(--ease-out) both;
+  animation: vt-entrar 340ms var(--ease-out) both;
 }
-@keyframes vt-salir  { to   { opacity: 0; } }
-@keyframes vt-entrar { from { opacity: 0; transform: translateY(10px); } }
+@keyframes vt-salir   { to   { opacity: 0; } }
+@keyframes vt-entrar  { from { opacity: 0; transform: translateY(10px); } }
+@keyframes vt-fundido { from { opacity: 0; } }
 
 
 /* ---------------------------------------------------------------------
@@ -47,10 +51,10 @@
 html.sin-intro .page-loader { display: none; }
 
 .page-loader {
-  transition: opacity 480ms var(--ease-out), visibility 480ms var(--ease-out);
+  transition: opacity 300ms var(--ease-out), visibility 300ms var(--ease-out);
 }
 .page-loader__box {
-  transition: transform 480ms var(--ease-out), opacity 300ms ease;
+  transition: transform 300ms var(--ease-out), opacity 200ms ease;
 }
 /* Al irse, el logo se encoge un poco mientras todo se desvanece */
 .page-loader.is-hidden .page-loader__box {
@@ -60,10 +64,9 @@ html.sin-intro .page-loader { display: none; }
 
 
 /* ---------------------------------------------------------------------
-   3. Entrada del hero (una vez por página: aquí sí cabe algo de deleite)
-   El título se "enfoca" y la foto se asienta con un zoom mínimo.
-   Se activa con html.hero-listo (lo pone el script del <head> o el JS
-   al retirar la pantalla de carga). Sin JS, el hero se ve normal.
+   3. Entrada del hero — SOLO en la primera visita (sale junto con la
+   pantalla de carga). Se ve una vez por sesión, así que aquí sí cabe
+   algo de deleite. El JS pone html.hero-listo al retirar el loader.
    --------------------------------------------------------------------- */
 html.hero-listo .hero > h1,
 html.hero-listo .marca-hero-content {
@@ -82,32 +85,70 @@ html.hero-listo .hero-img {
 
 /* ---------------------------------------------------------------------
    4. Header
-   Se oculta rápido al bajar (220ms) y reaparece con calma al subir.
+   Reaparece en 240ms (pasa decenas de veces por sesión) y se oculta aún
+   más rápido. El logo se achica con transform (GPU), no con height.
    --------------------------------------------------------------------- */
 .site-header {
   transition:
-    transform 340ms var(--ease-out),
+    transform 240ms var(--ease-out),
     background-color var(--t-ui) ease,
     padding var(--t-ui) var(--ease-out),
     box-shadow var(--t-ui) ease;
 }
 .site-header.is-hidden {
   transition:
-    transform 220ms var(--ease-out),
+    transform 200ms var(--ease-out),
     background-color var(--t-ui) ease,
     padding var(--t-ui) var(--ease-out),
     box-shadow var(--t-ui) ease;
 }
+
+/* El logo siempre se dibuja a su tamaño grande (se ve nítido) y al
+   compactar se escala desde su esquina. La caja que lo contiene toma el
+   tamaño compacto de una vez, así el header queda bajo como antes. */
 .logo-img {
-  transition: height var(--t-ui) var(--ease-out);
+  transform-origin: left top;
+  transition: transform var(--t-ui) var(--ease-out);
+}
+.site-header.is-scrolled .logo-img {
+  height: 120px;
+  transform: scale(0.45);        /* 54 / 120 */
+}
+.site-header.is-scrolled .logo-block {
+  width: 79px;                   /* 54 × (582 / 396), proporción del logo */
+  height: 54px;
+}
+@media (max-width: 900px) {
+  .site-header.is-scrolled .logo-img {
+    height: 72px;
+    transform: scale(0.75);      /* 54 / 72 */
+  }
 }
 
-/* El nombre de la sección aparece deslizándose al compactar el header */
-.site-header.is-scrolled .header-section {
-  animation: entrar-lateral var(--t-ui) var(--ease-out) backwards;
+/* Nombre de la sección: entra deslizándose al compactar el header.
+   Con transición + @starting-style (no keyframes), así si se ronda el
+   umbral del scroll retoma desde donde va en vez de reiniciar. */
+.header-section {
+  transition: transform var(--t-press) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
 }
-@keyframes entrar-lateral {
-  from { opacity: 0; transform: translateX(-8px); }
+.site-header.is-scrolled .header-section {
+  transition:
+    opacity 200ms var(--ease-out) 40ms,
+    translate 240ms var(--ease-out) 40ms,
+    transform var(--t-press) var(--ease-out);
+}
+@starting-style {
+  .site-header.is-scrolled .header-section {
+    opacity: 0;
+    translate: -8px 0;
+  }
+}
+.header-section:active { transform: scale(0.96); }
+
+.header-section-name,
+.header-section-logo {
+  transition: transform var(--t-hover) var(--ease-out);
 }
 
 /* Logo: el hover (escala + resplandor) solo con mouse */
@@ -151,16 +192,6 @@ html.hero-listo .hero-img {
   transition-duration: var(--t-press);
 }
 
-.header-section-name,
-.header-section-logo {
-  transition: transform var(--t-hover) var(--ease-out);
-}
-.header-section {
-  transition: transform var(--t-press) var(--ease-out);
-  -webkit-tap-highlight-color: transparent;
-}
-.header-section:active { transform: scale(0.96); }
-
 /* Idioma */
 .lang-opt {
   transition: color var(--t-hover) ease, transform var(--t-hover) var(--ease-out);
@@ -182,13 +213,13 @@ a.lang-opt:active {
     transition: transform var(--t-ui) var(--ease-out), opacity 160ms ease;
   }
   .site-header.nav-open nav > * {
-    animation: entrar-menu 380ms var(--ease-out) backwards;
+    animation: entrar-menu 300ms var(--ease-out) backwards;
   }
-  .site-header.nav-open nav > :nth-child(1) { animation-delay: 90ms; }
-  .site-header.nav-open nav > :nth-child(2) { animation-delay: 130ms; }
-  .site-header.nav-open nav > :nth-child(3) { animation-delay: 170ms; }
-  .site-header.nav-open nav > :nth-child(4) { animation-delay: 210ms; }
-  .site-header.nav-open nav > :nth-child(5) { animation-delay: 250ms; }
+  .site-header.nav-open nav > :nth-child(1) { animation-delay: 60ms; }
+  .site-header.nav-open nav > :nth-child(2) { animation-delay: 90ms; }
+  .site-header.nav-open nav > :nth-child(3) { animation-delay: 120ms; }
+  .site-header.nav-open nav > :nth-child(4) { animation-delay: 150ms; }
+  .site-header.nav-open nav > :nth-child(5) { animation-delay: 180ms; }
 }
 @keyframes entrar-menu {
   from { opacity: 0; transform: translateX(18px); }
@@ -209,15 +240,6 @@ a.lang-opt:active {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Botón principal "Contáctanos": conserva su ensanchado en hover */
-.contact-btn,
-.who-btn {
-  transition:
-    background-color var(--t-hover) ease,
-    color var(--t-hover) ease,
-    padding var(--t-ui) var(--ease-out),
-    transform var(--t-press) var(--ease-out);
-}
 .marca-btn-oficial,
 .mv-btn {
   transition:
@@ -240,13 +262,69 @@ a.lang-opt:active {
   transition-duration: var(--t-press);
 }
 
-/* Pastilla de teléfono */
+/* Botones "Contáctanos" y "Quiénes somos": conservan su gesto de
+   ensancharse en hover, pero ya no animan padding (que movía el layout y
+   empujaba al botón vecino). El fondo y el borde los pintan dos capas
+   (::before = borde, ::after = relleno) que se abren con clip-path: el
+   botón no cambia de tamaño y el texto no se mueve. */
+.contact-btn,
+.who-btn {
+  --btn-color: var(--accent);
+  position: relative;
+  isolation: isolate;
+  transition: color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
+}
+body.marca-liveu .contact-btn { --btn-color: var(--marca-cta); }
+
+.contact-btn::before,
+.contact-btn::after,
+.who-btn::before,
+.who-btn::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  background: var(--btn-color);
+  transition: clip-path var(--t-ui) var(--ease-out), background-color var(--t-hover) ease;
+}
+/* Contáctanos: radio 10px, borde 2px, se abre 10px por lado
+   (deja aire con el botón vecino en las landings, separados 16px) */
+.contact-btn::before { inset: -2px -12px; border-radius: 10px; clip-path: inset(0 10px round 10px); }
+.contact-btn::after  { inset: 0 -10px;   border-radius: 8px;  clip-path: inset(0 10px round 8px); }
+/* Quiénes somos: radio 12px, borde 2px, se abre 22px por lado */
+.who-btn::before { inset: -2px -24px; border-radius: 12px; clip-path: inset(0 22px round 12px); }
+.who-btn::after  { inset: 0 -22px;   border-radius: 10px; clip-path: inset(0 22px round 10px); }
+
+/* Sin mouse: nada de ensanchar ni de cambiar a blanco (en táctil el
+   hover queda "pegado" al tocar) */
+.contact-btn:hover { padding: 12px 34px; color: #fff; }
+.who-btn:hover { padding: 18px 44px; color: #fff; }
+body.marca-liveu .contact-btn:hover { color: #fff; }
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-btn:hover,
+  .who-btn:hover,
+  body.marca-liveu .contact-btn:hover { color: var(--btn-color); }
+
+  .contact-btn:hover::after,
+  .who-btn:hover::after { background-color: #fff; }
+
+  .contact-btn:hover::before { clip-path: inset(0 0 round 10px); }
+  .contact-btn:hover::after  { clip-path: inset(0 0 round 8px); }
+  .who-btn:hover::before     { clip-path: inset(0 0 round 12px); }
+  .who-btn:hover::after      { clip-path: inset(0 0 round 10px); }
+}
+
+/* Pastilla de teléfono: el timbrazo del ícono, más corto y solo con mouse */
 .phone-pill {
   transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
 }
 .phone-pill .icon-circle { transition: background-color var(--t-hover) ease, color var(--t-hover) ease; }
 .phone-pill .phone-number { transition: color var(--t-hover) ease; }
 .phone-pill:active { transform: scale(0.97); }
+.phone-pill:hover .icon-circle svg { animation: none; }
+@media (hover: hover) and (pointer: fine) {
+  .phone-pill:hover .icon-circle svg { animation: ring 420ms var(--ease-out); }
+}
 
 /* Botón "Échale un ojo" de las tarjetas de servicio: de elevado a presionado */
 .service-btn {
@@ -327,27 +405,29 @@ a.marca-card:active { transform: scale(0.99); }
   transition-duration: var(--t-press);
 }
 
-/* Tarjetas de servicio (Home): se expanden con curva de panel y el texto
-   entra al final, escalonado. Así no se ve el texto re-acomodándose
-   mientras la tarjeta cambia de ancho. Solo en escritorio con mouse:
-   en móvil el panel se abre con un toque y el texto debe verse de una. */
-.service-card { transition: width 480ms var(--ease-panel); }
-.service-expand { transition: padding 480ms var(--ease-panel); }
+/* Tarjetas de servicio (Home): se expanden con curva de panel en 320ms
+   y el texto entra al final, escalonado, para que no se vea re-acomodarse
+   mientras la tarjeta cambia de ancho. El ancho sigue siendo layout: es
+   el gesto central del diseño (la tarjeta empuja a las vecinas) y no
+   tiene equivalente con transform sin rediseñarlo.
+   Solo en escritorio con mouse: en móvil el texto debe verse de una. */
+.service-card { transition: width 320ms var(--ease-panel); }
+.service-expand { transition: padding 320ms var(--ease-panel); }
 
 @media (min-width: 769px) and (hover: hover) and (pointer: fine) {
   .service-expand > * {
     opacity: 0;
     transform: translateX(-8px);
-    transition: opacity 160ms ease, transform 160ms ease;
+    transition: opacity 120ms ease, transform 120ms ease;
   }
   .service-card:hover .service-expand > * {
     opacity: 1;
     transform: none;
-    transition: opacity 320ms ease, transform 420ms var(--ease-out);
+    transition: opacity 240ms ease, transform 320ms var(--ease-out);
   }
-  .service-card:hover .service-expand > :nth-child(1) { transition-delay: 170ms; }
-  .service-card:hover .service-expand > :nth-child(2) { transition-delay: 220ms; }
-  .service-card:hover .service-expand > :nth-child(3) { transition-delay: 270ms; }
+  .service-card:hover .service-expand > :nth-child(1) { transition-delay: 100ms; }
+  .service-card:hover .service-expand > :nth-child(2) { transition-delay: 130ms; }
+  .service-card:hover .service-expand > :nth-child(3) { transition-delay: 160ms; }
 }
 
 
@@ -356,11 +436,11 @@ a.marca-card:active { transform: scale(0.99); }
    El contenido entra con un leve retraso al abrir y se va de inmediato
    al cerrar (salidas siempre más rápidas).
    --------------------------------------------------------------------- */
-/* Marcas (Broadcast / SyD) */
-.brand-item { transition: transform var(--t-panel) var(--ease-panel); }
+/* Marcas (Broadcast / SyD): se abren con clic, 300ms */
+.brand-item { transition: transform 300ms var(--ease-panel); }
 .brand-head { transition: background-color var(--t-hover) ease; }
 .brand-tri { transition: transform var(--t-ui) var(--ease-out), color var(--t-hover) ease; }
-.brand-body-wrap { transition: height var(--t-panel) var(--ease-panel); }
+.brand-body-wrap { transition: height 300ms var(--ease-panel); }
 
 .brand-body-inner {
   opacity: 0;
@@ -370,22 +450,23 @@ a.marca-card:active { transform: scale(0.99); }
 .brand-toggle:checked ~ .brand-body-wrap .brand-body-inner {
   opacity: 1;
   transform: none;
-  transition: opacity 300ms ease 110ms, transform 400ms var(--ease-out) 110ms;
+  transition: opacity 240ms ease 80ms, transform 300ms var(--ease-out) 80ms;
 }
 
-/* Preguntas frecuentes (Home) */
-.faq-item { transition: background-color var(--t-ui) ease; }
-.faq-question span { transition: color var(--t-ui) ease; }
-.faq-chevron { transition: transform var(--t-ui) var(--ease-out), color var(--t-ui) ease; }
-.faq-answer-wrap { transition: grid-template-rows var(--t-panel) var(--ease-panel); }
+/* Preguntas frecuentes (Home): se abren con clic (ver JS), 260ms */
+.faq-item { transition: background-color var(--t-hover) ease; }
+.faq-question span { transition: color var(--t-hover) ease; }
+.faq-chevron { transition: transform var(--t-ui) var(--ease-out), color var(--t-hover) ease; }
+.faq-answer-wrap { transition: grid-template-rows 260ms var(--ease-panel); }
+.faq-question { -webkit-tap-highlight-color: transparent; }
 
 .faq-answer-inner {
   opacity: 0;
-  transition: opacity 120ms ease;
+  transition: opacity 100ms ease;
 }
-.faq-item:hover .faq-answer-inner {
+.faq-item.is-open .faq-answer-inner {
   opacity: 1;
-  transition: opacity 320ms ease 120ms;
+  transition: opacity 220ms ease 70ms;
 }
 
 /* Mini-menú de aliados (Home): sube como una hoja */
@@ -397,10 +478,10 @@ a.marca-card:active { transform: scale(0.99); }
   filter: blur(6px);
   transform: scale(0.985);
   transition:
-    opacity 380ms var(--ease-out),
-    visibility 380ms,
-    filter 380ms var(--ease-out),
-    transform 380ms var(--ease-out);
+    opacity 300ms var(--ease-out),
+    visibility 300ms,
+    filter 300ms var(--ease-out),
+    transform 300ms var(--ease-out);
 }
 .mv-card--mision,
 .mv-toggle:checked ~ .mv-grid .mv-card--vision {
@@ -417,18 +498,24 @@ a.marca-card:active { transform: scale(0.99); }
    9. Aparición al hacer scroll
    "backwards" en vez de "both": al terminar, el elemento vuelve a sus
    propios estilos, así su hover (elevación, escala) sigue funcionando.
-   Antes "both" congelaba el transform y anulaba esos hover.
+   Es contenido de marketing que se ve una vez al bajar, por eso puede
+   pasar de 300ms.
    --------------------------------------------------------------------- */
 .reveal-on .reveal.is-visible {
   opacity: 1;
-  animation: aparecer-arriba 680ms var(--ease-out) backwards;
+  animation: aparecer-arriba 640ms var(--ease-out) backwards;
 }
 .reveal-on :is(.brand-item, .contact-pill, .support-card, .marca-card).reveal.is-visible {
-  animation: aparecer-arriba 680ms var(--ease-out) backwards;
+  animation: aparecer-arriba 640ms var(--ease-out) backwards;
 }
 /* Los títulos de sección además se "enfocan" */
 .reveal-on h2.reveal.is-visible {
   animation-name: aparecer-enfoque;
+}
+/* Lo que ya estaba en pantalla al cargar se muestra sin animar: la
+   página ya entró con la transición entre páginas (o detrás del loader). */
+.reveal-on .reveal.is-visible.sin-animar {
+  animation: none;
 }
 @keyframes aparecer-arriba {
   from { opacity: 0; transform: translateY(18px); }
@@ -440,11 +527,9 @@ a.marca-card:active { transform: scale(0.99); }
 
 /* ---------------------------------------------------------------------
    10. Reducir movimiento (preferencia del sistema)
-   Menos y más suave, no cero: se conservan los fundidos, se quita el
-   desplazamiento, los zooms y los carruseles en movimiento.
+   Menos y más suave, no cero: se conservan los fundidos y los cambios de
+   color; se quitan desplazamientos, zooms, escalas y carruseles en marcha.
    --------------------------------------------------------------------- */
-@keyframes vt-fundido { from { opacity: 0; } }
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
@@ -454,21 +539,41 @@ a.marca-card:active { transform: scale(0.99); }
   html.hero-listo .marca-hero-content { animation-name: vt-fundido; }
   html.hero-listo .hero-img { animation: none; }
 
-  .site-header.is-scrolled .header-section,
   .site-header.nav-open nav > * { animation: none; }
 
   .clients-track,
   .partners-track { animation-play-state: paused !important; }
 
   .page-loader__logo { animation: none; }
+  .phone-pill:hover .icon-circle svg { animation: none !important; }
 
+  /* Hover y estados que desplazan o escalan */
   .logo-block:hover,
   .site-header nav a:hover,
   .footer-social a:hover,
   .header-section:hover .header-section-name,
-  .header-section:hover .header-section-logo { transform: none !important; }
+  .header-section:hover .header-section-logo,
+  .capacidad:hover,
+  .support-card:hover,
+  .contact-pill:hover,
+  a.marca-card:hover,
+  .service-btn:hover,
+  .track-order-btn:hover,
+  .brand-item:has(.brand-toggle:checked) { transform: none !important; }
 
   .service-expand > *,
   .brand-body-inner,
   .mv-card { transform: none !important; filter: none !important; }
+
+  /* Lo que cambia de tamaño lo hace de una, sin animar */
+  .service-card,
+  .service-expand { transition-duration: 0s !important; }
+  .contact-btn::before,
+  .contact-btn::after,
+  .who-btn::before,
+  .who-btn::after { transition: background-color var(--t-hover) ease; }
+
+  @starting-style {
+    .site-header.is-scrolled .header-section { translate: 0 0; }
+  }
 }

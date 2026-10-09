@@ -168,7 +168,7 @@ body {
   transition: transform 0.2s ease;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .header-section:hover .header-section-name,
   .header-section:hover .header-section-logo { transform: scale(1.08); }
 }
@@ -272,7 +272,7 @@ a.lang-opt { cursor: pointer; }
   text-decoration-thickness: 2px;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   a.lang-opt:hover { color: #fff; transform: scale(1.08); }
 }
 
@@ -743,7 +743,7 @@ a.lang-opt { cursor: pointer; }
   }
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .capacidad:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
@@ -919,7 +919,7 @@ a.lang-opt { cursor: pointer; }
 /* --- Vista previa por HOVER: SOLO en dispositivos con mouse ---
    En táctil el :hover se queda "pegado" tras tocar; por eso se limita a
    punteros con hover real. En móvil el estado lo maneja solo el clic. */
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .brand-head:hover { background: #0d0d0d; }
   .brand-head:hover .brand-tri { color: #fff; transform: rotate(180deg); }
   .brand-head:hover .brand-logo--azul { display: none; }

@@ -52,9 +52,11 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.support-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+@media (hover: hover) and (pointer: fine) {
+  .support-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+  }
 }
 
 .support-card img {
@@ -152,10 +154,12 @@
   transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.track-order-btn:hover {
-  background: transparent;
-  color: #fff;
-  transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+  .track-order-btn:hover {
+    background: transparent;
+    color: #fff;
+    transform: translateY(-2px);
+  }
 }
 
 @media (max-width: 900px) {

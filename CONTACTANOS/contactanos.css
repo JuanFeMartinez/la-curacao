@@ -144,9 +144,11 @@
   color: var(--accent);
 }
 
-.contact-pill:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+@media (hover: hover) and (pointer: fine) {
+  .contact-pill:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+  }
 }
 
 /* ===== Responsive ===== */

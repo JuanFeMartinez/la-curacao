@@ -150,7 +150,7 @@
       // Lo que ya está en pantalla al cargar: mostrarlo de una (sin parpadeo)
       var r = el.getBoundingClientRect();
       if (r.top < vh && r.bottom > 0) {
-        el.classList.add('is-visible');
+        el.classList.add('is-visible', 'sin-animar');
       } else {
         observer.observe(el);
       }
@@ -172,7 +172,9 @@
       loader.classList.add('is-hidden');
       // Arranca la entrada del hero y recuerda que la intro ya se vio en esta
       // sesión: las siguientes páginas entran sin pantalla de carga.
-      document.documentElement.classList.add('hero-listo');
+      if (!document.documentElement.classList.contains('sin-intro')) {
+        document.documentElement.classList.add('hero-listo');
+      }
       try { sessionStorage.setItem('lc-intro', '1'); } catch (e) {}
       setTimeout(function () {
         if (loader.parentNode) loader.parentNode.removeChild(loader);
@@ -221,6 +223,44 @@
     });
 
     sincronizar();
+  }
+
+  /* ---- Preguntas frecuentes: se abren con clic (o Enter / Espacio) ----
+     Antes se abrían con hover y, al pasar el mouse por la lista, el
+     contenido se movía debajo del cursor. Queda una abierta a la vez. */
+  function preguntasFrecuentes() {
+    var items = document.querySelectorAll('.faq-item');
+    if (!items.length) return;
+
+    function cerrarTodas() {
+      Array.prototype.forEach.call(items, function (it) {
+        it.classList.remove('is-open');
+        var q = it.querySelector('.faq-question');
+        if (q) q.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    Array.prototype.forEach.call(items, function (item) {
+      var q = item.querySelector('.faq-question');
+      if (!q) return;
+      q.setAttribute('role', 'button');
+      q.setAttribute('tabindex', '0');
+      q.setAttribute('aria-expanded', 'false');
+
+      function alternar() {
+        var abrir = !item.classList.contains('is-open');
+        cerrarTodas();
+        if (abrir) {
+          item.classList.add('is-open');
+          q.setAttribute('aria-expanded', 'true');
+        }
+      }
+
+      q.addEventListener('click', alternar);
+      q.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); alternar(); }
+      });
+    });
   }
 
   /* ---- 7. Idioma del sitio ----
@@ -294,6 +334,7 @@
   menuMovil();
   aparicionAlScroll();
   menuAliados();
+  preguntasFrecuentes();
   headerInteligente();
   inicioDesdeHeader();
 })();

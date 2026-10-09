@@ -143,7 +143,7 @@
   pointer-events: none;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .partners-viewport:hover .partners-hint { opacity: 1; }
   .partners-viewport:hover .partners-track { animation-play-state: paused; }
   .partners-viewport:hover .partners-badge { opacity: 0; }
@@ -190,7 +190,7 @@
 
 .aliado-logo--color { display: none; }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .aliado-item:hover { background: #0d0d0d; }
   .aliado-item:hover .aliado-logo--azul { display: none; }
   .aliado-item:hover .aliado-logo--color { display: block; }
@@ -262,7 +262,7 @@
   transition: color 0.25s ease, gap 0.25s ease;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   a.marca-card:hover {
     transform: translateY(-6px);
     background: #0d0d0d;
@@ -423,9 +423,11 @@
 
 /* Hover: la pastilla se llena con el tono más oscuro de la tarjeta, el texto
    pasa a blanco y se levanta un poco. */
-.service-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+@media (hover: hover) and (pointer: fine) {
+  .service-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+  }
 }
 .service-card--green .service-btn:hover { background: #3E4A54; color: #fff; }
 .service-card--blue .service-btn:hover { background: #3f61c9; color: #fff; }
@@ -567,15 +569,15 @@
   transition: transform 0.35s ease, color 0.35s ease;
 }
 
-.faq-item:hover {
+.faq-item.is-open {
   background: var(--accent);
 }
 
-.faq-item:hover .faq-question span {
+.faq-item.is-open .faq-question span {
   color: #fff;
 }
 
-.faq-item:hover .faq-chevron {
+.faq-item.is-open .faq-chevron {
   color: #fff;
   transform: rotate(0deg);
 }
@@ -586,9 +588,23 @@
   transition: grid-template-rows 0.4s ease;
 }
 
-.faq-item:hover .faq-answer-wrap {
+.faq-item.is-open .faq-answer-wrap {
   grid-template-rows: 1fr;
 }
+
+/* Se abre con clic (o Enter / Espacio). Al pasar el mouse solo se insinúa,
+   para que la lista no se mueva debajo del cursor. */
+@media (hover: hover) and (pointer: fine) {
+  .faq-item:not(.is-open):hover .faq-question span,
+  .faq-item:not(.is-open):hover .faq-chevron { color: var(--accent); }
+}
+
+.faq-question:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+  border-radius: 14px;
+}
+
 
 .faq-answer-inner {
   overflow: hidden;
