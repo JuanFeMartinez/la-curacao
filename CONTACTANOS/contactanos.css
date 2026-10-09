@@ -70,7 +70,7 @@
 /* ===== Estamos por aquí ===== */
 .contact-here {
   background: var(--accent);
-  padding: 80px 60px 90px;
+  padding: 80px 60px 112px;   /* 80 visibles abajo: el footer se monta 32px encima */
   margin-top: -1px;
   text-align: center;
 }
@@ -170,7 +170,7 @@
   .contact-lead h2 { font-size: 34px; }
   .contact-lead > p { font-size: 18px; margin-bottom: 36px; }
 
-  .contact-here { padding: 56px 24px 64px; }
+  .contact-here { padding: 56px 24px 88px; }
   .contact-here h2 { font-size: 30px; margin-bottom: 36px; }
   .contact-pill { font-size: 19px; padding: 16px 28px; gap: 16px; }
   .contact-pill svg { width: 24px; height: 24px; }

@@ -153,7 +153,7 @@
 
 .cifras-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   max-width: 1060px;
   margin: 0 auto;
@@ -184,7 +184,7 @@
 /* ---- Gobierno corporativo (cierre de la sección de compañía) ---- */
 .cierre {
   background: #fff;
-  padding: 20px 60px 76px;
+  padding: 72px 60px 76px;
   text-align: center;
 }
 
@@ -206,7 +206,7 @@
 @media (max-width: 768px) {
   .cifras { padding: 6px 24px 40px; }
   .cifra-numero { font-size: 38px; }
-  .cierre { padding: 10px 24px 54px; }
+  .cierre { padding: 48px 24px 54px; }
   .cierre h2 { font-size: 25px; }
   .cierre > p { font-size: 16px; }
 }
@@ -434,6 +434,9 @@
   .timeline { padding: 36px 24px 48px; }
   .timeline-title { font-size: 27px; margin-bottom: 30px; }
   .timeline-track { flex-direction: column; gap: 28px; }
+  /* Apilada (sin riel): centrada, como las cifras de arriba */
+  .timeline { text-align: center; }
+  .timeline-item { align-items: center; text-align: center; }
   .timeline-rail { display: none; }
   .timeline-year { font-size: 25px; margin-bottom: 4px; }
   .timeline-hito { font-size: 19px; }
@@ -451,4 +454,9 @@
   .values-col { width: 100%; gap: 22px; }
   .values-col--right li { flex-direction: row-reverse; justify-content: flex-end; }
   .values-col--right .value-label { text-align: left; }
+}
+
+/* Cifras: 2x2 cuando no caben las 4 en fila (evita 3 arriba + 1 huérfana) */
+@media (max-width: 1000px) {
+  .cifras-grid { grid-template-columns: repeat(2, 1fr); }
 }

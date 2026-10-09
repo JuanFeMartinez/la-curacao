@@ -178,3 +178,10 @@
   .support-services h2 { font-size: 26px; }
   .support-services .support-sub { font-size: 17px; margin-bottom: 32px; }
 }
+
+/* Las capacidades vienen justo después de la franja gris de servicios:
+   sin este aire el título queda pegado al borde de la franja. */
+.capacidades { padding-top: 72px; }
+@media (max-width: 768px) {
+  .capacidades { padding-top: 48px; }
+}
