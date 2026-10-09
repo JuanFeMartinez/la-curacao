@@ -1,0 +1,474 @@
+/* =====================================================================
+   MOVIMIENTO — sistema de animación de todo el sitio
+   Se carga DESPUÉS del CSS de cada página, así que aquí manda sobre los
+   tiempos y curvas. No cambia colores, tamaños ni el diseño: solo cómo
+   se mueve.
+
+   Principios:
+   - Curvas propias (las de CSS por defecto se sienten flojas).
+   - Animar transform/opacity siempre que se pueda (van por GPU).
+   - Toda pieza presionable responde al clic (scale sutil en :active).
+   - Las salidas son más rápidas que las entradas.
+   - Los hover decorativos solo existen con mouse real.
+   - "Reducir movimiento" del sistema se respeta (bloque final).
+   ===================================================================== */
+
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);      /* entradas y respuestas */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);  /* algo que se desplaza en pantalla */
+  --ease-panel: cubic-bezier(0.32, 0.72, 0, 1);    /* paneles y acordeones (tipo iOS) */
+
+  --t-press: 140ms;   /* respuesta al presionar */
+  --t-hover: 220ms;   /* cambios de color y hover */
+  --t-ui: 300ms;      /* elementos pequeños de interfaz */
+  --t-panel: 440ms;   /* paneles, acordeones, tarjetas que se expanden */
+}
+
+
+/* ---------------------------------------------------------------------
+   1. Transición entre páginas
+   La página vieja se va rápido; la nueva entra con un leve ascenso.
+   --------------------------------------------------------------------- */
+::view-transition-old(root) {
+  animation: vt-salir 160ms var(--ease-out) both;
+}
+::view-transition-new(root) {
+  animation: vt-entrar 380ms var(--ease-out) both;
+}
+@keyframes vt-salir  { to   { opacity: 0; } }
+@keyframes vt-entrar { from { opacity: 0; transform: translateY(10px); } }
+
+
+/* ---------------------------------------------------------------------
+   2. Pantalla de carga: solo en la primera visita de la sesión.
+   En las siguientes navegaciones manda la transición entre páginas
+   (un script en el <head> pone html.sin-intro antes de pintar).
+   --------------------------------------------------------------------- */
+html.sin-intro .page-loader { display: none; }
+
+.page-loader {
+  transition: opacity 480ms var(--ease-out), visibility 480ms var(--ease-out);
+}
+.page-loader__box {
+  transition: transform 480ms var(--ease-out), opacity 300ms ease;
+}
+/* Al irse, el logo se encoge un poco mientras todo se desvanece */
+.page-loader.is-hidden .page-loader__box {
+  transform: scale(0.94);
+  opacity: 0;
+}
+
+
+/* ---------------------------------------------------------------------
+   3. Entrada del hero (una vez por página: aquí sí cabe algo de deleite)
+   El título se "enfoca" y la foto se asienta con un zoom mínimo.
+   Se activa con html.hero-listo (lo pone el script del <head> o el JS
+   al retirar la pantalla de carga). Sin JS, el hero se ve normal.
+   --------------------------------------------------------------------- */
+html.hero-listo .hero > h1,
+html.hero-listo .marca-hero-content {
+  animation: hero-titulo 900ms var(--ease-out) 90ms backwards;
+}
+html.hero-listo .hero-img {
+  animation: hero-foto 1700ms var(--ease-out) backwards;
+}
+@keyframes hero-titulo {
+  from { opacity: 0; transform: translateY(16px); filter: blur(6px); }
+}
+@keyframes hero-foto {
+  from { transform: scale(1.06); }
+}
+
+
+/* ---------------------------------------------------------------------
+   4. Header
+   Se oculta rápido al bajar (220ms) y reaparece con calma al subir.
+   --------------------------------------------------------------------- */
+.site-header {
+  transition:
+    transform 340ms var(--ease-out),
+    background-color var(--t-ui) ease,
+    padding var(--t-ui) var(--ease-out),
+    box-shadow var(--t-ui) ease;
+}
+.site-header.is-hidden {
+  transition:
+    transform 220ms var(--ease-out),
+    background-color var(--t-ui) ease,
+    padding var(--t-ui) var(--ease-out),
+    box-shadow var(--t-ui) ease;
+}
+.logo-img {
+  transition: height var(--t-ui) var(--ease-out);
+}
+
+/* El nombre de la sección aparece deslizándose al compactar el header */
+.site-header.is-scrolled .header-section {
+  animation: entrar-lateral var(--t-ui) var(--ease-out) backwards;
+}
+@keyframes entrar-lateral {
+  from { opacity: 0; transform: translateX(-8px); }
+}
+
+/* Logo: el hover (escala + resplandor) solo con mouse */
+.logo-block {
+  transition: transform var(--t-ui) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.logo-block::before { transition: opacity 360ms ease; }
+.logo-block:hover { transform: none; }
+.logo-block:hover::before { opacity: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .logo-block:hover { transform: scale(1.09); }
+  .logo-block:hover::before { opacity: 1; }
+  .logo-block:hover:active { transform: scale(1.04); }
+}
+.logo-block:active {
+  transform: scale(0.97);
+  transition-duration: var(--t-press);
+}
+
+/* Enlaces del menú: sin cambio real de grosor (ensanchaba el texto y
+   empujaba a los vecinos). La negrita se simula con text-shadow, que no
+   mueve nada. */
+.site-header nav a {
+  transition: transform var(--t-hover) var(--ease-out), text-shadow var(--t-hover) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.site-header nav a:hover {
+  font-weight: 600;
+  transform: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .site-header nav a:hover {
+    transform: scale(1.08);
+    text-shadow: 0 0 0.6px #fff, 0 0 0.6px #fff;
+  }
+  .site-header nav a:hover:active { transform: scale(1.02); }
+}
+.site-header nav a:active {
+  transform: scale(0.96);
+  transition-duration: var(--t-press);
+}
+
+.header-section-name,
+.header-section-logo {
+  transition: transform var(--t-hover) var(--ease-out);
+}
+.header-section {
+  transition: transform var(--t-press) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.header-section:active { transform: scale(0.96); }
+
+/* Idioma */
+.lang-opt {
+  transition: color var(--t-hover) ease, transform var(--t-hover) var(--ease-out);
+}
+a.lang-opt:active {
+  transform: scale(0.92);
+  transition-duration: var(--t-press);
+}
+
+
+/* ---------------------------------------------------------------------
+   5. Menú móvil: panel tipo iOS y opciones que entran escalonadas
+   --------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .site-header nav {
+    transition: transform var(--t-panel) var(--ease-panel), box-shadow var(--t-panel) ease;
+  }
+  .nav-burger span {
+    transition: transform var(--t-ui) var(--ease-out), opacity 160ms ease;
+  }
+  .site-header.nav-open nav > * {
+    animation: entrar-menu 380ms var(--ease-out) backwards;
+  }
+  .site-header.nav-open nav > :nth-child(1) { animation-delay: 90ms; }
+  .site-header.nav-open nav > :nth-child(2) { animation-delay: 130ms; }
+  .site-header.nav-open nav > :nth-child(3) { animation-delay: 170ms; }
+  .site-header.nav-open nav > :nth-child(4) { animation-delay: 210ms; }
+  .site-header.nav-open nav > :nth-child(5) { animation-delay: 250ms; }
+}
+@keyframes entrar-menu {
+  from { opacity: 0; transform: translateX(18px); }
+}
+
+
+/* ---------------------------------------------------------------------
+   6. Respuesta al presionar (botones, pastillas, enlaces con forma de botón)
+   --------------------------------------------------------------------- */
+.contact-btn,
+.who-btn,
+.marca-btn-oficial,
+.track-order-btn,
+.mv-btn,
+.phone-pill,
+.soporte-bar,
+.aliado-item {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Botón principal "Contáctanos": conserva su ensanchado en hover */
+.contact-btn,
+.who-btn {
+  transition:
+    background-color var(--t-hover) ease,
+    color var(--t-hover) ease,
+    padding var(--t-ui) var(--ease-out),
+    transform var(--t-press) var(--ease-out);
+}
+.marca-btn-oficial,
+.mv-btn {
+  transition:
+    background-color var(--t-hover) ease,
+    color var(--t-hover) ease,
+    transform var(--t-press) var(--ease-out);
+}
+.track-order-btn {
+  transition:
+    background-color var(--t-hover) ease,
+    color var(--t-hover) ease,
+    transform var(--t-hover) var(--ease-out);
+}
+.contact-btn:active,
+.who-btn:active,
+.marca-btn-oficial:active,
+.mv-btn:active,
+.track-order-btn:active {
+  transform: scale(0.97);
+  transition-duration: var(--t-press);
+}
+
+/* Pastilla de teléfono */
+.phone-pill {
+  transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
+}
+.phone-pill .icon-circle { transition: background-color var(--t-hover) ease, color var(--t-hover) ease; }
+.phone-pill .phone-number { transition: color var(--t-hover) ease; }
+.phone-pill:active { transform: scale(0.97); }
+
+/* Botón "Échale un ojo" de las tarjetas de servicio: de elevado a presionado */
+.service-btn {
+  transition:
+    background-color var(--t-hover) ease,
+    color var(--t-hover) ease,
+    transform var(--t-hover) var(--ease-out),
+    box-shadow var(--t-hover) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.service-btn:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: none;
+  transition-duration: var(--t-press);
+}
+
+/* Barra de Soporte (Home): es grande, así que el gesto es más pequeño */
+.soporte-bar {
+  transition: background-color var(--t-hover) ease, color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
+}
+.soporte-bar:active { transform: scale(0.99); }
+
+/* Logos del mini-menú de aliados */
+.aliado-item {
+  transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
+}
+.aliado-item:active { transform: scale(0.95); }
+
+/* Redes sociales del footer: hover solo con mouse */
+.footer-social a {
+  transition: transform var(--t-hover) var(--ease-out), opacity var(--t-hover) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.footer-social a:hover { transform: none; opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .footer-social a:hover { transform: scale(1.12); opacity: 0.8; }
+  .footer-social a:hover:active { transform: scale(1.02); }
+}
+.footer-social a:active {
+  transform: scale(0.92);
+  transition-duration: var(--t-press);
+}
+.footer-col a:not(.footer-col-title) { transition: opacity var(--t-hover) ease; }
+
+
+/* ---------------------------------------------------------------------
+   7. Tarjetas
+   --------------------------------------------------------------------- */
+/* Tarjetas de marca grandes (Home): de elevadas a presionadas */
+.marca-card {
+  transition:
+    transform var(--t-ui) var(--ease-out),
+    box-shadow var(--t-ui) var(--ease-out),
+    background-color var(--t-hover) ease,
+    border-color var(--t-hover) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.marca-card-cta { transition: color var(--t-hover) ease, gap var(--t-ui) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  a.marca-card:hover:active {
+    transform: translateY(-3px) scale(0.99);
+    transition-duration: var(--t-press);
+  }
+}
+a.marca-card:active { transform: scale(0.99); }
+
+/* Capacidades, tarjetas de soporte y de contacto: elevación suave */
+.capacidad,
+.support-card {
+  transition: transform var(--t-ui) var(--ease-out), box-shadow var(--t-ui) var(--ease-out);
+}
+.contact-pill {
+  transition: transform var(--t-hover) var(--ease-out), box-shadow var(--t-hover) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.contact-pill:active {
+  transform: scale(0.98);
+  transition-duration: var(--t-press);
+}
+
+/* Tarjetas de servicio (Home): se expanden con curva de panel y el texto
+   entra al final, escalonado. Así no se ve el texto re-acomodándose
+   mientras la tarjeta cambia de ancho. Solo en escritorio con mouse:
+   en móvil el panel se abre con un toque y el texto debe verse de una. */
+.service-card { transition: width 480ms var(--ease-panel); }
+.service-expand { transition: padding 480ms var(--ease-panel); }
+
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
+  .service-expand > * {
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+  .service-card:hover .service-expand > * {
+    opacity: 1;
+    transform: none;
+    transition: opacity 320ms ease, transform 420ms var(--ease-out);
+  }
+  .service-card:hover .service-expand > :nth-child(1) { transition-delay: 170ms; }
+  .service-card:hover .service-expand > :nth-child(2) { transition-delay: 220ms; }
+  .service-card:hover .service-expand > :nth-child(3) { transition-delay: 270ms; }
+}
+
+
+/* ---------------------------------------------------------------------
+   8. Acordeones y paneles
+   El contenido entra con un leve retraso al abrir y se va de inmediato
+   al cerrar (salidas siempre más rápidas).
+   --------------------------------------------------------------------- */
+/* Marcas (Broadcast / SyD) */
+.brand-item { transition: transform var(--t-panel) var(--ease-panel); }
+.brand-head { transition: background-color var(--t-hover) ease; }
+.brand-tri { transition: transform var(--t-ui) var(--ease-out), color var(--t-hover) ease; }
+.brand-body-wrap { transition: height var(--t-panel) var(--ease-panel); }
+
+.brand-body-inner {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+.brand-toggle:checked ~ .brand-body-wrap .brand-body-inner {
+  opacity: 1;
+  transform: none;
+  transition: opacity 300ms ease 110ms, transform 400ms var(--ease-out) 110ms;
+}
+
+/* Preguntas frecuentes (Home) */
+.faq-item { transition: background-color var(--t-ui) ease; }
+.faq-question span { transition: color var(--t-ui) ease; }
+.faq-chevron { transition: transform var(--t-ui) var(--ease-out), color var(--t-ui) ease; }
+.faq-answer-wrap { transition: grid-template-rows var(--t-panel) var(--ease-panel); }
+
+.faq-answer-inner {
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.faq-item:hover .faq-answer-inner {
+  opacity: 1;
+  transition: opacity 320ms ease 120ms;
+}
+
+/* Mini-menú de aliados (Home): sube como una hoja */
+.aliados-menu { transition: transform var(--t-panel) var(--ease-panel); }
+
+/* Misión ↔ Visión (Nosotros): fundido con un desenfoque leve, que mezcla
+   los dos estados en vez de mostrar dos tarjetas encimadas. */
+.mv-card {
+  filter: blur(6px);
+  transform: scale(0.985);
+  transition:
+    opacity 380ms var(--ease-out),
+    visibility 380ms,
+    filter 380ms var(--ease-out),
+    transform 380ms var(--ease-out);
+}
+.mv-card--mision,
+.mv-toggle:checked ~ .mv-grid .mv-card--vision {
+  filter: none;
+  transform: none;
+}
+.mv-toggle:checked ~ .mv-grid .mv-card--mision {
+  filter: blur(6px);
+  transform: scale(0.985);
+}
+
+
+/* ---------------------------------------------------------------------
+   9. Aparición al hacer scroll
+   "backwards" en vez de "both": al terminar, el elemento vuelve a sus
+   propios estilos, así su hover (elevación, escala) sigue funcionando.
+   Antes "both" congelaba el transform y anulaba esos hover.
+   --------------------------------------------------------------------- */
+.reveal-on .reveal.is-visible {
+  opacity: 1;
+  animation: aparecer-arriba 680ms var(--ease-out) backwards;
+}
+.reveal-on :is(.brand-item, .contact-pill, .support-card, .marca-card).reveal.is-visible {
+  animation: aparecer-arriba 680ms var(--ease-out) backwards;
+}
+/* Los títulos de sección además se "enfocan" */
+.reveal-on h2.reveal.is-visible {
+  animation-name: aparecer-enfoque;
+}
+@keyframes aparecer-arriba {
+  from { opacity: 0; transform: translateY(18px); }
+}
+@keyframes aparecer-enfoque {
+  from { opacity: 0; transform: translateY(14px); filter: blur(5px); }
+}
+
+
+/* ---------------------------------------------------------------------
+   10. Reducir movimiento (preferencia del sistema)
+   Menos y más suave, no cero: se conservan los fundidos, se quita el
+   desplazamiento, los zooms y los carruseles en movimiento.
+   --------------------------------------------------------------------- */
+@keyframes vt-fundido { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  ::view-transition-new(root) { animation-name: vt-fundido; }
+
+  html.hero-listo .hero > h1,
+  html.hero-listo .marca-hero-content { animation-name: vt-fundido; }
+  html.hero-listo .hero-img { animation: none; }
+
+  .site-header.is-scrolled .header-section,
+  .site-header.nav-open nav > * { animation: none; }
+
+  .clients-track,
+  .partners-track { animation-play-state: paused !important; }
+
+  .page-loader__logo { animation: none; }
+
+  .logo-block:hover,
+  .site-header nav a:hover,
+  .footer-social a:hover,
+  .header-section:hover .header-section-name,
+  .header-section:hover .header-section-logo { transform: none !important; }
+
+  .service-expand > *,
+  .brand-body-inner,
+  .mv-card { transform: none !important; filter: none !important; }
+}

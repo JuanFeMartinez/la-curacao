@@ -145,7 +145,7 @@
         ? Array.prototype.filter.call(el.parentElement.children, function (h) { return h.matches(SELECTORES); })
         : [el];
       var i = hermanos.indexOf(el);
-      if (i > 0) el.style.animationDelay = Math.min(i * 90, 360) + 'ms';
+      if (i > 0) el.style.animationDelay = Math.min(i * 60, 300) + 'ms';
 
       // Lo que ya está en pantalla al cargar: mostrarlo de una (sin parpadeo)
       var r = el.getBoundingClientRect();
@@ -170,6 +170,10 @@
       if (oculto) return;
       oculto = true;
       loader.classList.add('is-hidden');
+      // Arranca la entrada del hero y recuerda que la intro ya se vio en esta
+      // sesión: las siguientes páginas entran sin pantalla de carga.
+      document.documentElement.classList.add('hero-listo');
+      try { sessionStorage.setItem('lc-intro', '1'); } catch (e) {}
       setTimeout(function () {
         if (loader.parentNode) loader.parentNode.removeChild(loader);
       }, 600);
