@@ -1,0 +1,14 @@
+/* =====================================================================
+   ESTILOS PROPIOS DE SEGURIDAD Y DEFENSA
+   Casi todo vive en ../estilosGlobales.css. Aquí solo se define el
+   color de acento propio de esta página (verde).
+   ===================================================================== */
+
+:root {
+  --accent: #3E4A54;
+  --accent-soft: rgba(62, 74, 84, 0.75);
+
+  /* Pill de teléfono en grafito (solo esta página) */
+  --pill-color: #3E4A54;      /* círculo del ícono + número */
+  --pill-hover-bg: #2C333A;   /* relleno al hacer hover (un poco más oscuro) */
+}

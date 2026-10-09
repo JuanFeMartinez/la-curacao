@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Carpeta de respaldo de imágenes sin comprimir: no debe indexarse
+Disallow: /assets-originales/
+
+# Herramientas de desarrollo (idealmente ni se suben al hosting)
+Disallow: /.claude/
+
+Sitemap: https://curacao.com.co/sitemap.xml

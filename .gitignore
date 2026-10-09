@@ -1,0 +1,10 @@
+# Respaldo de imágenes sin comprimir (68 MB): solo local
+assets-originales/
+
+# Herramientas de desarrollo (servidor local, generadores, config)
+.claude/
+
+# Basura del sistema
+Thumbs.db
+desktop.ini
+.DS_Store

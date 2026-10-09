@@ -1,0 +1,175 @@
+/* =====================================================================
+   ESTILOS PROPIOS DE CONTACTO
+   El header, hero, y footer vienen de ../estilosGlobales.css.
+   Usa el azul por defecto, así que no redefine --accent.
+   ===================================================================== */
+
+/* ===== Hablemos de tu proyecto ===== */
+.contact-lead {
+  background: #fff;
+  padding: 80px 60px 90px;
+  margin-top: -1px;
+  text-align: center;
+}
+
+.contact-lead h2 {
+  color: #10112b;
+  font-weight: 700;
+  font-size: 54px;
+  margin-bottom: 30px;
+}
+
+.contact-lead > p {
+  color: #10112b;
+  font-size: 22px;
+  line-height: 1.6;
+  max-width: 780px;
+  margin: 0 auto 56px;
+}
+
+/* Formulario de Google embebido */
+.contact-form-frame {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  border: 0;
+  border-radius: 14px;
+}
+
+/* Placeholder mientras no se pega el iframe del form */
+.contact-form-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+  max-width: 720px;
+  min-height: 320px;
+  margin: 0 auto;
+  border-radius: 14px;
+  color: #7c4dff;
+  background: rgba(124, 77, 255, 0.08);
+  border: 1px dashed rgba(124, 77, 255, 0.5);
+  text-align: center;
+}
+
+.contact-form-placeholder span {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.contact-form-placeholder small {
+  font-weight: 500;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+/* ===== Estamos por aquí ===== */
+.contact-here {
+  background: var(--accent);
+  padding: 80px 60px 90px;
+  margin-top: -1px;
+  text-align: center;
+}
+
+.contact-here h2 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 44px;
+  margin-bottom: 60px;
+}
+
+.contact-here-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* --- Mapa --- */
+.contact-map {
+  flex: 1 1 0;
+  max-width: 520px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.contact-map iframe {
+  display: block;
+  width: 100%;
+  height: 380px;
+}
+
+.contact-map-caption {
+  background: #123a8f;
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.35;
+  padding: 18px 20px;
+  text-align: center;
+}
+
+/* --- Pills de contacto --- */
+.contact-pills {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  align-items: stretch;
+}
+
+.contact-pill {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: #fff;
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 20px 44px;
+  font-weight: 700;
+  font-size: 26px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-pill svg {
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+.contact-pill:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .contact-here-grid { flex-direction: column; gap: 40px; align-items: center; }
+
+  /* En columna, flex-basis:0 aplica a la ALTURA y aplastaba el mapa a 0px.
+     Con flex:none cada bloque toma la altura de su contenido. */
+  .contact-map,
+  .contact-pills {
+    flex: none;
+    width: 100%;
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-lead { padding: 56px 24px 64px; }
+  .contact-lead h2 { font-size: 34px; }
+  .contact-lead > p { font-size: 18px; margin-bottom: 36px; }
+
+  .contact-here { padding: 56px 24px 64px; }
+  .contact-here h2 { font-size: 30px; margin-bottom: 36px; }
+  .contact-pill { font-size: 19px; padding: 16px 28px; gap: 16px; }
+  .contact-pill svg { width: 24px; height: 24px; }
+}

@@ -1,0 +1,29 @@
+/* =====================================================================
+   ESTILOS PROPIOS DE NUEVOS NEGOCIOS
+   Casi todo vive en ../estilosGlobales.css. Aquí: el color de acento
+   (violeta) y un hero con degradado (sin foto por ahora).
+   ===================================================================== */
+
+:root {
+  --accent: #6d3fd6;
+  --accent-soft: rgba(109, 63, 214, 0.75);
+  --pill-color: #6d3fd6;        /* número de teléfono + ícono */
+  --pill-hover-bg: #5a2fc0;     /* relleno al hacer hover */
+}
+
+/* Hero sin foto: degradado violeta limpio (cuando haya imagen real, se
+   puede volver al patrón hero-img + overlay). */
+.hero--nuevos {
+  background: linear-gradient(140deg, #7b5cf0 0%, #4f27ab 100%);
+}
+.hero--nuevos .hero-overlay { display: none; }
+
+/* Bloque de detalle sin imagen: solo texto, centrado */
+.service-detail-grid--solo-texto {
+  grid-template-columns: 1fr;
+  max-width: 780px;
+}
+.service-detail-grid--solo-texto .service-detail-text {
+  text-align: center;
+  align-items: center;
+}

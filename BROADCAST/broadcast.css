@@ -1,0 +1,10 @@
+/* =====================================================================
+   ESTILOS PROPIOS DE BROADCAST
+   Casi todo vive en ../estilosGlobales.css. Aquí solo se define el
+   color de acento propio de esta página.
+   ===================================================================== */
+
+:root {
+  --accent: #5993ff;
+  --accent-soft: rgba(89, 147, 255, 0.75);
+}

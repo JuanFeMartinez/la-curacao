@@ -1,0 +1,1143 @@
+/* =====================================================================
+   ESTILOS GLOBALES — compartidos por todas las páginas
+   (header, hero base, teléfono, franja de contacto, doble carrusel, footer)
+
+   Cada página define su color con la variable --accent (y --accent-soft).
+   Por defecto es azul (Home / Broadcast). Seguridad = verde, Soporte = naranja.
+   ===================================================================== */
+
+:root {
+  --nav-height: 110px;
+  --accent: #2f5cdb;                       /* color principal de la página */
+  --accent-soft: rgba(47, 92, 219, 0.75);  /* versión translúcida para el degradado del hero */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Scroll suave en anclas (ej. "Servicios" → #servicios) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Transición suave (fundido) al navegar entre páginas.
+   Navegadores compatibles la aplican; el resto navega normal. */
+@view-transition {
+  navigation: auto;
+}
+
+html {
+  overflow-x: hidden;   /* evita scroll lateral por el panel del menú fuera de pantalla */
+}
+
+body {
+  font-family: 'Afacad', sans-serif;
+  background: #fff;   /* fondo del sitio en blanco (evita pantallas negras antes de aparecer los elementos) */
+  overflow-x: hidden;
+}
+
+/* ===== Pantalla de carga ===== */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);   /* toma el color de acento de cada página */
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* El JS le pone esta clase cuando la página terminó de cargar */
+.page-loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.page-loader__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.page-loader__logo {
+  width: 210px;
+  height: auto;
+  animation: loader-pulse 1.6s ease-in-out infinite;
+}
+
+.page-loader__spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: loader-spin 0.8s linear infinite;
+}
+
+@keyframes loader-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes loader-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+
+/* ===== Header ===== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 28px 60px 0;
+  z-index: 10;
+  transition: transform 0.35s ease, background-color 0.35s ease,
+              padding 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Al desplazar hacia abajo, el header se compacta y toma fondo de acento
+   (así el logo y el texto blancos siguen legibles sobre el contenido claro). */
+.site-header.is-scrolled {
+  align-items: center;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background: var(--accent);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+.site-header.is-scrolled nav { margin-top: 0; }
+.site-header.is-scrolled .logo-img { height: 54px; }
+
+/* Se oculta hacia arriba al bajar; reaparece al subir (clase puesta por JS). */
+.site-header.is-hidden {
+  transform: translateY(-100%);
+}
+
+/* ===== Grupo izquierdo del header: logo + identificador de sección ===== */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+/* El identificador de sección (nombre de la página, o el logo de la marca en
+   las landing) SOLO aparece cuando el header está compacto, junto al logo de
+   La Curaçao y separado por una línea. */
+.header-section {
+  display: none;
+  align-items: center;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+.site-header.is-scrolled .header-section { display: flex; }
+
+.header-section-sep {
+  width: 2px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 2px;
+}
+
+/* El nombre / logo de sección crece un poco al pasar el mouse (como los
+   enlaces del nav) y al hacer clic hace scroll suave al inicio (ver JS). */
+.header-section-name {
+  color: #fff;
+  font-family: 'Afacad', sans-serif;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform 0.2s ease;
+}
+
+.header-section-logo {
+  height: 40px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+@media (hover: hover) {
+  .header-section:hover .header-section-name,
+  .header-section:hover .header-section-logo { transform: scale(1.08); }
+}
+
+.logo-block {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+/* Glow azul que "baja" e ilumina el logo en hover */
+.logo-block::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -55%;
+  transform: translateX(-50%);
+  width: 160%;
+  height: 200%;
+  background: linear-gradient(to bottom,
+    rgba(47, 92, 219, 0.9) 0%,
+    rgba(47, 92, 219, 0.45) 45%,
+    rgba(47, 92, 219, 0) 78%);
+  filter: blur(20px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.35s ease;
+}
+
+.logo-block:hover::before {
+  opacity: 1;
+}
+
+.logo-img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: 120px;
+  width: auto;
+  transition: height 0.35s ease;
+}
+
+.logo-block:hover {
+  transform: scale(1.09);
+}
+
+.site-header nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-top: 14px;
+}
+
+.site-header nav a {
+  font-family: 'Afacad', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s ease, font-weight 0.2s ease;
+}
+
+.site-header nav a:hover {
+  transform: scale(1.08);
+  font-weight: 700;
+}
+
+/* ===== Selector de idioma (ESP / ENG siempre visibles en el header) ===== */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+/* El idioma inactivo es un enlace a la otra versión del sitio (/en/);
+   el activo es un <span> sin enlace. */
+.lang-opt {
+  display: inline-block;
+  padding: 2px 1px;
+  border: 0;
+  background: none;
+  font-family: 'Afacad', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.55);          /* idioma inactivo: atenuado */
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+a.lang-opt { cursor: pointer; }
+
+.lang-opt.is-active {
+  color: #fff;                                /* idioma activo: resaltado */
+  cursor: default;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
+}
+
+@media (hover: hover) {
+  a.lang-opt:hover { color: #fff; transform: scale(1.08); }
+}
+
+.lang-sep {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 700;
+  user-select: none;
+}
+
+/* Botón hamburguesa — oculto en escritorio, visible en tablet/móvil */
+.nav-burger { display: none; }
+
+/* ===== Hero (estructura base; color según --accent) ===== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 60px 70px;
+  overflow: hidden;
+}
+
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 45%;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,0.65) 0%,
+    rgba(0,0,0,0.15) 35%,
+    var(--accent-soft) 78%,
+    var(--accent) 100%);
+}
+
+.hero h1 {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: 'Afacad', sans-serif;
+  font-weight: 600;
+  color: #fff;
+  font-size: 52px;
+  line-height: 1.2;
+  max-width: 900px;
+}
+
+.hero h1 svg {
+  flex-shrink: 0;
+}
+
+/* Variante: título del hero centrado (páginas internas) */
+.hero--center {
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 0;
+}
+
+/* Título centrado de páginas internas: ícono arriba y texto debajo, ambos
+   centrados (queda simétrico aunque el texto ocupe varias líneas). */
+.hero--center h1 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+/* Título de hero con el nombre completo de la unidad de negocio (largo):
+   tamaño reducido para que quepa bien. */
+.hero h1.hero-titulo-largo {
+  font-size: 38px;
+  max-width: 820px;
+}
+
+/* ===== Pill de teléfono (idéntico en toda la web) ===== */
+.phone-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 24px 6px 6px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.phone-pill .icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--pill-color, #123a8f);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.phone-pill .phone-number {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--pill-color, #123a8f);
+  transition: color 0.3s ease;
+}
+
+.phone-pill:hover {
+  background: var(--pill-hover-bg, #123a8f);
+}
+
+.phone-pill:hover .icon-circle {
+  background: #fff;
+  color: var(--pill-color, #123a8f);
+}
+
+.phone-pill:hover .icon-circle svg {
+  animation: ring 0.6s ease;
+}
+
+.phone-pill:hover .phone-number {
+  color: #fff;
+}
+
+@keyframes ring {
+  0%   { transform: rotate(0); }
+  20%  { transform: rotate(-25deg); }
+  40%  { transform: rotate(20deg); }
+  60%  { transform: rotate(-15deg); }
+  80%  { transform: rotate(10deg); }
+  100% { transform: rotate(0); }
+}
+
+/* ===== Nuestros clientes (doble carrusel; encabezado según --accent) ===== */
+.clients {
+  margin-top: -1px;
+}
+
+.clients-header {
+  background: var(--accent);
+  padding: 42px 20px;
+  text-align: center;
+}
+
+.clients-header h2 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 36px;
+}
+
+.clients-body {
+  background: #fff;
+  padding: 64px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.clients-carousel {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.clients-track {
+  display: flex;
+  align-items: center;
+  gap: 90px;
+  width: max-content;
+}
+
+/* La animación solo corre cuando scriptsGlobales.js ya clonó el contenido
+   (clase 'is-looping'); sin JS el carrusel queda estático pero correcto. */
+.clients-track--ltr.is-looping { animation: clientsLtr 45s linear infinite; }
+.clients-track--rtl.is-looping { animation: clientsRtl 45s linear infinite; }
+
+.clients-track img {
+  flex-shrink: 0;
+  height: 70px;
+  width: 150px;
+  object-fit: contain;   /* sin fondo ni borde: el logo se integra al fondo de la sección */
+}
+
+@keyframes clientsRtl {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes clientsLtr {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* ===== Franja de contacto (fondo según --accent) ===== */
+.contact-strip {
+  background: var(--accent);
+  /* +32px abajo: el footer sube 32px (esquinas redondeadas) y tapa esa parte;
+     así el contenido queda visualmente centrado en la franja. */
+  padding: 56px 60px 88px;
+  margin-top: -1px;
+}
+
+.contact-strip-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 44px;
+}
+
+.contact-strip-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 44px;
+}
+
+/* ===== Footer (siempre azul, idéntico en toda la web) ===== */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  padding: 80px 60px;
+  /* Sube y solapa la sección de arriba; con las esquinas superiores curvas,
+     el color de esa sección asoma por las esquinas. */
+  margin-top: -32px;
+  border-radius: 32px 32px 0 0;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  flex-wrap: wrap;
+  max-width: 1220px;
+  margin: 0 auto;
+}
+
+/* Bloque de marca: todo centrado respecto al logo */
+.footer-brand {
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-logo {
+  display: block;
+  width: 240px;
+  height: auto;          /* conserva la proporción real del logo */
+}
+
+.footer-tagline {
+  color: #2f5cdb;
+  font-size: 20px;
+  line-height: 1.4;
+  margin: 18px 0 24px;
+  max-width: 260px;
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-social a {
+  color: #2f5cdb;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-social--box {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 2px solid #2f5cdb;
+}
+
+.footer-social a:hover {
+  transform: scale(1.12);
+  opacity: 0.8;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.footer-col-title {
+  color: #2f5cdb;
+  font-weight: 700;
+  font-size: 26px;
+  text-decoration: none;
+}
+
+.footer-col-title--link {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.footer-col a:not(.footer-col-title) {
+  color: #2f5cdb;
+  font-size: 22px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.footer-col a:not(.footer-col-title):hover {
+  opacity: 0.7;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ===== Componentes compartidos por las páginas internas ===== */
+
+/* Banda de intro bajo el hero (color según --accent) */
+.page-intro {
+  background: var(--accent);
+  padding: 20px 60px 72px;
+  margin-top: -1px;
+  text-align: center;
+}
+
+.page-intro p {
+  color: #fff;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 1.45;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+/* Sección "Servicios X": encabezado + imagen izquierda + texto/botón derecha */
+.service-detail {
+  background: #fff;
+  padding: 80px 60px;
+  margin-top: -1px;
+}
+
+.service-detail h2 {
+  text-align: center;
+  color: #10112b;
+  font-weight: 700;
+  font-size: 34px;
+  margin-bottom: 54px;
+}
+
+.service-detail-grid {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.service-detail-img {
+  flex: 1 1 0;
+  max-width: 460px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.service-detail-text {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.service-detail-text p {
+  color: #10112b;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+/* Botón "Contactanos" (color según --accent, ensancha en hover) */
+.contact-btn {
+  align-self: flex-start;
+  background: var(--accent);
+  border: 2px solid var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 12px 34px;
+  border-radius: 10px;
+  transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease;
+}
+
+.contact-btn:hover {
+  background: #fff;
+  color: var(--accent);
+  padding: 12px 52px;
+}
+
+/* ===== Capacidades (qué incluye el servicio) — Broadcast, SyD, Soporte ===== */
+.capacidades {
+  background: #fff;
+  padding: 20px 60px 70px;
+}
+
+.capacidades h2 {
+  text-align: center;
+  color: #10112b;
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 14px;
+}
+
+.capacidades-intro {
+  max-width: 780px;
+  margin: 0 auto 44px;
+  text-align: center;
+  color: #4a4f63;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Flex en vez de grid: si la última fila queda incompleta, las tarjetas
+   sobrantes se centran en lugar de amontonarse a la izquierda. */
+.capacidades-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.capacidad {
+  flex: 1 1 300px;
+  max-width: 352px;
+  background: #f6f8fc;
+  border: 1px solid #e3e8f2;
+  border-radius: 18px;
+  padding: 26px 26px 28px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Cuando la sección tiene exactamente 4 tarjetas, se acomodan en 2x2
+   (más equilibrado que 3 + 1). Se detecta solo: si el 4º elemento es
+   también el último, hay cuatro. Con 6 tarjetas la regla no aplica. */
+@media (min-width: 769px) {
+  .capacidades-grid:has(> .capacidad:nth-child(4):last-child) {
+    max-width: 760px;
+  }
+  .capacidades-grid:has(> .capacidad:nth-child(4):last-child) > .capacidad {
+    flex: 0 1 calc(50% - 11px);
+    max-width: none;
+  }
+}
+
+@media (hover: hover) {
+  .capacidad:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.capacidad-icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.capacidad h3 {
+  color: #10112b;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.capacidad p {
+  color: #4a4f63;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* ===== Sectores que atendemos ===== */
+.sectores {
+  background: #fff;
+  padding: 0 60px 80px;
+  text-align: center;
+}
+
+.sectores h2 {
+  color: #10112b;
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.sectores > p {
+  max-width: 760px;
+  margin: 0 auto 32px;
+  color: #4a4f63;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.sectores-lista {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sector-pill {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 10px 22px;
+  border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+  .capacidades { padding: 10px 24px 48px; }
+  .capacidades h2, .sectores h2 { font-size: 25px; }
+  .capacidades-intro, .sectores > p { font-size: 16px; }
+  .sectores { padding: 0 24px 56px; }
+  .sector-pill { font-size: 15px; padding: 9px 18px; }
+}
+
+/* ===== Nuestras marcas (acordeón por click; varias abiertas a la vez) =====
+   Se abre/cierra con clic (checkbox oculto, sin JS). Estado hover/abierto
+   en negro. El chevron cerrado toma el color de acento de la página. */
+.brands {
+  background: #eef0f6;
+  padding: 30px 60px 90px;
+  margin-top: -1px;
+}
+
+.brands h2 {
+  text-align: center;
+  color: #10112b;
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 48px;
+}
+
+.brands-grid {
+  --brand-body-h: 168px;   /* altura fija del cuerpo abierto (todas iguales) */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 44px 56px;
+  max-width: 1120px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.brand-item {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.35s ease;
+}
+
+/* Si la última fila queda con una sola marca (p. ej. 7 marcas en 3 columnas),
+   se centra en vez de quedar suelta a la izquierda. Solo aplica cuando la
+   grilla tiene realmente 3 columnas (ver breakpoints más abajo). */
+@media (min-width: 1250px) {
+  .brands-grid > .brand-item:last-child:nth-child(3n + 1) {
+    grid-column: 2;
+  }
+}
+
+/* Al seleccionar (abrir): se ensancha un poco y se pone por encima */
+.brand-item:has(.brand-toggle:checked) {
+  transform: scale(1.05);
+  position: relative;
+  z-index: 2;
+}
+
+.brand-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 30px;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Caja de tamaño FIJO: las dos versiones del logo ocupan exactamente el
+   mismo espacio, así el cambio azul↔color no mueve nada de la tarjeta. */
+/* La caja es 170x68 (más alta que antes): con object-fit:contain los logos
+   cuadrados (bollé 1:1, AMPED 1.54) estaban limitados por la altura y salían
+   diminutos. Los anchos (SONY, ROLATUBE) siguen topando por el ancho. */
+.brand-logo {
+  flex-shrink: 0;        /* que el flex nunca lo encoja */
+  width: 170px;
+  height: 68px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Doble logo por marca:
+   - marca-<nombre>-azul.png   → estado cerrado (versión azul)
+   - marca-<nombre>-color.png  → al pasar el mouse y al abrir (logo original)
+   Solo uno de los dos se muestra a la vez. */
+.brand-logo--color { display: none; }
+
+.brand-tri {
+  flex-shrink: 0;
+  color: var(--accent);
+  transition: transform 0.35s ease, color 0.3s ease;
+}
+
+/* --- Estado ABIERTO (clic): vale siempre, en móvil y escritorio --- */
+.brand-toggle:checked ~ .brand-head { background: #0d0d0d; }
+.brand-toggle:checked ~ .brand-head .brand-tri { color: #fff; transform: rotate(180deg); }
+.brand-toggle:checked ~ .brand-head .brand-logo--azul { display: none; }
+.brand-toggle:checked ~ .brand-head .brand-logo--color { display: block; }
+
+/* --- Vista previa por HOVER: SOLO en dispositivos con mouse ---
+   En táctil el :hover se queda "pegado" tras tocar; por eso se limita a
+   punteros con hover real. En móvil el estado lo maneja solo el clic. */
+@media (hover: hover) {
+  .brand-head:hover { background: #0d0d0d; }
+  .brand-head:hover .brand-tri { color: #fff; transform: rotate(180deg); }
+  .brand-head:hover .brand-logo--azul { display: none; }
+  .brand-head:hover .brand-logo--color { display: block; }
+}
+
+/* Cuerpo: fondo negro (solo visible al abrir), altura FIJA para que todas
+   las tarjetas abiertas queden exactamente iguales sin importar el texto */
+.brand-body-wrap {
+  height: 0;
+  overflow: hidden;
+  background: #0d0d0d;
+  transition: height 0.4s ease;
+}
+
+.brand-toggle:checked ~ .brand-body-wrap {
+  height: var(--brand-body-h);
+}
+
+.brand-body-inner {
+  height: var(--brand-body-h);
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-body-inner p {
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  margin: 0 30px;
+  padding: 18px 0 14px;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.brand-link {
+  display: block;
+  margin-top: auto;          /* ancla el enlace al fondo del cuerpo fijo */
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding-bottom: 24px;
+}
+
+/* ===== Menú hamburguesa (tablet y móvil) ===== */
+@media (max-width: 900px) {
+  .site-header {
+    align-items: center;
+    padding: 16px 24px;
+  }
+
+  .logo-img { height: 72px; }
+
+  /* En móvil el header queda apretado con la hamburguesa: omitimos el
+     identificador de sección (el logo de La Curaçao basta). */
+  .site-header.is-scrolled .header-section { display: none; }
+
+  /* Botón ☰ */
+  .nav-burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 46px;
+    height: 46px;
+    padding: 11px 8px;
+    position: relative;
+    z-index: 30;
+    cursor: pointer;
+  }
+
+  .nav-burger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px;
+    background: #fff;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+
+  /* Panel lateral con las opciones */
+  .site-header nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(80vw, 320px);
+    height: 100vh;
+    height: 100dvh;
+    margin-top: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 30px;
+    padding: 100px 34px 34px;
+    background: var(--accent);
+    transform: translateX(100%);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    z-index: 25;
+  }
+
+  /* La sombra solo cuando está abierto; si no, se asomaba por el borde
+     derecho de la pantalla aun con el panel cerrado. */
+  .site-header.nav-open nav {
+    transform: translateX(0);
+    box-shadow: -10px 0 34px rgba(0, 0, 0, 0.28);
+  }
+
+  .site-header nav a { font-size: 22px; }
+  .site-header nav a:hover { transform: none; }   /* sin el scale del escritorio dentro del panel */
+
+  /* Hamburguesa → X al abrir */
+  .site-header.nav-open .nav-burger span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+  .site-header.nav-open .nav-burger span:nth-child(2) { opacity: 0; }
+  .site-header.nav-open .nav-burger span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+}
+
+/* ===== Responsive (piezas globales) ===== */
+@media (max-width: 768px) {
+  .site-header { padding: 16px 20px; }
+  .site-header nav { gap: 20px; }
+  .site-header nav a { font-size: 22px; }
+  .hero { padding: 0 24px 40px; }
+  .hero h1 { font-size: 32px; }
+  .hero h1.hero-titulo-largo { font-size: 23px; }
+
+  .clients-header { padding: 30px 20px; }
+  .clients-header h2 { font-size: 26px; }
+  .clients-body { padding: 44px 0; gap: 32px; }
+  .clients-track { gap: 56px; }
+  .clients-track img { height: 54px; width: 120px; }
+
+  .contact-strip { padding: 40px 24px; }
+  .contact-strip-inner { gap: 24px; }
+  .contact-strip-title { font-size: 30px; }
+
+  /* Footer en móvil: todo apilado y centrado */
+  .site-footer { padding: 48px 24px; }
+
+  .footer-inner {
+    flex-direction: column;
+    flex-wrap: nowrap;   /* en columna, 'wrap' mandaba las listas a una 2ª columna fuera de pantalla */
+    align-items: center;
+    gap: 40px;
+  }
+
+  .footer-brand { max-width: 100%; }
+  .footer-logo { width: 200px; }
+  .footer-tagline { font-size: 17px; margin: 14px 0 20px; }
+
+  .footer-col {
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .footer-col-title { font-size: 22px; }
+  .footer-col a:not(.footer-col-title) { font-size: 18px; }
+
+  .page-intro { padding: 16px 24px 48px; }
+  .page-intro p { font-size: 20px; }
+  .service-detail { padding: 56px 24px; }
+  .service-detail h2 { font-size: 26px; margin-bottom: 32px; }
+  .service-detail-grid { flex-direction: column; gap: 32px; }
+  .service-detail-img { max-width: 100%; width: 100%; height: 260px; }
+  .service-detail-text p { font-size: 18px; }
+
+  .brands { padding: 24px 24px 56px; }
+  .brands h2 { font-size: 24px; margin-bottom: 28px; }
+  .brands-grid { grid-template-columns: 1fr; gap: 16px; --brand-body-h: 190px; }
+}
+
+/* 2 columnas en el rango intermedio: las tarjetas se angostan → cuerpo más alto */
+@media (min-width: 769px) and (max-width: 1249px) {
+  .brands-grid { grid-template-columns: repeat(2, 1fr); --brand-body-h: 190px; }
+
+  /* Con 2 columnas la que sobra es la impar: se centra a lo ancho */
+  .brands-grid > .brand-item:last-child:nth-child(2n + 1) {
+    grid-column: 1 / -1;
+    width: calc(50% - 28px);
+    justify-self: center;
+  }
+}
+
+/* =====================================================================
+   Aparición al hacer scroll
+   El JS (scriptsGlobales.js) marca <html class="reveal-on"> y va poniendo
+   .is-visible a cada bloque cuando entra en pantalla. Solo opacidad, para
+   no chocar con los transform de las marcas (scale) ni de los hover.
+   Sin JS o con "reduzco movimiento": todo se ve normal, sin parpadeo.
+   ===================================================================== */
+/* Se usa animación (no transition) para no pisar las transiciones propias
+   de cada elemento (sus hover). */
+.reveal-on .reveal {
+  opacity: 0;
+}
+
+/* Por defecto: subir + aparecer */
+.reveal-on .reveal.is-visible {
+  animation: aparecer-arriba 0.7s cubic-bezier(0.22, 0.7, 0.25, 1) both;
+}
+
+/* Elementos que ya usan transform en otros estados (scale al abrir marcas,
+   elevación en hover de pills y tarjetas de soporte): solo opacidad, para
+   no romper esos efectos. */
+.reveal-on :is(.brand-item, .contact-pill, .support-card, .marca-card).reveal.is-visible {
+  animation: aparecer 0.7s ease both;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes aparecer-arriba {
+  from { opacity: 0; transform: translateY(34px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,768 @@
+/* =====================================================================
+   ESTILOS PROPIOS DE HOME
+   (lo global —header, hero base, teléfono, clientes, franja, footer—
+    vive en ../estilosGlobales.css)
+   ===================================================================== */
+
+/* ===== Hero followup (contacto + tagline + aliados) ===== */
+.hero-followup {
+  background: var(--accent);
+  padding: 44px 60px 56px;
+  margin-top: -1px;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 64px;
+}
+
+.hours-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.bottom-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.tagline {
+  color: #fff;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.3;
+  max-width: 520px;
+}
+
+.partners {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: min(460px, 100%);
+}
+
+.partners-label {
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ---- Carrusel de "Representantes exclusivos" ----
+   Logos blancos en loop sobre el azul; al hacer clic sube un panel con las
+   marcas clicables. El clip recorta el panel mientras está abajo. ---- */
+.partners-clip {
+  position: relative;
+  width: 100%;
+  height: 92px;
+  overflow: hidden;
+}
+
+.partners-viewport {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.partners-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  width: max-content;
+  padding: 0 40px;
+}
+
+/* La clase la añade prepararCarruseles() tras clonar el contenido */
+.partners-track.is-looping {
+  animation: partners-scroll 20s linear infinite;
+}
+
+@keyframes partners-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.partner-logo {
+  height: 44px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Indicador permanente de que se puede abrir (chevron hacia arriba) */
+.partners-badge {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+/* Refuerzo al pasar el mouse: velo azul oscuro + texto "Ver marcas" */
+.partners-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(8, 22, 74, 0.6);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .partners-viewport:hover .partners-hint { opacity: 1; }
+  .partners-viewport:hover .partners-track { animation-play-state: paused; }
+  .partners-viewport:hover .partners-badge { opacity: 0; }
+}
+
+/* Panel que sube al hacer clic, con las marcas clicables */
+.aliados-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 92px;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+  padding: 9px;
+  background: #12329e;
+  border-radius: 14px;
+  transform: translateY(100%);
+  transition: transform 0.44s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.partners.aliados-open .aliados-menu {
+  transform: translateY(0);
+}
+
+.aliado-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.aliado-logo {
+  height: 34px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+.aliado-logo--color { display: none; }
+
+@media (hover: hover) {
+  .aliado-item:hover { background: #0d0d0d; }
+  .aliado-item:hover .aliado-logo--azul { display: none; }
+  .aliado-item:hover .aliado-logo--color { display: block; }
+}
+
+/* ===== Sección "Conoce nuestras marcas" (debajo de Servicios) =====
+   Tarjetas grandes y claramente clicables: logo azul sobre blanco + "Ver
+   marca →"; al pasar el mouse se levantan, se oscurecen y el logo pasa a su
+   color original (como en Broadcast). */
+.marcas-section {
+  background: #f4f6fb;
+  padding: 72px 40px;
+  text-align: center;
+}
+
+.marcas-section > h2 {
+  color: #0d0d0d;
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 42px;
+}
+
+.marcas-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.marca-card {
+  position: relative;
+  flex: 1 1 260px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 210px;
+  padding: 40px 24px;
+  background: #fff;
+  border: 1px solid #e3e8f2;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.marca-card-logo {
+  height: 46px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+}
+.marca-card-logo--color { display: none; }
+
+.marca-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  color: var(--accent);
+  transition: color 0.25s ease, gap 0.25s ease;
+}
+
+@media (hover: hover) {
+  a.marca-card:hover {
+    transform: translateY(-6px);
+    background: #0d0d0d;
+    border-color: #0d0d0d;
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
+  }
+  a.marca-card:hover .marca-card-logo--azul { display: none; }
+  a.marca-card:hover .marca-card-logo--color { display: block; }
+  a.marca-card:hover .marca-card-cta { color: #fff; gap: 10px; }
+}
+
+/* AMPED aún sin página propia (pendiente de gerencia): tarjeta informativa */
+.marca-card--pronto { cursor: default; }
+.marca-card--pronto .marca-card-cta { color: rgba(0, 0, 0, 0.42); }
+
+/* ===== Services intro (sección blanca) ===== */
+.services-intro {
+  background: #fff;
+  padding: 70px 40px;
+  text-align: center;
+  margin-top: -1px;
+  scroll-margin-top: 40px;   /* respiro al aterrizar desde el enlace "Servicios" */
+}
+
+.services-intro p {
+  color: #10112b;
+  font-weight: 500;
+  font-size: 32px;
+  margin-bottom: 50px;
+}
+
+/* ===== Tarjetas de servicio (Seguridad y defensa / Broadcast) ===== */
+.services-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 64px;
+  margin-bottom: 48px;
+}
+
+.service-card {
+  display: flex;
+  align-items: stretch;
+  width: 300px;
+  height: 365px;
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: left;
+  transition: width 0.45s ease;
+}
+
+.service-card:hover {
+  width: 640px;
+}
+
+.service-left {
+  flex-shrink: 0;
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 20px;   /* las 4 esquinas curvas */
+}
+
+.service-label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 20px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+/* Ambas etiquetas en un solo renglón y con el mismo espaciado (junto) */
+.service-label span {
+  white-space: nowrap;
+}
+
+.service-card--green {
+  background: #3E4A54;
+}
+
+.service-card--blue {
+  background: #5a86f2;
+}
+
+.service-card--green .service-left,
+.service-card--green .service-expand { background: #3E4A54; }
+
+.service-card--blue .service-left,
+.service-card--blue .service-expand { background: #5a86f2; }
+
+.service-card--green .service-img,
+.service-card--blue .service-img {
+  border-bottom: none;
+}
+
+.service-expand {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  width: 0;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  white-space: normal;
+  color: #fff;
+  transition: padding 0.45s ease;
+}
+
+.service-card:hover .service-expand {
+  padding: 32px 36px;
+}
+
+/* Nombre completo de la unidad: aparece dentro del panel al hacer hover */
+.service-fullname {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+  color: #fff;
+  opacity: 0.92;
+  max-width: 300px;
+}
+
+.service-expand p {
+  font-size: 19px;
+  line-height: 1.4;
+  max-width: 300px;
+  color: #fff;
+}
+
+.service-btn {
+  align-self: flex-start;
+  background: #fff;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s ease, color 0.25s ease,
+              transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.service-card--green .service-btn { color: #3E4A54; }
+.service-card--blue .service-btn { color: #3f61c9; }
+
+/* Hover: la pastilla se llena con el tono más oscuro de la tarjeta, el texto
+   pasa a blanco y se levanta un poco. */
+.service-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+.service-card--green .service-btn:hover { background: #3E4A54; color: #fff; }
+.service-card--blue .service-btn:hover { background: #3f61c9; color: #fff; }
+
+/* Nuevos negocios: violeta */
+.service-card--purple { background: #7b5cf0; }
+.service-card--purple .service-left,
+.service-card--purple .service-expand { background: #7b5cf0; }
+.service-card--purple .service-btn { color: #5b34c7; }
+.service-card--purple .service-btn:hover { background: #5b34c7; color: #fff; }
+
+/* Tarjeta sin foto: bloque con degradado violeta + ícono (mismo tamaño que la imagen) */
+.service-img--icono {
+  height: 300px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(140deg, #8b6bff 0%, #4f27ab 100%);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* ===== Barra de Soporte ===== */
+.soporte-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 664px;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #fdb44e;
+  border: 2px solid #fdb44e;
+  border-radius: 14px;
+  padding: 24px;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.soporte-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.soporte-label {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.soporte-label--hover { display: none; }
+
+.soporte-bar:hover {
+  background: transparent;
+  color: #fdb44e;
+}
+
+.soporte-bar:hover .soporte-icon {
+  background: #fdb44e;
+  color: #fff;
+}
+
+.soporte-bar:hover .soporte-label--default { display: none; }
+.soporte-bar:hover .soporte-label--hover { display: inline; }
+
+/* ===== Cómo trabajamos (FAQ) ===== */
+.how-we-work {
+  background: #eef0f6;
+  padding: 90px 60px;
+  margin-top: -1px;
+}
+
+.how-we-work h2 {
+  text-align: center;
+  color: #10112b;
+  font-weight: 700;
+  font-size: 36px;
+  margin-bottom: 56px;
+}
+
+.how-we-work-grid {
+  display: flex;
+  align-items: flex-start;
+  gap: 60px;
+  max-width: 1220px;
+  margin: 0 auto;
+}
+
+.faq-list {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.how-we-work-img {
+  flex: 1 1 0;
+  max-width: 520px;
+  height: 560px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.faq-item {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: background 0.35s ease;
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 26px 30px;
+  cursor: pointer;
+}
+
+.faq-question span {
+  font-weight: 700;
+  font-size: 19px;
+  color: #10112b;
+  transition: color 0.35s ease;
+}
+
+.faq-chevron {
+  flex-shrink: 0;
+  color: #10112b;
+  transform: rotate(180deg);
+  transition: transform 0.35s ease, color 0.35s ease;
+}
+
+.faq-item:hover {
+  background: var(--accent);
+}
+
+.faq-item:hover .faq-question span {
+  color: #fff;
+}
+
+.faq-item:hover .faq-chevron {
+  color: #fff;
+  transform: rotate(0deg);
+}
+
+.faq-answer-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s ease;
+}
+
+.faq-item:hover .faq-answer-wrap {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
+}
+
+.faq-answer-inner p {
+  padding: 0 30px 28px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #fff;
+}
+
+/* ===== Quiénes somos ===== */
+.who-we-are {
+  background: #fff;
+  padding: 90px 60px;
+  margin-top: -1px;
+}
+
+.who-grid {
+  display: flex;
+  align-items: center;   /* el contenido toma su alto natural (compacto), no se estira al del mosaico */
+  gap: 70px;
+  max-width: 1220px;
+  margin: 0 auto;
+}
+
+.mosaic {
+  flex: 1 1 0;
+  max-width: 480px;
+  height: 420px;         /* altura fija y compacta (el aspect-ratio lo desbordaban las imágenes) */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+}
+
+.mosaic img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;         /* evita que la imagen fuerce a crecer la fila del grid */
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.mosaic-top {
+  grid-column: 1 / -1;
+}
+
+.who-content {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* contenido agrupado y centrado, no repartido */
+  gap: 26px;
+}
+
+.who-content h2 {
+  color: #10112b;
+  font-weight: 700;
+  font-size: 42px;
+}
+
+.who-content p {
+  color: #10112b;
+  font-size: 22px;
+  line-height: 1.7;
+  max-width: 520px;
+}
+
+.who-btn {
+  align-self: flex-start;
+  background: var(--accent);
+  border: 2px solid var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 22px;
+  text-decoration: none;
+  padding: 18px 44px;
+  border-radius: 12px;
+  transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease;
+}
+
+.who-btn:hover {
+  background: #fff;
+  color: var(--accent);
+  padding: 18px 72px;
+}
+
+/* ===== Responsive (propio de Home) ===== */
+@media (max-width: 768px) {
+  /* Hero compacto y centrado: el título, el teléfono, el horario y los
+     aliados deben caber todos en la primera pantalla. */
+  .hero {
+    height: 58vh;
+    height: 58dvh;             /* dvh: descuenta la barra del navegador móvil */
+    min-height: 360px;
+    justify-content: center;   /* centra el título horizontalmente */
+    padding: 0 24px 24px;
+  }
+
+  .hero h1 {
+    text-align: center;
+    font-size: 27px;
+  }
+
+  /* Junto con el hero completa el 100% de la pantalla, para que el blanco
+     de la sección siguiente no se asome al abrir la página. */
+  .hero-followup {
+    min-height: calc(42vh + 10px);   /* +10px cubre el solapamiento de -1px y el redondeo */
+    min-height: calc(42dvh + 10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 24px 28px;
+  }
+
+  .contact-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .hours-item { font-size: 15px; }
+
+  .bottom-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .tagline {
+    text-align: center;
+    font-size: 18px;
+    max-width: 100%;
+  }
+
+  .partners { align-items: center; width: 100%; }
+  .partners-carousel { width: 100%; }
+
+  /* Servicios: mismo margen lateral para las tarjetas y la barra de Soporte */
+  .services-intro { padding: 52px 24px; }
+  .services-intro p { font-size: 22px; }
+  .services-cards { gap: 24px; margin-bottom: 24px; }
+
+  .service-card,
+  .service-card:hover { width: 100%; height: auto; }
+  .service-left { width: 100%; height: auto; }
+  .service-card { flex-direction: column; }
+  .service-expand {
+    width: auto;
+    height: 0;
+    padding: 0 22px;
+  }
+  .service-card:hover .service-expand {
+    height: auto;
+    padding: 22px;
+  }
+  /* sin margen extra: queda al ras de las tarjetas de arriba */
+  .soporte-bar { width: 100%; margin: 0; flex-wrap: wrap; text-align: center; }
+
+  .how-we-work { padding: 60px 24px; }
+  .how-we-work h2 { font-size: 26px; margin-bottom: 36px; }
+  .how-we-work-grid { flex-direction: column-reverse; gap: 32px; }
+  .how-we-work-img { max-width: 100%; height: 280px; }
+  .faq-list { height: auto; justify-content: normal; gap: 16px; }
+  .faq-question { padding: 20px 22px; }
+  .faq-question span { font-size: 17px; }
+  .faq-answer-inner p { padding: 0 22px 22px; }
+
+  .who-we-are { padding: 60px 24px; }
+  .who-grid { flex-direction: column; gap: 40px; }
+  .who-content { gap: 24px; }
+  .who-content h2 { font-size: 30px; }
+  .who-content p { font-size: 18px; }
+}
