@@ -27,6 +27,23 @@ html {
 
 html {
   overflow-x: hidden;   /* evita scroll lateral por el panel del menú fuera de pantalla */
+  /* Safari (iPhone) y Chrome (Android) pintan un rectángulo gris al tocar
+     cualquier cosa clicable. En las tarjetas de marcas se veía como un
+     cuadrado de esquinas rectas más grande que la tarjeta, por un instante.
+     Se quita en todo el sitio: cada control tiene su propio :active. */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Controles táctiles: responden al instante (sin la espera del doble toque)
+   y al mantener presionado no seleccionan texto ni abren el menú de imagen.
+   Solo controles: el texto de contenido sigue siendo seleccionable. */
+a, button, label, [role="button"] {
+  touch-action: manipulation;
+}
+button, label, [role="button"] {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 /* Franja superior del iPhone (donde van la hora, la Dynamic Island y el

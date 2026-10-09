@@ -488,6 +488,17 @@ a.marca-card:active { transform: scale(0.99); }
 }
 .support-card { isolation: isolate; }   /* tiene sombra en hover: clip-path la cortaría */
 
+/* Cabecera de marca en táctil: al apoyar el dedo cambia de tono al
+   instante (la tarjeta se abre o se cierra al soltar). Reemplaza el
+   destello gris del navegador, que ahora está desactivado. */
+@media (hover: none) {
+  .brand-head:active {
+    background-color: #e6eaf3;
+    transition-duration: 60ms;
+  }
+  .brand-toggle:checked ~ .brand-head:active { background-color: #262626; }
+}
+
 .brand-body-inner {
   opacity: 0;
   transform: translateY(-6px);
