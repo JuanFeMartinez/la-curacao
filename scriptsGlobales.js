@@ -225,6 +225,24 @@
     sincronizar();
   }
 
+  /* ---- Logos que solo aparecen al interactuar ----
+     Las versiones en color de los logos (marcas, aliados, tarjetas) están
+     ocultas hasta que se abre o se pasa el mouse. Con carga diferida, el
+     navegador recién las descargaba en ese momento y aparecían tarde.
+     Al terminar de cargar la página se descargan y decodifican antes,
+     así el primer cambio ya es instantáneo. */
+  function precargarLogos() {
+    function precargar() {
+      var imgs = document.querySelectorAll('.brand-logo--color, .aliado-logo--color, .marca-card-logo--color');
+      Array.prototype.forEach.call(imgs, function (img) {
+        img.loading = 'eager';
+        if (img.decode) img.decode().catch(function () {});
+      });
+    }
+    if (document.readyState === 'complete') precargar();
+    else window.addEventListener('load', precargar);
+  }
+
   /* ---- Preguntas frecuentes: se abren con clic (o Enter / Espacio) ----
      Antes se abrían con hover y, al pasar el mouse por la lista, el
      contenido se movía debajo del cursor. Queda una abierta a la vez. */
@@ -335,6 +353,7 @@
   aparicionAlScroll();
   menuAliados();
   preguntasFrecuentes();
+  precargarLogos();
   headerInteligente();
   inicioDesdeHeader();
 })();

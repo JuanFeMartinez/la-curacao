@@ -28,17 +28,21 @@
 
 /* ---------------------------------------------------------------------
    1. Transición entre páginas
-   La página vieja se va rápido; la nueva entra con un leve ascenso.
+   La página nueva entra con un leve ascenso ENCIMA de la vieja, que se
+   queda quieta hasta el final. Así nunca se transparentan las dos a la
+   vez (el fondo de la página es el color de acento, ver
+   estilosGlobales.css, y se vería un destello de color).
    Es la ÚNICA entrada al navegar: el hero y los bloques visibles al
    cargar no se animan encima de ella.
    --------------------------------------------------------------------- */
 ::view-transition-old(root) {
-  animation: vt-salir 160ms var(--ease-out) both;
+  animation: none;
+  mix-blend-mode: normal;
 }
 ::view-transition-new(root) {
   animation: vt-entrar 340ms var(--ease-out) both;
+  mix-blend-mode: normal;
 }
-@keyframes vt-salir   { to   { opacity: 0; } }
 @keyframes vt-entrar  { from { opacity: 0; transform: translateY(10px); } }
 @keyframes vt-fundido { from { opacity: 0; } }
 
@@ -441,6 +445,48 @@ a.marca-card:active { transform: scale(0.99); }
 .brand-head { transition: background-color var(--t-hover) ease; }
 .brand-tri { transition: transform var(--t-ui) var(--ease-out), color var(--t-hover) ease; }
 .brand-body-wrap { transition: height 300ms var(--ease-panel); }
+
+/* Los dos logos de cada marca (color de la página / color original)
+   quedan APILADOS en la misma celda y se cruzan con opacidad. Antes uno
+   estaba en display:none y con carga diferida: al abrir, el navegador
+   recién lo descargaba y decodificaba, y por eso aparecía con retraso. */
+.brand-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+}
+.brand-head .brand-logo {
+  grid-area: 1 / 1;
+  display: block;
+  transition: opacity var(--t-hover) ease;
+}
+.brand-head .brand-tri { grid-area: 1 / 3; }
+.brand-head .brand-logo--color { opacity: 0; }
+
+.brand-toggle:checked ~ .brand-head .brand-logo--azul  { display: block; opacity: 0; }
+.brand-toggle:checked ~ .brand-head .brand-logo--color { display: block; opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .brand-head:hover .brand-logo--azul  { display: block; opacity: 0; }
+  .brand-head:hover .brand-logo--color { display: block; opacity: 1; }
+}
+
+/* Safari (iPhone) pierde el recorte de las esquinas redondeadas mientras
+   anima algo dentro de una tarjeta con overflow:hidden: por un instante
+   se ve un rectángulo de esquinas rectas. clip-path recorta incluso
+   durante la animación, e isolation aísla las capas internas. */
+.brand-item {
+  isolation: isolate;
+  clip-path: inset(0 round 18px);
+}
+.faq-item {
+  isolation: isolate;
+  clip-path: inset(0 round 16px);
+}
+.service-card {
+  isolation: isolate;
+  clip-path: inset(0 round 20px);
+}
+.support-card { isolation: isolate; }   /* tiene sombra en hover: clip-path la cortaría */
 
 .brand-body-inner {
   opacity: 0;

@@ -29,10 +29,29 @@ html {
   overflow-x: hidden;   /* evita scroll lateral por el panel del menú fuera de pantalla */
 }
 
+/* Franja superior del iPhone (donde van la hora, la Dynamic Island y el
+   wifi). Safari de iOS 26 ya no usa <meta name="theme-color">: pinta esa
+   franja con el color de fondo de la página (html/body). Por eso el fondo
+   de la PÁGINA es el color de acento y cada sección pinta su propio
+   blanco: en pantalla nada cambia, pero la franja toma el color de la
+   página desde el primer momento y sin tonos intermedios. */
+html,
+body {
+  background-color: var(--accent);
+}
+html:has(body.marca-sony)  { background-color: #0d0d0d; }
+html:has(body.marca-liveu) { background-color: #111833; }
+
 body {
   font-family: 'Afacad', sans-serif;
-  background: #fff;   /* fondo del sitio en blanco (evita pantallas negras antes de aparecer los elementos) */
   overflow-x: hidden;
+}
+
+/* El contenido sigue sobre blanco (las secciones con fondo propio lo
+   sobrescriben con su clase, que pesa más que este selector). */
+body > section,
+body > footer {
+  background-color: #fff;
 }
 
 /* ===== Pantalla de carga ===== */
