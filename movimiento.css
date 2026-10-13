@@ -330,7 +330,7 @@ body.marca-liveu .contact-btn:hover { color: #fff; }
   .phone-pill:hover .icon-circle svg { animation: ring 420ms var(--ease-out); }
 }
 
-/* Botón "Échale un ojo" de las tarjetas de servicio: de elevado a presionado */
+/* Botón "Ver soluciones" de las tarjetas de servicio: de elevado a presionado */
 .service-btn {
   transition:
     background-color var(--t-hover) ease,
