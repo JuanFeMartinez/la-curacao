@@ -409,6 +409,18 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
+/* Íconos de trazo: 28px dentro del recuadro de 54px; el trazo de 1.6
+   (≈1.9px en pantalla) iguala el grosor del borde del recuadro */
+.value-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .value-label {
   color: #fff;
   font-weight: 600;
