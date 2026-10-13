@@ -10,6 +10,10 @@
   --nav-height: 110px;
   --accent: #2f5cdb;                       /* color principal de la página */
   --accent-soft: rgba(47, 92, 219, 0.75);  /* versión translúcida para el degradado del hero */
+  /* Tono para texto pequeño sobre el color (menú, botones, etiquetas). Si el
+     acento es claro (Broadcast, Soporte) la página lo define más profundo para
+     que el texto blanco cumpla 4.5:1; las zonas grandes siguen con --accent. */
+  --accent-fuerte: var(--accent);
 
   /* Ritmo vertical: un solo juego de espacios para todo el sitio.
      Cada sección deja --sec arriba y abajo. Si sigue a otra con el mismo
@@ -166,7 +170,7 @@ body > footer {
   align-items: center;
   padding-top: 12px;
   padding-bottom: 12px;
-  background: var(--accent);
+  background: var(--accent-fuerte);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
 }
 .site-header.is-scrolled nav { margin-top: 0; }
@@ -920,8 +924,8 @@ html.con-aviso-cookies .whatsapp-flotante {
 .contact-btn {
   display: inline-block;   /* en línea, el navegador pintaba su borde encima de las capas del hover */
   align-self: flex-start;
-  background: var(--accent);
-  border: 2px solid var(--accent);
+  background: var(--accent-fuerte);
+  border: 2px solid var(--accent-fuerte);
   color: #fff;
   font-weight: 700;
   font-size: 18px;
@@ -934,7 +938,7 @@ html.con-aviso-cookies .whatsapp-flotante {
 @media (hover: hover) and (pointer: fine) {
   .contact-btn:hover {
     background: #fff;
-    color: var(--accent);
+    color: var(--accent-fuerte);
     padding: 12px 52px;
   }
 }
@@ -1061,7 +1065,7 @@ html.con-aviso-cookies .whatsapp-flotante {
 }
 
 .sector-pill {
-  background: var(--accent);
+  background: var(--accent-fuerte);
   color: #fff;
   font-weight: 600;
   font-size: 16px;
@@ -1270,7 +1274,7 @@ html.con-aviso-cookies .whatsapp-flotante {
     justify-content: flex-start;
     gap: 30px;
     padding: 100px 34px 34px;
-    background: var(--accent);
+    background: var(--accent-fuerte);
     transform: translateX(100%);
     transition: transform 0.35s ease, box-shadow 0.35s ease;
     z-index: 25;
@@ -1361,7 +1365,7 @@ html.con-aviso-cookies .whatsapp-flotante {
   .footer-legal nav { justify-content: center; }
 
   .page-intro { padding: 16px 24px var(--sec); }
-  .page-intro p { font-size: 20px; }
+  .page-intro p { font-size: 20px; font-weight: 700; }   /* negrita: texto grande, cumple sobre acentos claros */
   .service-detail { padding: var(--sec) 24px; }
   .service-detail h2 { font-size: var(--h2); margin-bottom: var(--tras-titulo); }
   .service-detail-grid { flex-direction: column; gap: 32px; }

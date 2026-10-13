@@ -17,7 +17,7 @@ Estado al 13 de octubre de 2026. ✅ = hecho en el código · 🔧 = lo haces t�
 | 11 | Texto alternativo | ✅ Los 17 logos de clientes tenían "Cliente 1, 2…"; ahora tienen su nombre real. Las imágenes decorativas llevan alt vacío a propósito. |
 | 12 | Imágenes comprimidas | ✅ WebP al tamaño real en que se muestran: de 7,2 MB a 1,6 MB. |
 | 13 | Velocidad de carga | ✅ Imágenes ligeras, carga diferida, conexión anticipada a las fuentes, caché y compresión en `.htaccess`. Medir tras el lanzamiento en pagespeed.web.dev. |
-| 14 | Contraste de colores | ✅ Todo el texto cumple WCAG AA. Se oscurecieron un poco: azul de Broadcast `#5993ff → #3870e3`, naranja de Soporte `#f5a623 → #c05600`, naranja de botones LiveU `#ff4300 → #d63600`. |
+| 14 | Contraste de colores | ✅ Todo el texto cumple WCAG AA. En Broadcast y Soporte las zonas grandes conservan un tono claro (`#5690fc`, `#dc7b00`) y solo el menú, los botones y las etiquetas usan uno más profundo (`#3870e3`, `#c05600`); botones de LiveU `#d63600`. |
 | 15 | Se ve bien en móvil | ✅ Revisado en 390 px. |
 | 16 | Página 404 personalizada | ✅ `404.html` (bilingüe, funciona en cualquier ruta). |
 | 17 | Enlaces rotos | ✅ 0 rotos en 1.202 enlaces internos. Externos: todos responden (Sony, Bollé y Facebook bloquean robots, pero abren en el navegador). |

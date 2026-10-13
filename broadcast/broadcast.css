@@ -5,6 +5,7 @@
    ===================================================================== */
 
 :root {
-  --accent: #3870e3;   /* azul claro de Broadcast; más profundo que #5993ff para que el texto blanco cumpla 4.5:1 */
-  --accent-soft: rgba(56, 112, 227, 0.75);
+  --accent: #5690fc;          /* azul claro de Broadcast (zonas grandes: títulos de 24px+ cumplen 3:1) */
+  --accent-fuerte: #3870e3;   /* menú, botones y etiquetas: texto pequeño, cumple 4.5:1 */
+  --accent-soft: rgba(86, 144, 252, 0.75);
 }

@@ -473,8 +473,8 @@
   width: 664px;
   max-width: 100%;
   margin: 0 auto;
-  background: #c05600;
-  border: 2px solid #c05600;
+  background: #dc7b00;
+  border: 2px solid #dc7b00;
   border-radius: 14px;
   padding: 24px;
   color: #fff;
@@ -503,11 +503,11 @@
 @media (hover: hover) and (pointer: fine) {
   .soporte-bar:hover {
     background: transparent;
-    color: #c05600;
+    color: #dc7b00;
   }
 
   .soporte-bar:hover .soporte-icon {
-    background: #c05600;
+    background: #dc7b00;
     color: #fff;
   }
 

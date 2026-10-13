@@ -273,7 +273,7 @@ a.lang-opt:active {
    botón no cambia de tamaño y el texto no se mueve. */
 .contact-btn,
 .who-btn {
-  --btn-color: var(--accent);
+  --btn-color: var(--accent-fuerte);
   position: relative;
   isolation: isolate;
   transition: color var(--t-hover) ease, transform var(--t-press) var(--ease-out);

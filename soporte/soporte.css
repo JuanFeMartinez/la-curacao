@@ -6,8 +6,9 @@
    ===================================================================== */
 
 :root {
-  --accent: #c05600;   /* naranja de Soporte; más profundo que #f5a623 para que el texto blanco cumpla 4.5:1 */
-  --accent-soft: rgba(192, 86, 0, 0.75);
+  --accent: #dc7b00;          /* naranja de Soporte (zonas grandes: títulos de 24px+ cumplen 3:1) */
+  --accent-fuerte: #c05600;   /* menú, botones y etiquetas: texto pequeño, cumple 4.5:1 */
+  --accent-soft: rgba(220, 123, 0, 0.75);
 
   /* Pill de teléfono en tonos naranjas (solo esta página) */
   --pill-color: #c05600;      /* círculo del ícono + número */
