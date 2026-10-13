@@ -1,0 +1,82 @@
+# =====================================================================
+#  CONFIGURACIÓN DEL SERVIDOR — curacao.com.co (Apache, DreamHost)
+#  Va en la raíz del sitio, junto a index.html. GitHub Pages lo ignora.
+# =====================================================================
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+AddDefaultCharset utf-8
+AddType image/webp .webp
+AddType application/manifest+json .webmanifest
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # ---- 1. Una sola versión del dominio: https://curacao.com.co ----
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://curacao.com.co%{REQUEST_URI} [R=301,L,NE]
+
+  # ---- 2. URLs limpias: /nosotros/index.html -> /nosotros/ ----
+  RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+  RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
+
+  # ---- 3. Herramientas y respaldos: nunca públicos (por si se suben) ----
+  RewriteRule ^(\.git|\.claude|\.impeccable|assets-originales|lanzamiento)(/|$) - [F,L]
+
+  # ---- 4. Sitio anterior (WordPress) -> páginas nuevas (301) ----
+  # /, /broadcast/ y /contacto/ conservan su dirección.
+  RewriteRule ^quienes-somos/?$ /nosotros/ [R=301,L]
+  RewriteRule ^(contacto-2|trabaja-con-nosotros)/?$ /contacto/ [R=301,L]
+  RewriteRule ^broadcast/ingenieria-y-soporte/?$ /soporte/ [R=301,L]
+  RewriteRule ^proyectos/ingenieria-y-soporte/?$ /soporte/ [R=301,L]
+  RewriteRule ^broadcast/(productos-y-soluciones|novedades|medios-de-almacenamiento)(/.*)?$ /broadcast/ [R=301,L]
+  RewriteRule ^lshowcase-categories/broadcast/?$ /broadcast/ [R=301,L]
+  RewriteRule ^(ord|client-types)(/.*)?$ /soporte/ [R=301,L]
+  RewriteRule ^(proyectos|lshowcase-categories|home)(/.*)?$ / [R=301,L]
+  RewriteRule ^(wp-sitemap.*|sitemap_index)\.xml$ /sitemap.xml [R=301,L]
+  RewriteCond %{QUERY_STRING} (^|&)(elementor_library|p|page_id)= [NC]
+  RewriteRule ^$ /? [R=301,L]
+
+  # Contenido de prueba y secciones de WordPress que ya no existen:
+  # 410 (eliminado) para que Google las retire rápido del índice.
+  RewriteRule ^(nulla-imperdiet-sit-amet-magna(-\d+)?|blog|category|author|offer-types|feed|comments)(/.*)?$ - [G,L]
+  RewriteRule ^(wp-admin|wp-content|wp-includes|wp-json|wp-login\.php|xmlrpc\.php)(/.*)?$ - [G,L]
+</IfModule>
+
+# ---- Caché del navegador ----
+# Las páginas se revalidan siempre (cambios visibles al instante); CSS y JS
+# un día (no llevan huella en el nombre); imágenes un mes.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 day"
+  ExpiresByType application/javascript "access plus 1 day"
+  ExpiresByType text/javascript "access plus 1 day"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 month"
+  ExpiresByType application/xml "access plus 1 day"
+  ExpiresByType text/plain "access plus 1 day"
+</IfModule>
+
+# ---- Compresión ----
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# ---- Cabeceras de seguridad ----
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

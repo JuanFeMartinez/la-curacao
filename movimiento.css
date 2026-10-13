@@ -583,6 +583,42 @@ a.marca-card:active { transform: scale(0.99); }
 
 
 /* ---------------------------------------------------------------------
+   9b. WhatsApp flotante y aviso de cookies
+   Entran desde abajo una sola vez; el aviso sale más rápido de lo que
+   entra (lo que se descarta no debe hacer esperar).
+   --------------------------------------------------------------------- */
+.whatsapp-flotante {
+  transition:
+    transform var(--t-press) var(--ease-out),
+    opacity var(--t-ui) ease,
+    bottom var(--t-panel) var(--ease-panel);
+  animation: entrar-flotante 480ms var(--ease-out) 600ms backwards;
+}
+.whatsapp-flotante:active { transform: scale(0.94); }
+@media (hover: hover) and (pointer: fine) {
+  .whatsapp-flotante:hover { transform: translateY(-2px); }
+  .whatsapp-flotante:hover:active { transform: scale(0.96); }
+}
+
+.aviso-cookies {
+  animation: entrar-flotante 380ms var(--ease-out) 400ms backwards;
+}
+.aviso-cookies.is-saliendo {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 200ms ease, transform 200ms var(--ease-out);
+}
+.aviso-cookies__btn {
+  transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease, color var(--t-hover) ease;
+}
+.aviso-cookies__btn:active { transform: scale(0.97); }
+
+@keyframes entrar-flotante {
+  from { opacity: 0; transform: translateY(16px); }
+}
+
+
+/* ---------------------------------------------------------------------
    10. Reducir movimiento (preferencia del sistema)
    Menos y más suave, no cero: se conservan los fundidos y los cambios de
    color; se quitan desplazamientos, zooms, escalas y carruseles en marcha.
@@ -616,7 +652,12 @@ a.marca-card:active { transform: scale(0.99); }
   a.marca-card:hover,
   .service-btn:hover,
   .track-order-btn:hover,
-  .brand-item:has(.brand-toggle:checked) { transform: none !important; }
+  .brand-item:has(.brand-toggle:checked),
+  .whatsapp-flotante:hover { transform: none !important; }
+
+  .whatsapp-flotante,
+  .aviso-cookies { animation-name: vt-fundido; }
+  .aviso-cookies.is-saliendo { transform: none; }
 
   .service-expand > *,
   .brand-body-inner,

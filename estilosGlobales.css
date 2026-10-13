@@ -10,6 +10,31 @@
   --nav-height: 110px;
   --accent: #2f5cdb;                       /* color principal de la página */
   --accent-soft: rgba(47, 92, 219, 0.75);  /* versión translúcida para el degradado del hero */
+
+  /* Ritmo vertical: un solo juego de espacios para todo el sitio.
+     Cada sección deja --sec arriba y abajo. Si sigue a otra con el mismo
+     fondo, arranca en 0: el hueco entre ambas es otra vez --sec. */
+  --sec: 88px;                 /* relleno vertical de cada sección */
+  --pie: 32px;                 /* el footer se monta 32px sobre la última sección */
+  --h2: 40px;                  /* título de sección */
+  --h2-sub: 30px;              /* título de un bloque que continúa la sección anterior */
+  --tras-titulo: 40px;         /* título -> cuadrícula, tarjetas o contenido */
+  --tras-titulo-texto: 20px;   /* título -> párrafo */
+  --tras-intro: 40px;          /* párrafo introductorio -> contenido */
+}
+
+@media (max-width: 1024px) {
+  :root { --sec: 72px; }
+}
+@media (max-width: 768px) {
+  :root {
+    --sec: 56px;
+    --h2: 28px;
+    --h2-sub: 23px;
+    --tras-titulo: 28px;
+    --tras-titulo-texto: 14px;
+    --tras-intro: 28px;
+  }
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -470,7 +495,7 @@ a.lang-opt { cursor: pointer; }
 .clients-header h2 {
   color: #fff;
   font-weight: 700;
-  font-size: 36px;
+  font-size: var(--h2);
 }
 
 .clients-body {
@@ -643,12 +668,196 @@ a.lang-opt { cursor: pointer; }
   }
 }
 
+/* Teléfono, correo y dirección: siempre tocables (llamar, escribir, mapa) */
+.footer-contact {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.footer-contact a {
+  color: #2f5cdb;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+/* Franja legal al pie: razón social, NIT y enlaces legales */
+.footer-legal {
+  max-width: 1220px;
+  margin: 56px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(47, 92, 219, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  color: #4a4f63;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.footer-legal nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+.footer-legal a,
+.footer-cookies {
+  color: #2f5cdb;
+  font: inherit;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.footer-cookies[hidden] { display: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .footer-contact a:hover,
+  .footer-legal a:hover,
+  .footer-cookies:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+/* ===== Páginas de texto (aviso legal, privacidad, gracias, 404) =====
+   Hero compacto sin foto y una columna de lectura cómoda (~70 caracteres). */
+.hero--compacto {
+  height: auto;
+  min-height: 0;
+  padding: calc(var(--nav-height) + 64px) 60px 72px;
+  background: linear-gradient(140deg, #4372f0 0%, var(--accent) 55%, #2148b8 100%);
+}
+.hero--compacto h1 {
+  font-size: clamp(34px, 4.4vw, 48px);
+  max-width: 860px;
+  text-wrap: balance;
+}
+
+.texto-legal {
+  padding: var(--sec) 24px calc(var(--sec) + var(--pie));   /* abajo suma --pie: el footer se monta encima */
+}
+.texto-legal__cuerpo {
+  max-width: 70ch;
+  margin: 0 auto;
+  color: #2a2d40;
+  font-size: 18px;
+  line-height: 1.7;
+}
+.texto-legal h2 {
+  color: #10112b;
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 48px 0 12px;
+  text-wrap: balance;
+}
+.texto-legal p,
+.texto-legal ul { margin-bottom: 16px; }
+.texto-legal ul { padding-left: 1.25em; }
+.texto-legal li { margin-bottom: 8px; }
+.texto-legal li::marker { color: var(--accent); }
+.texto-legal__cuerpo > :last-child { margin-bottom: 0 !important; }
+.texto-legal a:not(.contact-btn) { color: var(--accent); }
+.texto-legal__fecha {
+  color: #4a4f63;
+  font-size: 16px;
+  margin-bottom: 32px !important;
+}
+
+/* Gracias y 404: mensaje corto centrado con su único botón */
+.texto-legal--centrado .texto-legal__cuerpo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 20px;
+}
+.texto-legal--centrado .contact-btn { margin-top: 16px; }
+.texto-legal__en { color: #4a4f63; font-size: 17px; }
+.texto-legal__atajos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  margin-top: 40px;
+  font-size: 17px;
+}
+
+/* ===== Botón flotante de WhatsApp (lo crea scriptsGlobales.js) =====
+   Verde un poco más oscuro que el oficial: el ícono blanco y el botón
+   sobre fondo blanco alcanzan el contraste mínimo (3:1). */
+.whatsapp-flotante {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 40;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1c9e4f;
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(16, 17, 43, 0.24);
+}
+/* Con el aviso de cookies abierto en el celular, el botón sube por encima */
+html.con-aviso-cookies .whatsapp-flotante {
+  bottom: calc(var(--alto-aviso, 0px) + 24px);
+}
+/* Con el menú móvil abierto no estorba */
+.site-header.nav-open ~ .whatsapp-flotante {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ===== Aviso de cookies (solo si hay analítica configurada) ===== */
+.aviso-cookies {
+  position: fixed;
+  left: max(20px, env(safe-area-inset-left));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 45;
+  max-width: 440px;
+  background: #fff;
+  color: #10112b;
+  border-radius: 16px;
+  box-shadow: 0 14px 40px rgba(16, 17, 43, 0.24);
+  padding: 20px 22px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.aviso-cookies a { color: #2f5cdb; }
+.aviso-cookies__botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+.aviso-cookies__btn {
+  font: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: 2px solid #2f5cdb;
+  background: #fff;
+  color: #2f5cdb;
+  cursor: pointer;
+}
+.aviso-cookies__btn--primario {
+  background: #2f5cdb;
+  color: #fff;
+}
+
 /* ===== Componentes compartidos por las páginas internas ===== */
 
 /* Banda de intro bajo el hero (color según --accent) */
 .page-intro {
   background: var(--accent);
-  padding: 20px 60px 72px;
+  padding: 20px 60px var(--sec);
   margin-top: -1px;
   text-align: center;
 }
@@ -665,7 +874,7 @@ a.lang-opt { cursor: pointer; }
 /* Sección "Servicios X": encabezado + imagen izquierda + texto/botón derecha */
 .service-detail {
   background: #fff;
-  padding: 80px 60px;
+  padding: var(--sec) 60px;
   margin-top: -1px;
 }
 
@@ -673,8 +882,8 @@ a.lang-opt { cursor: pointer; }
   text-align: center;
   color: #10112b;
   font-weight: 700;
-  font-size: 34px;
-  margin-bottom: 54px;
+  font-size: var(--h2);
+  margin-bottom: var(--tras-titulo);
 }
 
 .service-detail-grid {
@@ -733,20 +942,20 @@ a.lang-opt { cursor: pointer; }
 /* ===== Capacidades (qué incluye el servicio) — Broadcast, SyD, Soporte ===== */
 .capacidades {
   background: #fff;
-  padding: 20px 60px 70px;
+  padding: 0 60px var(--sec);
 }
 
 .capacidades h2 {
   text-align: center;
   color: #10112b;
   font-weight: 700;
-  font-size: 30px;
-  margin-bottom: 14px;
+  font-size: var(--h2-sub);
+  margin-bottom: var(--tras-titulo-texto);
 }
 
 .capacidades-intro {
   max-width: 780px;
-  margin: 0 auto 44px;
+  margin: 0 auto var(--tras-intro);
   text-align: center;
   color: #4a4f63;
   font-size: 18px;
@@ -823,20 +1032,20 @@ a.lang-opt { cursor: pointer; }
 /* ===== Sectores que atendemos ===== */
 .sectores {
   background: #fff;
-  padding: 0 60px 80px;
+  padding: 0 60px var(--sec);
   text-align: center;
 }
 
 .sectores h2 {
   color: #10112b;
   font-weight: 700;
-  font-size: 30px;
-  margin-bottom: 12px;
+  font-size: var(--h2-sub);
+  margin-bottom: var(--tras-titulo-texto);
 }
 
 .sectores > p {
   max-width: 760px;
-  margin: 0 auto 32px;
+  margin: 0 auto var(--tras-intro);
   color: #4a4f63;
   font-size: 18px;
   line-height: 1.6;
@@ -861,10 +1070,10 @@ a.lang-opt { cursor: pointer; }
 }
 
 @media (max-width: 768px) {
-  .capacidades { padding: 10px 24px 48px; }
-  .capacidades h2, .sectores h2 { font-size: 25px; }
+  .capacidades { padding: 0 24px var(--sec); }
+  .capacidades h2, .sectores h2 { font-size: var(--h2-sub); }
   .capacidades-intro, .sectores > p { font-size: 16px; }
-  .sectores { padding: 0 24px 56px; }
+  .sectores { padding: 0 24px var(--sec); }
   .sector-pill { font-size: 15px; padding: 9px 18px; }
 }
 
@@ -873,7 +1082,7 @@ a.lang-opt { cursor: pointer; }
    en negro. El chevron cerrado toma el color de acento de la página. */
 .brands {
   background: #eef0f6;
-  padding: 80px 60px 90px;
+  padding: var(--sec) 60px;
   margin-top: -1px;
 }
 
@@ -881,8 +1090,8 @@ a.lang-opt { cursor: pointer; }
   text-align: center;
   color: #10112b;
   font-weight: 700;
-  font-size: 30px;
-  margin-bottom: 48px;
+  font-size: var(--h2-sub);
+  margin-bottom: var(--tras-titulo);
 }
 
 .brands-grid {
@@ -1093,7 +1302,7 @@ a.lang-opt { cursor: pointer; }
   .hero h1.hero-titulo-largo { font-size: 23px; }
 
   .clients-header { padding: 30px 20px; }
-  .clients-header h2 { font-size: 26px; }
+  .clients-header h2 { font-size: var(--h2); }
   .clients-body { padding: 44px 0; gap: 32px; }
   .clients-track { gap: 56px; }
   .clients-track img { height: 54px; width: 120px; }
@@ -1126,10 +1335,35 @@ a.lang-opt { cursor: pointer; }
   .footer-col-title { font-size: 22px; }
   .footer-col a:not(.footer-col-title) { font-size: 18px; }
 
-  .page-intro { padding: 16px 24px 48px; }
+  .hero--compacto { padding: calc(var(--nav-height) + 32px) 24px 48px; }
+  .texto-legal { padding: var(--sec) 24px calc(var(--sec) + var(--pie)); }
+  .texto-legal__cuerpo { font-size: 17px; }
+  .texto-legal h2 { font-size: 21px; margin-top: 40px; }
+  .texto-legal--centrado .texto-legal__cuerpo { font-size: 18px; }
+
+  .aviso-cookies {
+    left: 12px;
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    max-width: none;
+  }
+  .aviso-cookies__btn { flex: 1; }
+  .whatsapp-flotante { width: 54px; height: 54px; right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); }
+
+  .footer-contact { align-items: center; margin-bottom: 20px; }
+  .footer-contact a { font-size: 17px; }
+  .footer-legal {
+    margin-top: 40px;
+    flex-direction: column;
+    text-align: center;
+    font-size: 14px;
+  }
+  .footer-legal nav { justify-content: center; }
+
+  .page-intro { padding: 16px 24px var(--sec); }
   .page-intro p { font-size: 20px; }
-  .service-detail { padding: 56px 24px; }
-  .service-detail h2 { font-size: 26px; margin-bottom: 32px; }
+  .service-detail { padding: var(--sec) 24px; }
+  .service-detail h2 { font-size: var(--h2); margin-bottom: var(--tras-titulo); }
   .service-detail-grid { flex-direction: column; gap: 32px; }
   .service-detail-img { max-width: 100%; width: 100%; height: 260px; }
   .service-detail-text p { font-size: 18px; }
@@ -1137,8 +1371,8 @@ a.lang-opt { cursor: pointer; }
   .service-detail-text { align-items: center; text-align: center; }
   .service-detail-text .contact-btn { align-self: center; }
 
-  .brands { padding: 56px 24px 56px; }
-  .brands h2 { font-size: 24px; margin-bottom: 28px; }
+  .brands { padding: var(--sec) 24px; }
+  .brands h2 { font-size: var(--h2-sub); margin-bottom: var(--tras-titulo); }
   .brands-grid { grid-template-columns: 1fr; gap: 16px; --brand-body-h: 190px; }
 }
 

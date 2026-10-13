@@ -1,165 +1,179 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://curacao.com.co/HOME/home.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/HOME/home.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/HOME/home.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/HOME/home.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/en/HOME/home.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/HOME/home.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/HOME/home.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/HOME/home.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/BROADCAST/broadcast.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/BROADCAST/broadcast.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/BROADCAST/broadcast.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/BROADCAST/broadcast.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/seguridad-y-defensa/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/seguridad-y-defensa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/seguridad-y-defensa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/seguridad-y-defensa/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/en/BROADCAST/broadcast.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/BROADCAST/broadcast.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/BROADCAST/broadcast.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/BROADCAST/broadcast.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/en/seguridad-y-defensa/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/seguridad-y-defensa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/seguridad-y-defensa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/seguridad-y-defensa/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/SEGURIDADyDEFENSA/SyD.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/SEGURIDADyDEFENSA/SyD.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/SEGURIDADyDEFENSA/SyD.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/SEGURIDADyDEFENSA/SyD.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/broadcast/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/broadcast/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/broadcast/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/broadcast/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/en/SEGURIDADyDEFENSA/SyD.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/SEGURIDADyDEFENSA/SyD.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/SEGURIDADyDEFENSA/SyD.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/SEGURIDADyDEFENSA/SyD.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/en/broadcast/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/broadcast/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/broadcast/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/broadcast/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/MARCAS/liveu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/MARCAS/liveu.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/MARCAS/liveu.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/MARCAS/liveu.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/marcas/sony/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/marcas/sony/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/marcas/sony/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/marcas/sony/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/en/MARCAS/liveu.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/MARCAS/liveu.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/MARCAS/liveu.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/MARCAS/liveu.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/en/marcas/sony/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/marcas/sony/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/marcas/sony/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/marcas/sony/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/MARCAS/sony.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/MARCAS/sony.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/MARCAS/sony.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/MARCAS/sony.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/soporte/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/soporte/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/soporte/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/soporte/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/en/MARCAS/sony.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/MARCAS/sony.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/MARCAS/sony.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/MARCAS/sony.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/en/soporte/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/soporte/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/soporte/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/soporte/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/SOPORTE/soporte.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/SOPORTE/soporte.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/SOPORTE/soporte.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/SOPORTE/soporte.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/marcas/liveu/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/marcas/liveu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/marcas/liveu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/marcas/liveu/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/en/SOPORTE/soporte.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/SOPORTE/soporte.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/SOPORTE/soporte.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/SOPORTE/soporte.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/en/marcas/liveu/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/marcas/liveu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/marcas/liveu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/marcas/liveu/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/NUEVOSNEGOCIOS/nuevos-negocios.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/NUEVOSNEGOCIOS/nuevos-negocios.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/NUEVOSNEGOCIOS/nuevos-negocios.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/NUEVOSNEGOCIOS/nuevos-negocios.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/contacto/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/contacto/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/en/NUEVOSNEGOCIOS/nuevos-negocios.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/NUEVOSNEGOCIOS/nuevos-negocios.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/NUEVOSNEGOCIOS/nuevos-negocios.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/NUEVOSNEGOCIOS/nuevos-negocios.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/en/contacto/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/contacto/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/NOSOTROS/nosotros.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/NOSOTROS/nosotros.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/NOSOTROS/nosotros.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/NOSOTROS/nosotros.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/nuevos-negocios/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/nuevos-negocios/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/nuevos-negocios/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/nuevos-negocios/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/en/NOSOTROS/nosotros.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/NOSOTROS/nosotros.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/NOSOTROS/nosotros.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/NOSOTROS/nosotros.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://curacao.com.co/en/nuevos-negocios/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/nuevos-negocios/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/nuevos-negocios/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/nuevos-negocios/"/>
+    <lastmod>2026-10-13</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/CONTACTANOS/contactanos.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/CONTACTANOS/contactanos.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/CONTACTANOS/contactanos.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/CONTACTANOS/contactanos.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://curacao.com.co/nosotros/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/nosotros/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/nosotros/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/nosotros/"/>
+    <lastmod>2026-10-13</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://curacao.com.co/en/CONTACTANOS/contactanos.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/CONTACTANOS/contactanos.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/CONTACTANOS/contactanos.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/CONTACTANOS/contactanos.html"/>
-    <lastmod>2026-08-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://curacao.com.co/en/nosotros/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/nosotros/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/nosotros/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/nosotros/"/>
+    <lastmod>2026-10-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://curacao.com.co/aviso-legal/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/aviso-legal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/aviso-legal/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/aviso-legal/"/>
+    <lastmod>2026-10-13</lastmod>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://curacao.com.co/en/aviso-legal/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/aviso-legal/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/aviso-legal/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/aviso-legal/"/>
+    <lastmod>2026-10-13</lastmod>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://curacao.com.co/politica-de-privacidad/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/politica-de-privacidad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/politica-de-privacidad/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/politica-de-privacidad/"/>
+    <lastmod>2026-10-13</lastmod>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://curacao.com.co/en/politica-de-privacidad/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://curacao.com.co/politica-de-privacidad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://curacao.com.co/en/politica-de-privacidad/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://curacao.com.co/politica-de-privacidad/"/>
+    <lastmod>2026-10-13</lastmod>
+    <priority>0.2</priority>
   </url>
 </urlset>

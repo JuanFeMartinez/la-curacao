@@ -1,0 +1,244 @@
+/* =====================================================================
+   ESTILOS PROPIOS DE CONTACTO
+   El header, hero, y footer vienen de ../estilosGlobales.css.
+   Usa el azul por defecto, así que no redefine --accent.
+   ===================================================================== */
+
+/* ===== Hablemos de tu proyecto ===== */
+.contact-lead {
+  background: #fff;
+  padding: var(--sec) 60px;
+  margin-top: -1px;
+  text-align: center;
+}
+
+.contact-lead h2 {
+  color: #10112b;
+  font-weight: 700;
+  font-size: var(--h2);
+  margin-bottom: var(--tras-titulo-texto);
+}
+
+.contact-lead > p {
+  color: #10112b;
+  font-size: 22px;
+  line-height: 1.6;
+  max-width: 780px;
+  margin: 0 auto var(--tras-intro);
+}
+
+/* ===== Formulario de contacto (propio) ===== */
+.contacto-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.contacto-form__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.contacto-form__campo--ancho { grid-column: 1 / -1; }
+
+.contacto-form label {
+  color: #10112b;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.contacto-form input:not([type="checkbox"]),
+.contacto-form select,
+.contacto-form textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 17px;
+  color: #10112b;
+  background: #f6f7fb;
+  border: 1.5px solid #d6dbe9;
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: border-color var(--t-hover, 220ms) ease, background-color var(--t-hover, 220ms) ease, box-shadow var(--t-hover, 220ms) ease;
+}
+.contacto-form textarea { resize: vertical; min-height: 148px; line-height: 1.5; }
+.contacto-form select { appearance: none; -webkit-appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232f5cdb' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; background-size: 18px; padding-right: 44px; }
+
+.contacto-form input:not([type="checkbox"]):focus,
+.contacto-form select:focus,
+.contacto-form textarea:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(47, 92, 219, 0.16);
+}
+
+/* Solo después de intentar enviar (el navegador marca :user-invalid) */
+.contacto-form :user-invalid { border-color: #c4314b; }
+
+.contacto-form__autorizo {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+  line-height: 1.5;
+  color: #4a4f63 !important;
+  cursor: pointer;
+}
+.contacto-form__autorizo input {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: var(--accent);
+}
+.contacto-form__autorizo a { color: var(--accent); }
+
+/* Trampa para robots: fuera de la vista y de la navegación por teclado */
+.contacto-form__trampa {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contacto-form__pie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+.contacto-form button.contact-btn {
+  align-self: center;
+  font-family: inherit;
+  cursor: pointer;
+}
+.contacto-form button.contact-btn:disabled { cursor: progress; opacity: 0.7; }
+
+.contacto-form__estado {
+  min-height: 1.5em;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #4a4f63;
+}
+.contacto-form__estado.is-ok { color: #1d7a46; }
+.contacto-form__estado.is-error { color: #b0263f; }
+.contacto-form__estado a { color: var(--accent); }
+
+/* ===== Estamos por aquí ===== */
+.contact-here {
+  background: var(--accent);
+  padding: var(--sec) 60px calc(var(--sec) + var(--pie));   /* abajo suma --pie: el footer se monta encima */
+  margin-top: -1px;
+  text-align: center;
+}
+
+.contact-here h2 {
+  color: #fff;
+  font-weight: 700;
+  font-size: var(--h2);
+  margin-bottom: var(--tras-titulo);
+}
+
+.contact-here-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* --- Mapa --- */
+.contact-map {
+  flex: 1 1 0;
+  max-width: 520px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.contact-map iframe {
+  display: block;
+  width: 100%;
+  height: 380px;
+}
+
+.contact-map-caption {
+  background: #123a8f;
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.35;
+  padding: 18px 20px;
+  text-align: center;
+}
+
+/* --- Pills de contacto --- */
+.contact-pills {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  align-items: stretch;
+}
+
+.contact-pill {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: #fff;
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 20px 44px;
+  font-weight: 700;
+  font-size: 26px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-pill svg {
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-pill:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+  }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .contact-here-grid { flex-direction: column; gap: 40px; align-items: center; }
+
+  /* En columna, flex-basis:0 aplica a la ALTURA y aplastaba el mapa a 0px.
+     Con flex:none cada bloque toma la altura de su contenido. */
+  .contact-map,
+  .contact-pills {
+    flex: none;
+    width: 100%;
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-lead { padding: var(--sec) 24px; }
+  .contact-lead h2 { font-size: var(--h2); }
+  .contact-lead > p { font-size: 18px; margin-bottom: var(--tras-intro); }
+  .contacto-form { grid-template-columns: 1fr; gap: 20px; }
+
+  .contact-here { padding: var(--sec) 24px calc(var(--sec) + var(--pie)); }
+  .contact-here h2 { font-size: var(--h2); margin-bottom: var(--tras-titulo); }
+  .contact-pill { font-size: 19px; padding: 16px 28px; gap: 16px; }
+  .contact-pill svg { width: 24px; height: 24px; }
+}

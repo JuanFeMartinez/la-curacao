@@ -1,10 +1,14 @@
 User-agent: *
 Allow: /
 
-# Carpeta de respaldo de imágenes sin comprimir: no debe indexarse
+# Respaldo de imágenes sin comprimir y herramientas de desarrollo:
+# idealmente ni se suben al hosting; si se suben, no se indexan.
 Disallow: /assets-originales/
-
-# Herramientas de desarrollo (idealmente ni se suben al hosting)
 Disallow: /.claude/
+Disallow: /lanzamiento/
+
+# La página de gracias del formulario y la 404 llevan <meta name="robots"
+# content="noindex">: Google necesita poder leerlas para respetarlo, por
+# eso no se bloquean aquí.
 
 Sitemap: https://curacao.com.co/sitemap.xml

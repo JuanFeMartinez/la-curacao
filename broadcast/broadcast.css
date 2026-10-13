@@ -1,0 +1,10 @@
+/* =====================================================================
+   ESTILOS PROPIOS DE BROADCAST
+   Casi todo vive en ../estilosGlobales.css. Aquí solo se define el
+   color de acento propio de esta página.
+   ===================================================================== */
+
+:root {
+  --accent: #3870e3;   /* azul claro de Broadcast; más profundo que #5993ff para que el texto blanco cumpla 4.5:1 */
+  --accent-soft: rgba(56, 112, 227, 0.75);
+}

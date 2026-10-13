@@ -1,0 +1,140 @@
+/* =====================================================================
+   ESTILOS PROPIOS DE LAS PÁGINAS DE MARCA (SONY, LiveU, ...)
+   Reutilizan header, hero, page-intro, service-detail, franja y footer
+   del global. Aquí van: el color de marca de cada una, el logo de la
+   marca en el header, el logo grande del hero y el par de botones.
+   ===================================================================== */
+
+/* ---- Color de marca por página (extraído de sus sitios/logos) ----
+   El footer y el logo de La Curaçao siguen en azul (identidad propia). */
+body.marca-sony {
+  --accent: #0d0d0d;                       /* SONY: negro (marca monocromática) */
+  --accent-soft: rgba(13, 13, 13, 0.75);
+  --pill-color: #0d0d0d;                   /* número de teléfono + ícono en negro SONY */
+  --pill-hover-bg: #454545;                /* al hover, gris oscuro (destaca sobre la franja negra) */
+}
+
+body.marca-liveu {
+  --accent: #111833;                       /* LiveU: azul-navy de su sitio */
+  --accent-soft: rgba(17, 24, 51, 0.75);
+  --marca-cta: #d63600;                    /* LiveU: naranja distintivo para los botones */
+  --pill-color: #d63600;                   /* número de teléfono + ícono en el naranja de LiveU */
+  --pill-hover-bg: #d63600;                /* pastilla naranja al hover, número en blanco */
+}
+
+/* En LiveU los botones usan su naranja en vez del navy */
+body.marca-liveu .contact-btn {
+  background: var(--marca-cta);
+  border-color: var(--marca-cta);
+}
+body.marca-liveu .marca-btn-oficial {
+  color: var(--marca-cta);
+  border-color: var(--marca-cta);
+}
+@media (hover: hover) and (pointer: fine) {
+  body.marca-liveu .contact-btn:hover {
+    background: #fff;
+    color: var(--marca-cta);
+  }
+  body.marca-liveu .marca-btn-oficial:hover {
+    background: var(--marca-cta);
+    color: #fff;
+  }
+}
+
+/* El grupo izquierdo del header (logo de La Curaçao + identificador de sección)
+   y su comportamiento compacto viven ahora en estilosGlobales.css
+   (.header-left / .header-section*), compartidos por todas las páginas. */
+
+/* Hero sin foto: degradado en el color de cada marca (cuando haya imagen
+   real se puede volver al patrón hero-img + overlay). */
+body.marca-sony .marca-hero {
+  background: linear-gradient(140deg, #3a3a3a 0%, #0d0d0d 100%);
+}
+body.marca-liveu .marca-hero {
+  background: linear-gradient(140deg, #1e2a55 0%, #111833 70%, #2b1508 100%);
+}
+.marca-hero .hero-overlay { display: none; }
+
+/* Bloque de detalle sin imagen: solo texto, centrado */
+.service-detail-grid--solo-texto {
+  grid-template-columns: 1fr;
+  max-width: 820px;
+}
+.service-detail-grid--solo-texto .service-detail-text {
+  text-align: center;
+  align-items: center;
+}
+.service-detail-grid--solo-texto .marca-btns {
+  justify-content: center;
+}
+
+/* Hero: en vez del título de texto, mostramos el logo de la marca */
+.marca-hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  text-align: center;
+}
+
+.marca-hero-logo {
+  width: min(340px, 70vw);
+  height: auto;
+  max-height: 130px;
+  object-fit: contain;
+}
+
+/* El tagline del hero es el <h1> de la página (SEO), pero conserva su
+   aspecto de subtítulo: hay que ganarle al .hero h1 global (52px, flex). */
+.marca-hero-tag,
+.hero h1.marca-hero-tag {
+  display: block;
+  color: #fff;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+  max-width: 640px;
+  gap: 0;
+}
+
+/* Par de botones dentro de "¿Qué representamos?" */
+.marca-btns {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Botón secundario: enlace al sitio oficial del aliado */
+.marca-btn-oficial {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 30px;
+  border-radius: 10px;
+  border: 2px solid var(--accent);
+  background: #fff;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .marca-btn-oficial:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+}
+
+@media (max-width: 768px) {
+  .marca-hero-tag,
+  .hero h1.marca-hero-tag { font-size: 18px; }
+  .marca-hero-logo { max-height: 92px; }
+  .marca-btns { width: 100%; }
+  .marca-btn-oficial { width: 100%; justify-content: center; }
+}
