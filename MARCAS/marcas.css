@@ -27,17 +27,19 @@ body.marca-liveu .contact-btn {
   background: var(--marca-cta);
   border-color: var(--marca-cta);
 }
-body.marca-liveu .contact-btn:hover {
-  background: #fff;
-  color: var(--marca-cta);
-}
 body.marca-liveu .marca-btn-oficial {
   color: var(--marca-cta);
   border-color: var(--marca-cta);
 }
-body.marca-liveu .marca-btn-oficial:hover {
-  background: var(--marca-cta);
-  color: #fff;
+@media (hover: hover) and (pointer: fine) {
+  body.marca-liveu .contact-btn:hover {
+    background: #fff;
+    color: var(--marca-cta);
+  }
+  body.marca-liveu .marca-btn-oficial:hover {
+    background: var(--marca-cta);
+    color: #fff;
+  }
 }
 
 /* El grupo izquierdo del header (logo de La Curaçao + identificador de sección)
@@ -122,9 +124,11 @@ body.marca-liveu .marca-hero {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-.marca-btn-oficial:hover {
-  background: var(--accent);
-  color: #fff;
+@media (hover: hover) and (pointer: fine) {
+  .marca-btn-oficial:hover {
+    background: var(--accent);
+    color: #fff;
+  }
 }
 
 @media (max-width: 768px) {

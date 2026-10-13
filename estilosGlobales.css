@@ -427,21 +427,24 @@ a.lang-opt { cursor: pointer; }
   transition: color 0.3s ease;
 }
 
-.phone-pill:hover {
-  background: var(--pill-hover-bg, #123a8f);
-}
+/* Solo con mouse: en el celular el hover se queda "pegado" tras tocar */
+@media (hover: hover) and (pointer: fine) {
+  .phone-pill:hover {
+    background: var(--pill-hover-bg, #123a8f);
+  }
 
-.phone-pill:hover .icon-circle {
-  background: #fff;
-  color: var(--pill-color, #123a8f);
-}
+  .phone-pill:hover .icon-circle {
+    background: #fff;
+    color: var(--pill-color, #123a8f);
+  }
 
-.phone-pill:hover .icon-circle svg {
-  animation: ring 0.6s ease;
-}
+  .phone-pill:hover .icon-circle svg {
+    animation: ring 0.6s ease;
+  }
 
-.phone-pill:hover .phone-number {
-  color: #fff;
+  .phone-pill:hover .phone-number {
+    color: #fff;
+  }
 }
 
 @keyframes ring {
@@ -632,10 +635,12 @@ a.lang-opt { cursor: pointer; }
   transition: opacity 0.2s ease;
 }
 
-.footer-col a:not(.footer-col-title):hover {
-  opacity: 0.7;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+@media (hover: hover) and (pointer: fine) {
+  .footer-col a:not(.footer-col-title):hover {
+    opacity: 0.7;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
 }
 
 /* ===== Componentes compartidos por las páginas internas ===== */
@@ -704,6 +709,7 @@ a.lang-opt { cursor: pointer; }
 
 /* Botón "Contactanos" (color según --accent, ensancha en hover) */
 .contact-btn {
+  display: inline-block;   /* en línea, el navegador pintaba su borde encima de las capas del hover */
   align-self: flex-start;
   background: var(--accent);
   border: 2px solid var(--accent);
@@ -716,10 +722,12 @@ a.lang-opt { cursor: pointer; }
   transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease;
 }
 
-.contact-btn:hover {
-  background: #fff;
-  color: var(--accent);
-  padding: 12px 52px;
+@media (hover: hover) and (pointer: fine) {
+  .contact-btn:hover {
+    background: #fff;
+    color: var(--accent);
+    padding: 12px 52px;
+  }
 }
 
 /* ===== Capacidades (qué incluye el servicio) — Broadcast, SyD, Soporte ===== */

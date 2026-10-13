@@ -334,9 +334,11 @@
   color: #fff;
 }
 
-.mv-btn--vision:hover {
-  background: #fff;
-  color: var(--accent);
+@media (hover: hover) and (pointer: fine) {
+  .mv-btn--vision:hover {
+    background: #fff;
+    color: var(--accent);
+  }
 }
 
 /* Botón "Misión" (vive en la tarjeta azul): blanco → azul en hover */
@@ -346,9 +348,11 @@
   border-color: #fff;
 }
 
-.mv-btn--mision:hover {
-  background: var(--accent);
-  color: #fff;
+@media (hover: hover) and (pointer: fine) {
+  .mv-btn--mision:hover {
+    background: var(--accent);
+    color: #fff;
+  }
 }
 
 /* ===== Valores corporativos ===== */

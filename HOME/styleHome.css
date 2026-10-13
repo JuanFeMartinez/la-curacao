@@ -428,16 +428,16 @@
     transform: translateY(-2px);
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
   }
+  .service-card--green .service-btn:hover { background: #3E4A54; color: #fff; }
+  .service-card--blue .service-btn:hover { background: #3f61c9; color: #fff; }
+  .service-card--purple .service-btn:hover { background: #5b34c7; color: #fff; }
 }
-.service-card--green .service-btn:hover { background: #3E4A54; color: #fff; }
-.service-card--blue .service-btn:hover { background: #3f61c9; color: #fff; }
 
 /* Nuevos negocios: violeta */
 .service-card--purple { background: #7b5cf0; }
 .service-card--purple .service-left,
 .service-card--purple .service-expand { background: #7b5cf0; }
 .service-card--purple .service-btn { color: #5b34c7; }
-.service-card--purple .service-btn:hover { background: #5b34c7; color: #fff; }
 
 /* Tarjeta sin foto: bloque con degradado violeta + ícono (mismo tamaño que la imagen) */
 .service-img--icono {
@@ -486,18 +486,20 @@
 
 .soporte-label--hover { display: none; }
 
-.soporte-bar:hover {
-  background: transparent;
-  color: #fdb44e;
-}
+@media (hover: hover) and (pointer: fine) {
+  .soporte-bar:hover {
+    background: transparent;
+    color: #fdb44e;
+  }
 
-.soporte-bar:hover .soporte-icon {
-  background: #fdb44e;
-  color: #fff;
-}
+  .soporte-bar:hover .soporte-icon {
+    background: #fdb44e;
+    color: #fff;
+  }
 
-.soporte-bar:hover .soporte-label--default { display: none; }
-.soporte-bar:hover .soporte-label--hover { display: inline; }
+  .soporte-bar:hover .soporte-label--default { display: none; }
+  .soporte-bar:hover .soporte-label--hover { display: inline; }
+}
 
 /* ===== Cómo trabajamos (FAQ) ===== */
 .how-we-work {
@@ -676,6 +678,7 @@
 }
 
 .who-btn {
+  display: inline-block;
   align-self: flex-start;
   background: var(--accent);
   border: 2px solid var(--accent);
@@ -688,10 +691,12 @@
   transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease;
 }
 
-.who-btn:hover {
-  background: #fff;
-  color: var(--accent);
-  padding: 18px 72px;
+@media (hover: hover) and (pointer: fine) {
+  .who-btn:hover {
+    background: #fff;
+    color: var(--accent);
+    padding: 18px 72px;
+  }
 }
 
 /* ===== Responsive (propio de Home) ===== */
