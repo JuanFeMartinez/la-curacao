@@ -67,7 +67,14 @@ body.marca-liveu .marca-hero {
 body.marca-amped .marca-hero {
   background: linear-gradient(140deg, #1d6aa8 0%, #0c4b7a 55%, #08253f 100%);
 }
-.marca-hero .hero-overlay { display: none; }
+/* Con foto oficial de fondo: velo en el color de la marca para que el logo
+   blanco y el texto se lean sobre cualquier imagen */
+.marca-hero .hero-overlay {
+  background: linear-gradient(to bottom,
+    rgba(0, 0, 0, 0.62) 0%,
+    var(--accent-soft) 55%,
+    var(--accent) 100%);
+}
 
 /* Unidad de negocio a la que pertenece la marca (Broadcast, Seguridad y
    defensa o ambas): pastillas bajo el título del hero, enlazadas a la unidad */
