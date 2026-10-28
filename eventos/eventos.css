@@ -4,6 +4,45 @@
    grupos (Broadcast y Seguridad y defensa) de 4 tarjetas cada uno.
    ===================================================================== */
 
+/* ---- Hero: fotos oficiales de las ferias que se relevan con un fundido
+   desenfocado. 5 fotos x 6 s = ciclo de 30 s; cada una entra mientras la
+   anterior sale. La primera ya está visible al cargar (retraso negativo). ---- */
+.eventos-carrusel {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #10112b;
+}
+.eventos-foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: eventos-relevo 30s linear infinite;
+}
+.eventos-foto:nth-child(1) { animation-delay: -3s; }
+.eventos-foto:nth-child(2) { animation-delay: 3s; }
+.eventos-foto:nth-child(3) { animation-delay: 9s; }
+.eventos-foto:nth-child(4) { animation-delay: 15s; }
+.eventos-foto:nth-child(5) { animation-delay: 21s; }
+
+@keyframes eventos-relevo {
+  0%   { opacity: 0; filter: blur(14px); transform: scale(1.08); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+  8%   { opacity: 1; filter: blur(0);    transform: scale(1.04); animation-timing-function: linear; }
+  20%  { opacity: 1; filter: blur(0);    transform: scale(1);    animation-timing-function: ease-in; }
+  28%  { opacity: 0; filter: blur(14px); transform: scale(1); }
+  100% { opacity: 0; filter: blur(14px); transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eventos-foto { animation: none; }
+  .eventos-foto:first-child { opacity: 1; }
+}
+
+/* ---- Grupos de tarjetas ---- */
 .eventos {
   padding: var(--sec) 60px;
   text-align: center;
@@ -38,6 +77,14 @@
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(16, 17, 43, 0.06);
+}
+
+.evento-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #dfe3ee;
 }
 
 .evento-cabeza {
