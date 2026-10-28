@@ -288,9 +288,23 @@
   a.marca-card:hover .marca-card-cta { color: #fff; gap: 10px; }
 }
 
-/* AMPED aún sin página propia (pendiente de gerencia): tarjeta informativa */
-.marca-card--pronto { cursor: default; }
-.marca-card--pronto .marca-card-cta { color: #5f6377; }
+/* Unidad de negocio de la marca, entre el logo y "Ver marca" */
+.marca-card-rama {
+  margin-top: -8px;
+  color: #5f6377;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  transition: color 0.25s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  a.marca-card:hover .marca-card-rama { color: rgba(255, 255, 255, 0.78); }
+}
+
+/* "Ver todas las marcas": bajo las tarjetas, centrado */
+.marcas-todas {
+  margin-top: var(--tras-titulo);
+}
 
 /* ===== Services intro (sección blanca) ===== */
 .services-intro {

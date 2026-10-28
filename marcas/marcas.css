@@ -9,6 +9,7 @@
    El footer y el logo de La Curaçao siguen en azul (identidad propia). */
 body.marca-sony {
   --accent: #0d0d0d;                       /* SONY: negro (marca monocromática) */
+  --accent-fuerte: #0d0d0d;                /* se define aquí: --accent cambia en body, no en :root */
   --accent-soft: rgba(13, 13, 13, 0.75);
   --pill-color: #0d0d0d;                   /* número de teléfono + ícono en negro SONY */
   --pill-hover-bg: #454545;                /* al hover, gris oscuro (destaca sobre la franja negra) */
@@ -16,10 +17,19 @@ body.marca-sony {
 
 body.marca-liveu {
   --accent: #111833;                       /* LiveU: azul-navy de su sitio */
+  --accent-fuerte: #111833;
   --accent-soft: rgba(17, 24, 51, 0.75);
   --marca-cta: #d63600;                    /* LiveU: naranja distintivo para los botones */
   --pill-color: #d63600;                   /* número de teléfono + ícono en el naranja de LiveU */
   --pill-hover-bg: #d63600;                /* pastilla naranja al hover, número en blanco */
+}
+
+body.marca-amped {
+  --accent: #0c4b7a;                       /* AMPED Software: azul profundo de su logo */
+  --accent-fuerte: #0c4b7a;
+  --accent-soft: rgba(12, 75, 122, 0.75);
+  --pill-color: #0c4b7a;
+  --pill-hover-bg: #083659;
 }
 
 /* En LiveU los botones usan su naranja en vez del navy */
@@ -54,7 +64,98 @@ body.marca-sony .marca-hero {
 body.marca-liveu .marca-hero {
   background: linear-gradient(140deg, #1e2a55 0%, #111833 70%, #2b1508 100%);
 }
+body.marca-amped .marca-hero {
+  background: linear-gradient(140deg, #1d6aa8 0%, #0c4b7a 55%, #08253f 100%);
+}
 .marca-hero .hero-overlay { display: none; }
+
+/* Unidad de negocio a la que pertenece la marca (Broadcast, Seguridad y
+   defensa o ambas): pastillas bajo el título del hero, enlazadas a la unidad */
+.marca-ramas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.marca-rama {
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+  transition: background-color var(--t-hover, 220ms) ease, border-color var(--t-hover, 220ms) ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .marca-rama:hover { background: rgba(255, 255, 255, 0.2); border-color: #fff; }
+}
+
+/* ---- Página "Nuestras marcas" (/marcas/): las tarjetas de Broadcast y de
+   Seguridad y defensa, cada grupo con 6 marcas (3 x 2) ---- */
+.marcas-rama h2 { margin-bottom: var(--tras-titulo-texto); }
+.marcas-rama-intro {
+  max-width: 760px;
+  margin: 0 auto var(--tras-intro);
+  text-align: center;
+  color: #4a4f63;
+  font-size: 18px;
+  line-height: 1.6;
+}
+.marcas-rama-intro a {
+  color: var(--accent-fuerte);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+@media (hover: hover) and (pointer: fine) {
+  .marcas-rama-intro a:hover { text-decoration: underline; text-underline-offset: 4px; }
+}
+/* Mismo fondo que la anterior: no se duplica el espacio entre grupos */
+.marcas-rama + .marcas-rama { padding-top: 0; }
+/* Seguridad y defensa conserva su color de unidad */
+.marcas-rama--syd { --accent: #3E4A54; --accent-fuerte: #3E4A54; }
+
+/* Galería con imágenes oficiales de producto de la marca */
+.marca-galeria {
+  padding: 0 60px var(--sec);
+  text-align: center;
+}
+.marca-galeria h2 {
+  color: #10112b;
+  font-size: var(--h2-sub);
+  font-weight: 700;
+  margin-bottom: var(--tras-titulo);
+}
+.marca-galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.marca-galeria figure {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.marca-galeria img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #eef0f6;
+}
+/* Fotos de producto recortado: completas, sobre fondo neutro */
+.marca-galeria img.contener { object-fit: contain; padding: 20px; }
+.marca-galeria img.contener--oscuro { background: #0b0d14; padding: 0; }
+.marca-galeria figcaption {
+  color: #4a4f63;
+  font-size: 16px;
+  line-height: 1.45;
+}
 
 /* Bloque de detalle sin imagen: solo texto, centrado */
 .service-detail-grid--solo-texto {
@@ -137,4 +238,12 @@ body.marca-liveu .marca-hero {
   .marca-hero-logo { max-height: 92px; }
   .marca-btns { width: 100%; }
   .marca-btn-oficial { width: 100%; justify-content: center; }
+  .marca-rama { font-size: 14px; }
+  .marca-galeria { padding: 0 24px var(--sec); }
+  .marca-galeria-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .marca-galeria-grid { gap: 18px; }
+  .marca-galeria figcaption { font-size: 15px; }
 }

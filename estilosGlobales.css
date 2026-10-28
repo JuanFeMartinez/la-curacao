@@ -87,6 +87,7 @@ body {
 }
 html:has(body.marca-sony)  { background-color: #0d0d0d; }
 html:has(body.marca-liveu) { background-color: #111833; }
+html:has(body.marca-amped) { background-color: #0c4b7a; }
 
 body {
   font-family: 'Afacad', sans-serif;

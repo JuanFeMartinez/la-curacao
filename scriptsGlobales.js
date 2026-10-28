@@ -345,7 +345,9 @@
       '.support-services > h2', '.support-sub', '.support-card', '.track-order-card',
       '.about-grid', '.timeline-title', '.timeline-item', '.mv-grid', '.values > h2', '.values-col li',
       '.contact-lead > h2', '.contact-lead > p', '.contacto-form',
-      '.contact-here > h2', '.contact-map', '.contact-pill'
+      '.contact-here > h2', '.contact-map', '.contact-pill',
+      '.marca-galeria > h2', '.marca-galeria figure', '.marcas-rama-intro',
+      '.eventos > h2', '.evento'
     ].join(',');
 
     var elementos = Array.prototype.slice.call(document.querySelectorAll(SELECTORES));

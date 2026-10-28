@@ -1,0 +1,109 @@
+/* =====================================================================
+   ESTILOS PROPIOS DE EVENTOS
+   Ferias en las que participa La Curaçao junto a sus marcas, en dos
+   grupos (Broadcast y Seguridad y defensa) de 4 tarjetas cada uno.
+   ===================================================================== */
+
+.eventos {
+  padding: var(--sec) 60px;
+  text-align: center;
+}
+.eventos--syd {
+  --accent: #3E4A54;
+  --accent-fuerte: #3E4A54;
+  background: #eef0f6;
+}
+
+.eventos h2 {
+  color: #10112b;
+  font-size: var(--h2);
+  font-weight: 700;
+  margin-bottom: var(--tras-titulo);
+}
+
+.eventos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1220px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.evento {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e3e8f2;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(16, 17, 43, 0.06);
+}
+
+.evento-cabeza {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 24px 22px;
+  background: var(--accent-fuerte);
+  color: #fff;
+}
+.evento-fecha {
+  align-self: flex-start;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(8, 10, 30, 0.22);   /* oscurece el fondo: el texto blanco cumple 4.5:1 */
+}
+.evento-cabeza h3 {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.evento-cuerpo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 24px 24px;
+}
+.evento-lugar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #10112b;
+  font-weight: 600;
+  font-size: 16px;
+}
+.evento-lugar svg { flex-shrink: 0; color: var(--accent-fuerte); }
+.evento-desc {
+  color: #4a4f63;
+  font-size: 16px;
+  line-height: 1.55;
+}
+.evento-link {
+  margin-top: auto;
+  align-self: flex-start;
+  color: var(--accent-fuerte);
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .evento-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+}
+
+@media (max-width: 1100px) {
+  .eventos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; }
+}
+
+@media (max-width: 768px) {
+  .eventos { padding: var(--sec) 24px; }
+  .eventos-grid { grid-template-columns: 1fr; gap: 18px; }
+  .evento-cabeza { padding: 20px 20px 18px; }
+  .evento-cabeza h3 { font-size: 23px; }
+  .evento-cuerpo { padding: 18px 20px 20px; }
+}
