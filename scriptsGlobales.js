@@ -223,13 +223,156 @@
         .then(function (res) {
           if (!res || !res.ok) throw new Error('rechazado');
           try { sessionStorage.setItem('lc-lead', '1'); } catch (err) {}
-          location.href = 'gracias/';
+          location.href = form.getAttribute('data-gracias') || 'gracias/';
         })
         .catch(function () {
           avisar(T.errorEnvio, 'error');
           if (boton) { boton.disabled = false; boton.textContent = textoBoton; }
         });
     });
+  }
+
+  /* ---- Menú "Servicios" del header: se abre con clic (y con el mouse
+     encima en computador); se cierra al tocar fuera o con Escape ---- */
+  function menuServicios() {
+    var porHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    Array.prototype.forEach.call(document.querySelectorAll('.nav-menu'), function (m) {
+      var b = m.querySelector('.nav-menu-btn');
+      function poner(v) { m.classList.toggle('is-open', v); b.setAttribute('aria-expanded', v ? 'true' : 'false'); }
+      b.addEventListener('click', function (e) { e.stopPropagation(); poner(!m.classList.contains('is-open')); });
+      if (porHover) {
+        m.addEventListener('mouseenter', function () { if (window.innerWidth > 900) poner(true); });
+        m.addEventListener('mouseleave', function () { if (window.innerWidth > 900) poner(false); });
+      }
+      document.addEventListener('click', function (e) { if (!m.contains(e.target)) poner(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') poner(false); });
+    });
+  }
+
+  /* ---- Seguridad y defensa: acceso exclusivo ----
+     Cualquier enlace a la unidad abre un menú con sus líneas. Para verlas,
+     la primera vez se pide un registro corto (va al mismo destino que el
+     formulario de contacto). Es un filtro comercial, no una protección:
+     el contenido sigue en la página. */
+  function accesoSyD() {
+    var RUTA = '/seguridad-y-defensa/';
+    var OPC = EN ? [
+      ['comunicaciones', 'Tactical communications'], ['ciberdefensa', 'Cyberdefense and cybersecurity'],
+      ['monitoreo', 'Monitoring and lawful interception'], ['proteccion', 'Protective equipment'],
+      ['forense', 'Operational and forensic software'], ['despliegue', 'Rapid field deployment'],
+      ['', 'See the whole unit']
+    ] : [
+      ['comunicaciones', 'Comunicaciones tácticas'], ['ciberdefensa', 'Ciberdefensa y ciberseguridad'],
+      ['monitoreo', 'Monitoreo e interceptación legal'], ['proteccion', 'Equipamiento de protección'],
+      ['forense', 'Software operativo y forense'], ['despliegue', 'Despliegue rápido en campo'],
+      ['', 'Ver toda la unidad']
+    ];
+    var L = EN ? {
+      etq: 'Exclusive access', titulo: 'Security and defense', intro: 'Choose what you are interested in.',
+      form: 'Register to continue. Our team will contact you if you need more information.',
+      nombre: 'Full name', correo: 'Email', tel: 'Phone', entidad: 'Organization or company', cargo: 'Position',
+      autorizo: 'I authorize the processing of my personal data according to the', politica: 'Privacy policy',
+      enviar: 'See information', volver: '← Back to options', inicio: 'Back to home', cerrar: 'Close'
+    } : {
+      etq: 'Acceso exclusivo', titulo: 'Seguridad y defensa', intro: 'Elige lo que te interesa.',
+      form: 'Regístrate para continuar. Nuestro equipo te contactará si necesitas más información.',
+      nombre: 'Nombre completo', correo: 'Correo electrónico', tel: 'Teléfono', entidad: 'Entidad o empresa', cargo: 'Cargo',
+      autorizo: 'Autorizo el tratamiento de mis datos personales según la', politica: 'Política de privacidad',
+      enviar: 'Ver información', volver: '← Volver a las opciones', inicio: 'Volver al inicio', cerrar: 'Cerrar'
+    };
+    var html = document.documentElement;
+    var enSyD = location.pathname.indexOf(RUTA) > -1;
+    var registrado = function () { return leer('lc-syd') === '1'; };
+    var politica = document.querySelector('a[href$="politica-de-privacidad/"]');
+    var inicio = document.querySelector('a.logo-block');
+    var caja = null;
+
+    function cerrar() { if (caja && caja.parentNode) caja.parentNode.removeChild(caja); caja = null; }
+    function ir(base, ancla) {
+      if (enSyD && location.pathname === base) {
+        html.classList.remove('syd-bloqueado'); cerrar();
+        var el = ancla && document.getElementById(ancla);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      location.href = base + (ancla ? '#' + ancla : '');
+    }
+
+    function abrir(base, bloqueante) {
+      cerrar();
+      caja = document.createElement('div');
+      caja.className = 'syd-acceso';
+      caja.setAttribute('role', 'dialog');
+      caja.setAttribute('aria-modal', 'true');
+      caja.setAttribute('aria-label', L.titulo);
+      var accion = bloqueante
+        ? '<a class="syd-acceso__volver" href="' + (inicio ? inicio.getAttribute('href') : '/') + '">' + L.inicio + '</a>'
+        : '<button type="button" class="syd-acceso__cerrar" aria-label="' + L.cerrar + '">×</button>';
+      var opciones = OPC.map(function (o) {
+        return '<button type="button" class="syd-acceso__opcion' + (o[0] ? '' : ' syd-acceso__opcion--toda') + '" data-ancla="' + o[0] + '">' + o[1] + '</button>';
+      }).join('');
+      caja.innerHTML = '<div class="syd-acceso__caja">' +
+        '<div class="syd-acceso__cab"><div><span class="syd-acceso__etq">' + L.etq + '</span><h2>' + L.titulo + '</h2></div>' + accion + '</div>' +
+        '<div class="syd-acceso__paso"><p>' + L.intro + '</p><div class="syd-acceso__opciones">' + opciones + '</div></div></div>';
+      document.body.appendChild(caja);
+      var paso = caja.querySelector('.syd-acceso__paso');
+
+      function formulario(o) {
+        paso.innerHTML = '<p>' + L.form + '</p>' +
+          '<form novalidate>' +
+          '<label>' + L.nombre + ' *<input name="nombre" autocomplete="name" required maxlength="120"></label>' +
+          '<label>' + L.correo + ' *<input name="correo" type="email" autocomplete="email" required maxlength="160"></label>' +
+          '<label>' + L.tel + ' *<input name="telefono" type="tel" autocomplete="tel" required maxlength="40"></label>' +
+          '<label>' + L.entidad + ' *<input name="empresa" autocomplete="organization" required maxlength="160"></label>' +
+          '<label>' + L.cargo + '<input name="cargo" autocomplete="organization-title" maxlength="120"></label>' +
+          '<label class="syd-acceso__autorizo"><input type="checkbox" name="autorizo" value="si" required><span>' + L.autorizo + ' ' +
+            (politica ? '<a href="' + politica.getAttribute('href') + '" target="_blank" rel="noopener">' + L.politica + '</a>' : L.politica) + '. *</span></label>' +
+          '<input type="text" name="sitio_web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px">' +
+          '<button type="submit" class="syd-acceso__enviar">' + L.enviar + '</button>' +
+          '<button type="button" class="syd-acceso__volver">' + L.volver + '</button>' +
+          '</form>';
+        var f = paso.querySelector('form'), t0 = Date.now();
+        f.querySelector('input').focus();
+        f.querySelector('.syd-acceso__volver').addEventListener('click', function () { abrir(base, bloqueante); });
+        f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (!f.reportValidity()) return;
+          var d = new FormData(f);
+          if (d.get('sitio_web')) return;
+          d.set('interes', (EN ? 'Security and defense access: ' : 'Acceso Seguridad y defensa: ') + o[1]);
+          d.set('mensaje', (EN ? 'Registration to view: ' : 'Registro para ver: ') + o[1] + (d.get('cargo') ? ' · ' + d.get('cargo') : ''));
+          d.set('idioma', EN ? 'en' : 'es'); d.set('pagina', location.href);
+          d.set('tiempo', String(Math.round((Date.now() - t0) / 1000) + 3));
+          var listo = function () { guardar('lc-syd', '1'); medir('generate_lead', { formulario: 'acceso_syd' }); ir(base, o[0]); };
+          if (!CONFIG.FORM_ENDPOINT) { listo(); return; }
+          f.querySelector('.syd-acceso__enviar').disabled = true;
+          fetch(CONFIG.FORM_ENDPOINT, { method: 'POST', body: new URLSearchParams(d) }).then(listo, listo);
+        });
+      }
+
+      caja.addEventListener('click', function (e) {
+        var b = e.target.closest('.syd-acceso__opcion');
+        if (b) {
+          var o = OPC.filter(function (x) { return x[0] === b.getAttribute('data-ancla'); })[0];
+          if (registrado()) ir(base, o[0]); else formulario(o);
+          return;
+        }
+        if (!bloqueante && (e.target === caja || e.target.closest('.syd-acceso__cerrar'))) cerrar();
+      });
+      if (!bloqueante) document.addEventListener('keydown', function esc(e) { if (e.key === 'Escape') { cerrar(); document.removeEventListener('keydown', esc); } });
+    }
+
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a || (caja && caja.contains(a))) return;
+      var u; try { u = new URL(a.href, location.href); } catch (x) { return; }
+      if (u.origin !== location.origin || u.pathname.indexOf(RUTA) < 0) return;
+      if (enSyD && registrado() && u.pathname === location.pathname) return;
+      e.preventDefault();
+      abrir(u.pathname, false);
+    }, true);
+
+    if (enSyD && !registrado()) { html.classList.add('syd-bloqueado'); abrir(location.pathname, true); }
   }
 
   /* ---- Año actual en el pie ---- */
@@ -589,4 +732,6 @@
   medirContactos();
   botonWhatsApp();
   formularioContacto();
+  menuServicios();
+  accesoSyD();
 })();

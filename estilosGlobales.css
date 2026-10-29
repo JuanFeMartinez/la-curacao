@@ -355,8 +355,8 @@ a.lang-opt { cursor: pointer; }
 .hero {
   position: relative;
   width: 100%;
-  height: 100vh;
-  min-height: 700px;
+  height: 78vh;          /* deja ver el inicio del contenido en la primera vista */
+  min-height: 520px;
   display: flex;
   align-items: flex-end;
   padding: 0 60px 70px;
@@ -1426,4 +1426,167 @@ html.con-aviso-cookies .whatsapp-flotante {
 @keyframes aparecer-arriba {
   from { opacity: 0; transform: translateY(34px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =====================================================================
+   Encabezado de páginas internas más bajo: se ve el contenido al entrar
+   ===================================================================== */
+.hero--center:not(.hero--compacto) { height: 58vh; min-height: 420px; }
+@media (max-width: 768px) {
+  .hero--center:not(.hero--compacto) { height: 46vh; height: 46dvh; min-height: 320px; }
+}
+
+/* =====================================================================
+   Menú desplegable "Servicios" del header
+   ===================================================================== */
+.nav-menu { position: relative; }
+.nav-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-family: 'Afacad', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #fff;
+  cursor: pointer;
+}
+.nav-menu-btn svg { transition: transform 220ms ease; }
+.nav-menu.is-open .nav-menu-btn svg { transform: rotate(180deg); }
+.nav-submenu {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  min-width: 230px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(16, 17, 43, 0.22);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -6px);
+  transition: opacity 180ms ease, transform 220ms cubic-bezier(0.23, 1, 0.32, 1), visibility 0s linear 220ms;
+  z-index: 40;
+}
+.nav-menu.is-open .nav-submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  transition: opacity 180ms ease, transform 220ms cubic-bezier(0.23, 1, 0.32, 1), visibility 0s;
+}
+.site-header nav .nav-submenu a {
+  color: #10112b;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 10px;
+  white-space: nowrap;
+  transform: none !important;
+  text-shadow: none !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  .site-header nav .nav-submenu a:hover { background: #eef0f6; color: #2f5cdb; }
+}
+.nav-submenu a:focus-visible { outline: 2px solid #2f5cdb; outline-offset: -2px; }
+
+/* En el panel móvil el submenú va dentro del panel, sin tarjeta flotante */
+@media (max-width: 900px) {
+  .nav-menu-btn { font-size: 22px; }
+  .nav-submenu {
+    position: static;
+    min-width: 0;
+    padding: 0;
+    margin-top: 0;
+    background: none;
+    box-shadow: none;
+    transform: none;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+  }
+  .nav-menu.is-open .nav-submenu { display: flex; transform: none; margin-top: 10px; gap: 4px; }
+  .site-header nav .nav-submenu a { color: #fff; font-size: 18px; padding: 6px 0 6px 14px; border-left: 2px solid rgba(255, 255, 255, 0.4); border-radius: 0; }
+}
+
+/* =====================================================================
+   Acceso a Seguridad y defensa: menú de opciones + registro previo
+   (lo crea scriptsGlobales.js; en la propia página bloquea el contenido)
+   ===================================================================== */
+.syd-acceso {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(10, 14, 20, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: syd-entrar 220ms ease both;
+}
+@keyframes syd-entrar { from { opacity: 0; } }
+.syd-acceso__caja {
+  width: min(560px, 100%);
+  max-height: calc(100dvh - 40px);
+  overflow: auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  padding: 28px;
+  font-family: 'Afacad', sans-serif;
+  color: #10112b;
+  animation: syd-subir 320ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+@keyframes syd-subir { from { opacity: 0; transform: translateY(16px) scale(0.98); } }
+.syd-acceso__cab { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.syd-acceso__etq { display: inline-block; font-size: 13px; font-weight: 700; color: #fff; background: #3E4A54; padding: 4px 12px; border-radius: 999px; margin-bottom: 10px; }
+.syd-acceso h2 { font-size: 26px; line-height: 1.2; }
+.syd-acceso p { color: #4a4f63; font-size: 16px; line-height: 1.5; }
+.syd-acceso__cerrar { flex-shrink: 0; width: 38px; height: 38px; border: 0; border-radius: 50%; background: #eef0f6; color: #10112b; font-size: 22px; line-height: 1; cursor: pointer; }
+.syd-acceso__opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.syd-acceso__opcion {
+  text-align: left;
+  font: inherit;
+  font-weight: 600;
+  font-size: 16px;
+  color: #10112b;
+  background: #f4f6fa;
+  border: 1.5px solid #e1e5ee;
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .syd-acceso__opcion:hover { border-color: #3E4A54; background: #fff; }
+}
+.syd-acceso__opcion:active { transform: scale(0.98); }
+.syd-acceso__opcion--toda { grid-column: 1 / -1; background: #3E4A54; color: #fff; border-color: #3E4A54; text-align: center; }
+.syd-acceso form { display: grid; gap: 12px; margin-top: 16px; }
+.syd-acceso label { display: grid; gap: 6px; font-weight: 600; font-size: 15px; }
+.syd-acceso input:not([type="checkbox"]) {
+  font: inherit; font-size: 16px; color: #10112b; background: #f6f7fb;
+  border: 1.5px solid #d6dbe9; border-radius: 10px; padding: 12px 14px;
+}
+.syd-acceso input:focus { outline: none; border-color: #3E4A54; box-shadow: 0 0 0 4px rgba(62, 74, 84, 0.16); background: #fff; }
+.syd-acceso .syd-acceso__autorizo { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; font-size: 14px; color: #4a4f63; }
+.syd-acceso .syd-acceso__autorizo input { width: 18px; height: 18px; margin-top: 2px; accent-color: #3E4A54; }
+.syd-acceso__enviar { font: inherit; font-weight: 700; font-size: 17px; color: #fff; background: #3E4A54; border: 0; border-radius: 10px; padding: 14px; cursor: pointer; }
+.syd-acceso__volver { font: inherit; font-size: 15px; color: #3E4A54; background: none; border: 0; cursor: pointer; justify-self: start; padding: 0; }
+.syd-acceso__nota { font-size: 13px !important; }
+/* En la propia página, mientras no haya registro, el contenido no se ve */
+html.syd-bloqueado body > section:not(.hero),
+html.syd-bloqueado body > footer { filter: blur(10px); pointer-events: none; user-select: none; }
+@media (max-width: 560px) {
+  .syd-acceso__caja { padding: 22px; }
+  .syd-acceso__opciones { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .syd-acceso, .syd-acceso__caja { animation: none; }
 }

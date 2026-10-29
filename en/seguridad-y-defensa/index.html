@@ -47,10 +47,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../estilosGlobales.css?v=bfa3679d">
-<link rel="stylesheet" href="../../seguridad-y-defensa/SyD.css?v=7a294b7b">
+<link rel="stylesheet" href="../../estilosGlobales.css?v=a85e7501">
+<link rel="stylesheet" href="../../contacto/contactanos.css?v=28528255">
+<link rel="stylesheet" href="../../seguridad-y-defensa/SyD.css?v=f886d2ee">
 <link rel="stylesheet" href="../../movimiento.css?v=26a8701d">
-<script src="../../scriptsGlobales.js?v=870028e5" defer></script>
+<script src="../../scriptsGlobales.js?v=48b5a067" defer></script>
 </head>
 <body>
   <div class="page-loader" id="page-loader" aria-hidden="true"><div class="page-loader__box"><img class="page-loader__logo" src="../../assets/logo.webp?v=3846bdbd" alt=""><span class="page-loader__spinner"></span></div></div>
@@ -70,7 +71,15 @@
     <label for="nav-toggle" class="nav-burger" aria-label="Open menu"><span></span><span></span><span></span></label>
     <nav>
       <a href="../nosotros/">About us</a>
-      <a href="../#servicios">Services</a>
+      <div class="nav-menu">
+        <button type="button" class="nav-menu-btn" aria-expanded="false" aria-haspopup="true">Services <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-submenu">
+          <a href="../broadcast/">Broadcast</a>
+          <a href="../seguridad-y-defensa/">Security & defense</a>
+          <a href="../soporte/">Support</a>
+          <a href="../nuevos-negocios/">New businesses</a>
+        </div>
+      </div>
       <a href="../eventos/">Events</a>
       <a href="https://script.google.com/macros/s/AKfycbw4zoO4rxZl6CE5tk-GbEwIlD_EbTxnixVHFdLG4yqip5oANQi7zBpFyHfJxfQbXSi2vA/exec" target="_blank" rel="noopener">Track your order</a>
       <a href="../contacto/">Contact us</a>
@@ -83,38 +92,57 @@
   </header>
 
   <section class="hero hero--center">
-    <img fetchpriority="high" class="hero-img" src="../../assets/seguridad-hero.webp?v=d4c3d1da" alt="">
+    <div class="syd-carrusel" aria-hidden="true">
+      <img class="syd-foto" src="../../assets/seguridad-hero.webp?v=d4c3d1da" alt="" fetchpriority="high">
+      <img class="syd-foto" src="../../assets/eventos-hero-2.webp?v=28e6926e" alt="" decoding="async">
+      <img class="syd-foto" src="../../assets/seguridad-servicio.webp?v=c3deebdd" alt="" decoding="async">
+      <img class="syd-foto" src="../../assets/service-seguridad.webp?v=43db7af5" alt="" decoding="async">
+    </div>
     <div class="hero-overlay"></div>
-    <h1 class="hero-titulo-largo">
-      <svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.7">
-        <path d="M12 3l7 3v5c0 4.5-3 8.5-7 9.5-4-1-7-5-7-9.5V6l7-3z"/>
-        <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Security & Defense Business Unit
-    </h1>
+    <div class="syd-hero-contenido">
+      <h1 class="hero-titulo-largo">
+        <svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M12 3l7 3v5c0 4.5-3 8.5-7 9.5-4-1-7-5-7-9.5V6l7-3z"/>
+          <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Security & Defense Business Unit
+      </h1>
+      <p class="syd-hero-sub">Reliable technology for operations with no margin for error.</p>
+      <a href="#solicitar" class="syd-hero-cta">Request information</a>
+    </div>
   </section>
 
   <section class="page-intro">
     <p>We specialize in the supply and integration of technology solutions for the defense and security sector.</p>
   </section>
 
-  <section class="service-detail">
-    <h2>Defense services</h2>
-    <div class="service-detail-grid">
-      <img loading="lazy" decoding="async" class="service-detail-img" src="../../assets/seguridad-servicio.webp?v=c3deebdd" alt="Defense services">
-      <div class="service-detail-text">
-        <p>We offer strategic and tactical communications (satellite, HF, VHF, UHF and wireless), lawful monitoring and interception systems, cyberdefense and cybersecurity, as well as surveillance, control and management solutions for critical operations.</p>
-        <a href="../contacto/" class="contact-btn">Contact us</a>
-      </div>
+  <section class="syd-destacadas">
+    <h2>Soluciones destacadas</h2>
+    <div class="syd-destacadas-grid">
+      <a class="syd-tile" href="#comunicaciones">
+        <img loading="lazy" decoding="async" src="../../assets/marca-liveu-1.webp?v=9ffa9e03" alt="Operator streaming live from the field">
+        <div class="syd-tile-texto">
+          <h3>Comunicaciones</h3>
+          <p>Satellite, HF, VHF, UHF and wireless links, plus live video from the field, for operations where communication cannot fail.</p>
+          <span class="syd-tile-cta">Learn more →</span>
+        </div>
+      </a>
+      <a class="syd-tile" href="../marcas/amped/">
+        <img loading="lazy" decoding="async" src="../../assets/marca-amped-4.webp?v=1c7a3a6e" alt="Illustration of digital evidence sources in an investigation">
+        <div class="syd-tile-texto">
+          <h3>Intelligence and forensic analysis</h3>
+          <p>Monitoring, lawful interception and forensic image and video analysis for investigations and operational decision-making.</p>
+          <span class="syd-tile-cta">Learn more →</span>
+        </div>
+      </a>
     </div>
   </section>
-
   <section class="capacidades">
     <h2>What does our defense unit include?</h2>
     <p class="capacidades-intro">We specialize in the procurement, deployment and integration of tactical technology solutions for defense organizations, public safety and emergency response.</p>
 
     <div class="capacidades-grid">
-      <article class="capacidad">
+      <article class="capacidad" id="comunicaciones">
         <span class="capacidad-icono" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 18a2 2 0 100-4 2 2 0 000 4z" fill="currentColor" stroke="none"/><path d="M8.5 12.5a5 5 0 017 0M5.5 9.5a9 9 0 0113 0" stroke-linecap="round"/></svg>
         </span>
@@ -122,7 +150,7 @@
         <p>Satellite, HF, VHF, UHF and wireless systems to keep the link up in operations where communication cannot fail.</p>
       </article>
 
-      <article class="capacidad">
+      <article class="capacidad" id="ciberdefensa">
         <span class="capacidad-icono" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 9.5-4-1-7-5-7-9.5V6l7-3z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
@@ -130,7 +158,7 @@
         <p>Protection for the digital infrastructure of organizations operating in critical environments, where an incident compromises the mission.</p>
       </article>
 
-      <article class="capacidad">
+      <article class="capacidad" id="monitoreo">
         <span class="capacidad-icono" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
         </span>
@@ -138,7 +166,7 @@
         <p>Surveillance, control and management systems with the compliance framework required by state intelligence and security operations.</p>
       </article>
 
-      <article class="capacidad">
+      <article class="capacidad" id="proteccion">
         <span class="capacidad-icono" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2M7 7l1 13h8l1-13" stroke-linejoin="round"/></svg>
         </span>
@@ -146,7 +174,7 @@
         <p>High-performance eye protection, medical supplies for wound care and armament, with the certifications each application requires.</p>
       </article>
 
-      <article class="capacidad">
+      <article class="capacidad" id="forense">
         <span class="capacidad-icono" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M9 9l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
@@ -154,7 +182,7 @@
         <p>Forensic image and video analysis tools for investigation, law enforcement and operational decision support.</p>
       </article>
 
-      <article class="capacidad">
+      <article class="capacidad" id="despliegue">
         <span class="capacidad-icono" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21V8M12 8l-4 3M12 8l4 3M8 21h8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="4.5" r="2"/></svg>
         </span>
@@ -177,7 +205,12 @@
     </div>
   </section>
 
-  <section class="brands">
+  <section class="syd-banda">
+    <p>Need a solution tailored to your organization?</p>
+    <a href="#solicitar" class="syd-banda-btn">Request information</a>
+  </section>
+
+  <section class="brands" id="marcas">
     <h2>Our brands</h2>
     <div class="brands-grid">
 
@@ -307,16 +340,59 @@
     </div>
   </section>
 
-  <section class="contact-strip">
-    <div class="contact-strip-inner">
-      <span class="contact-strip-title">Contact us!</span>
-      <a href="tel:+576018770070" class="phone-pill">
-        <span class="icon-circle">
-          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-        </span>
-        <span class="phone-number">(601) 877 0070</span>
-      </a>
-    </div>
+  <section class="contact-lead" id="solicitar">
+    <h2>Request information</h2>
+    <p>Tell us what your organization needs and an advisor from the unit will contact you.</p>
+    <form class="contacto-form" method="post" novalidate data-gracias="../contacto/gracias/">
+      <div class="contacto-form__campo">
+        <label for="cf-nombre">Name *</label>
+        <input id="cf-nombre" name="nombre" type="text" autocomplete="name" required maxlength="120">
+      </div>
+      <div class="contacto-form__campo">
+        <label for="cf-correo">Email *</label>
+        <input id="cf-correo" name="correo" type="email" autocomplete="email" required maxlength="160">
+      </div>
+      <div class="contacto-form__campo">
+        <label for="cf-telefono">Phone *</label>
+        <input id="cf-telefono" name="telefono" type="tel" autocomplete="tel" required maxlength="40">
+      </div>
+      <div class="contacto-form__campo">
+        <label for="cf-empresa">Company</label>
+        <input id="cf-empresa" name="empresa" type="text" autocomplete="organization" maxlength="160">
+      </div>
+      <div class="contacto-form__campo contacto-form__campo--ancho">
+        <label for="cf-interes">How can we help you?</label>
+        <select id="cf-interes" name="interes">
+          <option value="">Select an option</option>
+          <option>Broadcast and audiovisual production</option>
+          <option selected>Security & defense</option>
+          <option>Technical support</option>
+          <option>New businesses</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="contacto-form__campo contacto-form__campo--ancho">
+        <label for="cf-mensaje">Tell us about your request *</label>
+        <textarea id="cf-mensaje" name="mensaje" rows="5" required maxlength="3000"></textarea>
+      </div>
+
+      <!-- Trampa para robots: una persona no ve ni llena este campo -->
+      <div class="contacto-form__trampa" aria-hidden="true">
+        <label for="cf-sitio">Website</label>
+        <input id="cf-sitio" name="sitio_web" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <label class="contacto-form__autorizo contacto-form__campo--ancho">
+        <input name="autorizo" type="checkbox" value="si" required>
+        <span>I authorize the processing of my personal data in accordance with the <a href="../politica-de-privacidad/">Privacy policy</a>. *</span>
+      </label>
+
+      <div class="contacto-form__pie contacto-form__campo--ancho">
+        <button type="submit" class="contact-btn">Send message</button>
+        <p class="contacto-form__estado" role="status" aria-live="polite"></p>
+      </div>
+      <noscript><p class="contacto-form__estado contacto-form__campo--ancho">To send the form, enable JavaScript or write to us at <a href="mailto:info@curacao.com.co">info@curacao.com.co</a>.</p></noscript>
+    </form>
   </section>
 
   <footer class="site-footer">

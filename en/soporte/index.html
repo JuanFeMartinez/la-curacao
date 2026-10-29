@@ -47,10 +47,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../estilosGlobales.css?v=bfa3679d">
+<link rel="stylesheet" href="../../estilosGlobales.css?v=a85e7501">
 <link rel="stylesheet" href="../../soporte/soporte.css?v=a7c4ca84">
 <link rel="stylesheet" href="../../movimiento.css?v=26a8701d">
-<script src="../../scriptsGlobales.js?v=870028e5" defer></script>
+<script src="../../scriptsGlobales.js?v=48b5a067" defer></script>
 </head>
 <body>
   <div class="page-loader" id="page-loader" aria-hidden="true"><div class="page-loader__box"><img class="page-loader__logo" src="../../assets/logo.webp?v=3846bdbd" alt=""><span class="page-loader__spinner"></span></div></div>
@@ -70,7 +70,15 @@
     <label for="nav-toggle" class="nav-burger" aria-label="Open menu"><span></span><span></span><span></span></label>
     <nav>
       <a href="../nosotros/">About us</a>
-      <a href="../#servicios">Services</a>
+      <div class="nav-menu">
+        <button type="button" class="nav-menu-btn" aria-expanded="false" aria-haspopup="true">Services <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-submenu">
+          <a href="../broadcast/">Broadcast</a>
+          <a href="../seguridad-y-defensa/">Security & defense</a>
+          <a href="../soporte/">Support</a>
+          <a href="../nuevos-negocios/">New businesses</a>
+        </div>
+      </div>
       <a href="../eventos/">Events</a>
       <a href="https://script.google.com/macros/s/AKfycbw4zoO4rxZl6CE5tk-GbEwIlD_EbTxnixVHFdLG4yqip5oANQi7zBpFyHfJxfQbXSi2vA/exec" target="_blank" rel="noopener">Track your order</a>
       <a href="../contacto/">Contact us</a>

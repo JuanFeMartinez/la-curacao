@@ -36,10 +36,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../estilosGlobales.css?v=bfa3679d">
+<link rel="stylesheet" href="../estilosGlobales.css?v=a85e7501">
 <link rel="stylesheet" href="nosotros.css?v=f042f578">
 <link rel="stylesheet" href="../movimiento.css?v=26a8701d">
-<script src="../scriptsGlobales.js?v=870028e5" defer></script>
+<script src="../scriptsGlobales.js?v=48b5a067" defer></script>
 </head>
 <body>
   <div class="page-loader" id="page-loader" aria-hidden="true"><div class="page-loader__box"><img class="page-loader__logo" src="../assets/logo.webp?v=3846bdbd" alt=""><span class="page-loader__spinner"></span></div></div>
@@ -59,7 +59,16 @@
     <label for="nav-toggle" class="nav-burger" aria-label="Abrir menú"><span></span><span></span><span></span></label>
     <nav>
       <a href="./">Nosotros</a>
-      <a href="../#servicios">Servicios</a>
+      <div class="nav-menu">
+        <button type="button" class="nav-menu-btn" aria-expanded="false" aria-haspopup="true">Servicios <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-submenu">
+          <a href="../broadcast/">Broadcast</a>
+          <a href="../seguridad-y-defensa/">Seguridad y defensa</a>
+          <a href="../soporte/">Soporte</a>
+          <a href="../nuevos-negocios/">Nuevos negocios</a>
+        </div>
+      </div>
+      <a href="../eventos/">Eventos</a>
       <a href="https://script.google.com/macros/s/AKfycbw4zoO4rxZl6CE5tk-GbEwIlD_EbTxnixVHFdLG4yqip5oANQi7zBpFyHfJxfQbXSi2vA/exec" target="_blank" rel="noopener">Seguimiento</a>
       <a href="../contacto/">Contáctanos</a>
       <div class="lang-switch" role="group" aria-label="Idioma">
@@ -121,26 +130,26 @@
       <div class="timeline-item">
         <span class="timeline-year">1919</span>
         <div class="timeline-rail"><span class="timeline-dot"></span></div>
-        <h3 class="timeline-hito">Fundada en Colombia</h3>
-        <p class="timeline-desc">Establecida con la inversión y el apoyo de la multinacional holandesa Curacao Trading Company.</p>
+        <h3 class="timeline-hito">Nace en Barranquilla</h3>
+        <p class="timeline-desc">La Curaçao inicia operaciones en Colombia en Barranquilla, con la inversión y el apoyo de la multinacional holandesa Curacao Trading Company.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">1962</span>
+        <div class="timeline-rail"><span class="timeline-dot"></span></div>
+        <h3 class="timeline-hito">Llega a Bogotá</h3>
+        <p class="timeline-desc">Se crea la sucursal de Bogotá, que con los años pasa a ser la sede principal de la compañía.</p>
       </div>
       <div class="timeline-item">
         <span class="timeline-year">Siglo XX</span>
         <div class="timeline-rail"><span class="timeline-dot"></span></div>
-        <h3 class="timeline-hito">Consolidación de la propiedad</h3>
-        <p class="timeline-desc">Se convirtió en subsidiaria directa del Grupo CETECO, con sede en los Países Bajos.</p>
-      </div>
-      <div class="timeline-item">
-        <span class="timeline-year">Un siglo+</span>
-        <div class="timeline-rail"><span class="timeline-dot"></span></div>
-        <h3 class="timeline-hito">Mercados locales y globales</h3>
-        <p class="timeline-desc">Operación continua que refleja estabilidad financiera, experiencia regulatoria y solidez.</p>
+        <h3 class="timeline-hito">Consolidación</h3>
+        <p class="timeline-desc">Como subsidiaria del Grupo CETECO, de los Países Bajos, consolida su operación en mercados locales y globales.</p>
       </div>
       <div class="timeline-item">
         <span class="timeline-year">Hoy</span>
         <div class="timeline-rail"><span class="timeline-dot"></span></div>
-        <h3 class="timeline-hito">Ingeniería + IA</h3>
-        <p class="timeline-desc">Portafolio diversificado y multisectorial basado en ingeniería propia y soporte de ciclo de vida, ahora potenciado con IA para mayor eficiencia y coordinación, manteniéndonos a la vanguardia.</p>
+        <h3 class="timeline-hito">Una sede en Bogotá</h3>
+        <p class="timeline-desc">Bogotá es hoy la única sede de La Curaçao, con un portafolio multisectorial basado en ingeniería propia, soporte de ciclo de vida e inteligencia artificial.</p>
       </div>
     </div>
   </section>
