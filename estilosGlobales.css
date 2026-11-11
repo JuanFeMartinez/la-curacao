@@ -814,7 +814,8 @@ html.con-aviso-cookies .whatsapp-flotante {
   bottom: calc(var(--alto-aviso, 0px) + 24px);
 }
 /* Con el menú móvil abierto no estorba */
-.site-header.nav-open ~ .whatsapp-flotante {
+.site-header.nav-open ~ aside .whatsapp-flotante,
+.site-header.nav-open ~ aside .contacto-barra {
   opacity: 0;
   pointer-events: none;
 }
@@ -1617,4 +1618,61 @@ main:focus { outline: none; }
   .footer-col a:not(.footer-col-title),
   .footer-legal a,
   .footer-cookies { padding-block: 6px; margin-block: -6px; }
+}
+
+/* ===== Barra de contacto fija en celular =====
+   Por debajo de 768 px reemplaza al botón flotante de WhatsApp. El body
+   reserva su alto para que no tape el pie, y el aviso de cookies sube
+   por encima de ella. */
+.contacto-barra { display: none; }
+
+@media (max-width: 768px) {
+  :root { --alto-barra: calc(64px + env(safe-area-inset-bottom)); }
+  body { padding-bottom: var(--alto-barra); }
+
+  .whatsapp-flotante { display: none; }
+
+  .contacto-barra {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    display: flex;
+    gap: 10px;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: #fff;
+    border-top: 1px solid #e1e5ee;
+    box-shadow: 0 -6px 18px rgba(16, 17, 43, 0.08);
+    transition: opacity var(--t-ui, 200ms) ease;
+  }
+  .contacto-barra__principal {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    border-radius: 999px;
+    background: var(--accent-fuerte, #2f5cdb);
+    color: #fff;
+    font-weight: 700;
+    font-size: 17px;
+    text-decoration: none;
+  }
+  .contacto-barra__wa {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    min-height: 44px;
+    border-radius: 999px;
+    background: #1c9e4f;
+    color: #fff;
+  }
+  .contacto-barra__wa svg { width: 26px; height: 26px; }
+  .contacto-barra a { transition: transform var(--t-press, 120ms) ease; }
+  .contacto-barra a:active { transform: scale(0.97); }
+
+  .aviso-cookies { bottom: calc(var(--alto-barra) + 12px); }
 }
