@@ -1432,9 +1432,21 @@ html.con-aviso-cookies .whatsapp-flotante {
 /* =====================================================================
    Encabezado de páginas internas más bajo: se ve el contenido al entrar
    ===================================================================== */
-.hero--center:not(.hero--compacto) { height: 58vh; min-height: 420px; }
+/* El contenido arranca siempre debajo del logo y el hero crece si el contenido
+   es alto (logo de marca, subtítulo y botón), en vez de meterse bajo el header. */
+.hero--center:not(.hero--compacto) {
+  height: auto;
+  min-height: max(420px, 58vh);
+  padding-top: calc(var(--nav-height) + 64px);   /* el logo con "Since 1919" baja más que la barra */
+  padding-bottom: 48px;
+}
 @media (max-width: 768px) {
-  .hero--center:not(.hero--compacto) { height: 46vh; height: 46dvh; min-height: 320px; }
+  .hero--center:not(.hero--compacto) {
+    min-height: max(320px, 46vh);
+    min-height: max(320px, 46dvh);
+    padding-top: calc(var(--nav-height) + 20px);
+    padding-bottom: 40px;
+  }
 }
 
 /* =====================================================================
