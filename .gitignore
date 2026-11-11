@@ -12,3 +12,6 @@ desktop.ini
 
 # Carpeta que arma construir.sh para Cloudflare Pages
 _sitio/
+
+# Hooks de herramientas de diseño (Impeccable)
+.codex/
