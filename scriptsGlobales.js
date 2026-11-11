@@ -26,6 +26,7 @@
     wa: 'Message us on WhatsApp',
     waTexto: 'Hello, I would like more information about your solutions.',
     barra: 'Contact us', zonaContacto: 'Contact',
+    abrirMenu: 'Open menu', cerrarMenu: 'Close menu',
     cookies: 'We use analytics cookies to understand how the site is used and improve it. You can accept or reject them.',
     cookiesMas: 'Privacy policy',
     aceptar: 'Accept', rechazar: 'Reject',
@@ -36,6 +37,7 @@
     wa: 'Escríbenos por WhatsApp',
     waTexto: 'Hola, quiero más información sobre sus soluciones.',
     barra: 'Contáctanos', zonaContacto: 'Contacto',
+    abrirMenu: 'Abrir menú', cerrarMenu: 'Cerrar menú',
     cookies: 'Usamos cookies de analítica para entender cómo se usa el sitio y mejorarlo. Puedes aceptarlas o rechazarlas.',
     cookiesMas: 'Política de privacidad',
     aceptar: 'Aceptar', rechazar: 'Rechazar',
@@ -464,27 +466,43 @@
   }
 
   /* ---- 3. Menú hamburguesa (tablet / móvil) ----
-     El toggle por checkbox (:checked ~ nav) resultó poco fiable en este
-     combinador; en su lugar sincronizamos una clase .nav-open en el header,
-     que el CSS usa para mostrar/ocultar el panel. */
+     Es un <button> real: se abre con clic, Enter o Espacio, y anuncia su
+     estado con aria-expanded. Con el panel abierto, el resto de la página
+     queda inerte (el foco no se escapa detrás del panel) y Escape lo cierra
+     devolviendo el foco al botón. El CSS usa la clase .nav-open del header. */
   function menuMovil() {
-    var toggle = document.querySelector('.nav-toggle');
+    var boton = document.querySelector('.nav-burger');
     var header = document.querySelector('.site-header');
-    if (!toggle || !header) return;
+    if (!boton || !header) return;
+    var fondo = Array.prototype.slice.call(document.querySelectorAll('main, footer, .header-left'));
 
-    function sincronizar() {
-      header.classList.toggle('nav-open', toggle.checked);
+    function poner(abierto, devolverFoco) {
+      header.classList.toggle('nav-open', abierto);
+      boton.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+      boton.setAttribute('aria-label', abierto ? T.cerrarMenu : T.abrirMenu);
+      fondo.forEach(function (el) {
+        if (abierto) el.setAttribute('inert', ''); else el.removeAttribute('inert');
+      });
+      if (!abierto && devolverFoco) boton.focus();
     }
-    toggle.addEventListener('change', sincronizar);
-    sincronizar();
 
+    boton.addEventListener('click', function () {
+      poner(!header.classList.contains('nav-open'));
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && header.classList.contains('nav-open')) poner(false, true);
+    });
     // Cerrar el menú al tocar una opción (antes de navegar)
     header.querySelectorAll('nav a').forEach(function (enlace) {
-      enlace.addEventListener('click', function () {
-        toggle.checked = false;
-        sincronizar();
-      });
+      enlace.addEventListener('click', function () { poner(false); });
     });
+    // Si la ventana crece a escritorio con el panel abierto, se cierra
+    if (window.matchMedia) {
+      var escritorio = window.matchMedia('(min-width: 901px)');
+      var alCambiar = function (m) { if (m.matches) poner(false); };
+      if (escritorio.addEventListener) escritorio.addEventListener('change', alCambiar);
+      else if (escritorio.addListener) escritorio.addListener(alCambiar);
+    }
   }
 
   /* ---- 4. Aparición al hacer scroll ----
@@ -576,8 +594,9 @@
     } else {
       window.addEventListener('load', ocultar);
     }
-    // Nunca dejar el loader pegado más de 5s aunque algo falle en cargar
-    setTimeout(ocultar, 5000);
+    // Nunca dejar el loader pegado más de 3 s aunque algo tarde en cargar
+    // (el CSS lo retira solo a los 3,5 s si este script no llega a correr)
+    setTimeout(ocultar, 3000);
   }
 
   /* ---- Logos que solo aparecen al interactuar ----

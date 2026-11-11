@@ -211,7 +211,8 @@ a.lang-opt:active {
    --------------------------------------------------------------------- */
 @media (max-width: 900px) {
   .site-header nav {
-    transition: transform var(--t-panel) var(--ease-panel), box-shadow var(--t-panel) ease;
+    transition: transform var(--t-panel) var(--ease-panel), box-shadow var(--t-panel) ease,
+                visibility 0s linear var(--t-panel);   /* se oculta al terminar de salir */
   }
   .nav-burger span {
     transition: transform var(--t-ui) var(--ease-out), opacity 160ms ease;

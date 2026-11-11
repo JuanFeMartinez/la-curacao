@@ -1726,3 +1726,44 @@ p, li { text-wrap: pretty; }
   .contact-strip-inner { gap: 16px; }
   .contact-strip-btn { min-height: 52px; font-size: 17px; }
 }
+
+/* =====================================================================
+   Robustez (/impeccable harden)
+   ===================================================================== */
+
+/* Anillo de foco visible con teclado en todo el sitio. Usa el color del
+   texto, que ya contrasta con su fondo (blanco sobre azul, azul sobre
+   blanco). :where() no suma especificidad: los estilos propios ganan. */
+:where(a, button, summary, [role="button"], [tabindex]):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Botón del menú móvil: es un <button>, sin estilo de botón del navegador */
+.nav-burger {
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  font: inherit;
+}
+
+@media (max-width: 900px) {
+  /* Con el panel cerrado, sus enlaces no reciben foco ni los lee el lector
+     de pantalla (antes seguían en el orden de tabulación fuera de la vista) */
+  .site-header nav {
+    visibility: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, visibility 0s linear 0.35s;
+  }
+  .site-header.nav-open nav {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+}
+
+/* Pantalla de carga: si el script no llega a correr (error o bloqueo),
+   se retira sola a los 3,5 s; nunca deja la página tapada. */
+@keyframes loader-retirada {
+  to { opacity: 0; visibility: hidden; }
+}
+.page-loader { animation: loader-retirada 300ms ease 3.5s forwards; }
