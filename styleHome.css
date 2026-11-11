@@ -888,3 +888,18 @@
   .marcas-texto { font-size: 17px; }
   .marcas-texto a { padding-block: 4px; }
 }
+
+/* Texto justificado (con guiones para evitar huecos) y títulos de la misma
+   altura, para que los párrafos de las tarjetas arranquen parejos */
+.unidad p,
+.marcas-texto {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+.marcas-texto { text-align-last: center; }
+/* Dos columnas anchas: el justificado no deja huecos y las tarjetas quedan en una cuadrícula pareja */
+.unidades-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1100px; }
+@media (max-width: 768px) {
+  .unidades-grid { grid-template-columns: 1fr; }
+}
