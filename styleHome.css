@@ -815,3 +815,76 @@
   .who-content h2 { font-size: var(--h2); }
   .who-content p { font-size: 18px; }
 }
+
+/* ===== Resumen de las unidades de negocio (texto para buscadores y lectores) ===== */
+.unidades-resumen {
+  background: #fff;
+  padding: 0 40px var(--sec);   /* sigue a "Servicios", también blanca */
+  text-align: center;
+}
+.unidades-resumen h2 {
+  color: #10112b;
+  font-size: var(--h2);
+  font-weight: 700;
+  margin-bottom: var(--tras-titulo);
+}
+.unidades-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1220px;
+  margin: 0 auto;
+  text-align: left;
+}
+.unidad {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 24px;
+  background: #fff;
+  border: 1px solid #e3e8f2;
+  border-top: 5px solid var(--unidad);
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(16, 17, 43, 0.06);
+}
+.unidad--broadcast { --unidad: #3870e3; }
+.unidad--syd       { --unidad: #3E4A54; }
+.unidad--soporte   { --unidad: #c05600; }
+.unidad--nuevos    { --unidad: #5b34c7; }
+.unidad h3 { color: #10112b; font-size: 22px; font-weight: 700; line-height: 1.25; }
+.unidad p { color: #3b3f52; font-size: 16px; line-height: 1.55; }
+.unidad a {
+  margin-top: auto;
+  padding-top: 6px;
+  color: var(--unidad);
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .unidad a:hover { text-decoration: underline; text-underline-offset: 4px; }
+}
+
+/* Línea que nombra a las marcas */
+.marcas-section > h2:has(+ .marcas-texto) { margin-bottom: var(--tras-titulo-texto); }
+.marcas-texto {
+  color: #10112b;
+  font-size: 19px;
+  line-height: 1.6;
+  max-width: 860px;
+  margin: 0 auto var(--tras-titulo);
+}
+.marcas-texto a { color: #2f5cdb; font-weight: 700; text-underline-offset: 3px; }
+
+@media (max-width: 1100px) {
+  .unidades-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .unidades-resumen { padding: 0 24px var(--sec); }
+  .unidades-grid { grid-template-columns: 1fr; gap: 16px; }
+  .unidad { padding: 22px 20px; }
+  .unidad h3 { font-size: 20px; }
+  .unidad a { padding-block: 6px; }
+  .marcas-texto { font-size: 17px; }
+  .marcas-texto a { padding-block: 4px; }
+}

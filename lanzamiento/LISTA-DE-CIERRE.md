@@ -52,6 +52,7 @@ Estado al 13 de octubre de 2026. ✅ = hecho en el código · 🔧 = lo haces t�
 |---|---|---|
 | M1 | Landmark `<main>` y "Saltar al contenido" | ✅ Las 31 páginas (ES + EN) tienen un solo `<main id="contenido">` y un enlace para saltar al contenido que aparece con el teclado. El botón de WhatsApp va dentro de su propio `<aside>`. Axe (WCAG 2.2 AA + buenas prácticas): 0 violaciones. |
 | M2 | Zonas táctiles de 24 px o más en celular | ✅ A 390 px, ningún enlace, botón ni campo visible mide menos de 24 px en las 31 páginas: pie (contacto, secciones y enlaces legales), casilla y enlace de autorización del formulario (también en el registro de Seguridad y defensa), "Sitio oficial ↗" y "Conoce la unidad…". Se usó padding con margen negativo, así que el texto no se movió; solo la casilla pasó de 20 a 24 px. |
+| M3 | Más texto útil en el inicio | ✅ Nueva sección "Nuestras unidades de negocio" (Broadcast, Seguridad y defensa, Soporte y Nuevos negocios), con enlace a cada página, y una línea que nombra y enlaza a Sony, LiveU y Amped Software. Todas las frases salen literalmente de las páginas de cada unidad y de cada marca. El inicio pasó de unas 270 a unas 510 palabras visibles; sigue con un solo H1, sin desbordamiento a 390 px y con 0 violaciones de axe. |
 
 ---
 
