@@ -27,3 +27,42 @@
   text-align: center;
   align-items: center;
 }
+
+/* ===== Bloques de contenido (la sección está comentada en el HTML hasta tener
+   el texto y las fotos reales; ver los comentarios PENDIENTE) ===== */
+.nn-bloques {
+  background: #eef0f6;
+  padding: var(--sec) 60px;
+  text-align: center;
+}
+.nn-bloques h2 {
+  color: #10112b;
+  font-size: var(--h2);
+  font-weight: 700;
+  margin-bottom: var(--tras-titulo);
+}
+.nn-bloques-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1220px;
+  margin: 0 auto;
+  text-align: left;
+}
+.nn-bloque {
+  background: #fff;
+  border: 1px solid #e3e8f2;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(16, 17, 43, 0.06);
+}
+.nn-bloque img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.nn-bloque h3 { color: #10112b; font-size: 22px; font-weight: 700; margin: 22px 24px 10px; }
+.nn-bloque p { color: #3b3f52; font-size: 16px; line-height: 1.55; margin: 0 24px 26px; }
+
+@media (max-width: 1000px) {
+  .nn-bloques-grid { grid-template-columns: 1fr; max-width: 560px; }
+}
+@media (max-width: 768px) {
+  .nn-bloques { padding: var(--sec) 24px; }
+}
