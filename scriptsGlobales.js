@@ -456,7 +456,7 @@
      HTML; aquí se clona solo. La clase 'is-looping' activa la animación:
      sin JS no se añade, el carrusel queda estático y no se ve roto. */
   function prepararCarruseles() {
-    var tracks = document.querySelectorAll('.clients-track');
+    var tracks = document.querySelectorAll('.clients-track, .partners-track');
 
     Array.prototype.forEach.call(tracks, function (track) {
       var originales = Array.prototype.slice.call(track.children);
@@ -580,7 +580,7 @@
     if (prefiereReducido || !('IntersectionObserver' in window)) return;
 
     var SELECTORES = [
-      '.unidades > h2', '.unidad', '.how-we-work > h2',
+      '.services-intro > p', '.service-card', '.soporte-bar', '.unidades > h2', '.unidad', '.how-we-work > h2',
       '.marcas-section > h2', '.marca-card',
       '.faq-item', '.how-we-work-img', '.who-grid',
       '.clients-header', '.clients-body', '.contact-strip-inner',
@@ -664,6 +664,41 @@
     setTimeout(ocultar, 3000);
   }
 
+  /* ---- 6. Carrusel de aliados (Home): abre/cierra el panel de marcas ----
+     El :checked ~ no reevalúa fiable en este combinador, así que
+     sincronizamos una clase .aliados-open. El panel cubre el carrusel, por
+     eso se cierra con clic fuera, en su fondo, o con Escape. */
+  function menuAliados() {
+    var toggle = document.getElementById('aliados-toggle');
+    var partners = toggle ? toggle.closest('.partners') : null;
+    if (!toggle || !partners) return;
+
+    function sincronizar() {
+      partners.classList.toggle('aliados-open', toggle.checked);
+    }
+    function cerrar() {
+      if (!toggle.checked) return;
+      toggle.checked = false;
+      sincronizar();
+    }
+    toggle.addEventListener('change', sincronizar);
+
+    document.addEventListener('mousedown', function (e) {
+      if (toggle.checked && !partners.contains(e.target)) cerrar();
+    });
+    var menu = partners.querySelector('.aliados-menu');
+    if (menu) {
+      menu.addEventListener('click', function (e) {
+        if (e.target === menu) cerrar();   // clic en el fondo del panel, no en un logo
+      });
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') cerrar();
+    });
+
+    sincronizar();
+  }
+
   /* ---- Logos que solo aparecen al interactuar ----
      Las versiones en color de los logos (marcas, aliados, tarjetas) están
      ocultas hasta que se abre o se pasa el mouse. Con carga diferida, el
@@ -672,7 +707,7 @@
      así el primer cambio ya es instantáneo. */
   function precargarLogos() {
     function precargar() {
-      var imgs = document.querySelectorAll('.brand-logo--color, .marca-card-logo--color');
+      var imgs = document.querySelectorAll('.brand-logo--color, .aliado-logo--color, .marca-card-logo--color');
       Array.prototype.forEach.call(imgs, function (img) {
         img.loading = 'eager';
         if (img.decode) img.decode().catch(function () {});
@@ -792,6 +827,7 @@
 
   pantallaCarga();
   prepararCarruseles();
+  menuAliados();
   scrollSuaveDesdeAncla();
   menuMovil();
   aparicionAlScroll();

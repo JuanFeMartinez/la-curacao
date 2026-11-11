@@ -59,40 +59,155 @@
   text-transform: uppercase;
 }
 
-/* ---- Logos de "Representantes exclusivos": fijos y enlazados a cada marca ---- */
-.partners-logos {
+/* ---- Carrusel de "Representantes exclusivos" ----
+   Logos blancos en loop sobre el azul; al hacer clic sube un panel con las
+   marcas clicables. El clip recorta el panel mientras está abajo. ---- */
+.partners-clip {
+  position: relative;
+  width: 100%;
+  height: 92px;
+  overflow: hidden;
+}
+
+.partners-viewport {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.partners-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  width: max-content;
+  padding: 0 40px;
+}
+
+/* La clase la añade prepararCarruseles() tras clonar el contenido */
+.partners-track.is-looping {
+  animation: partners-scroll 20s linear infinite;
+}
+
+@keyframes partners-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.partner-logo {
+  height: 44px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Indicador permanente de que se puede abrir (chevron hacia arriba) */
+.partners-badge {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px 40px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
-.partners-logos a {
+
+/* Refuerzo al pasar el mouse: velo azul oscuro + texto "Ver marcas" */
+.partners-hint {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
-  min-height: 56px;
-  padding: 6px 4px;
-  border-radius: 8px;
-  opacity: 0.9;
-  transition: opacity 200ms ease, transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+  justify-content: center;
+  gap: 8px;
+  background: rgba(8, 22, 74, 0.6);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  pointer-events: none;
 }
-.partners-logos img {
-  height: 40px;
+
+@media (hover: hover) and (pointer: fine) {
+  .partners-viewport:hover .partners-hint { opacity: 1; }
+  .partners-viewport:hover .partners-track { animation-play-state: paused; }
+  .partners-viewport:hover .partners-badge { opacity: 0; }
+}
+
+/* Panel que sube al hacer clic, con las marcas clicables */
+.aliados-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 92px;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+  padding: 9px;
+  background: #12329e;
+  border-radius: 14px;
+  transform: translateY(100%);
+  transition: transform 0.44s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.partners.aliados-open .aliados-menu {
+  transform: translateY(0);
+}
+
+.aliado-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.aliado-logo {
+  height: 34px;
   width: auto;
-  max-width: 150px;
+  max-width: 120px;
   object-fit: contain;
 }
-/* Los tres logos van en una sola fila */
-.partners { width: auto; max-width: 100%; }
-@media (max-width: 768px) {
-  .partners-logos { gap: 6px 14px; }
-  .partners-logos a { padding: 6px 2px; }
-  .partners-logos img { height: 26px; max-width: 100px; }
-}
-.partners-logos a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; opacity: 1; }
-.partners-logos a:active { transform: scale(0.96); }
+
+.aliado-logo--color { display: none; }
+
 @media (hover: hover) and (pointer: fine) {
-  .partners-logos a:hover { opacity: 1; transform: translateY(-2px); }
+  .aliado-item:not(.aliado-item--pronto):hover { background: #0d0d0d; }
+  .aliado-item:not(.aliado-item--pronto):hover .aliado-logo--azul { display: none; }
+  .aliado-item:not(.aliado-item--pronto):hover .aliado-logo--color { display: block; }
+}
+
+/* Marca sin página todavía: no es un enlace, se marca "Próximamente" */
+.aliado-item--pronto {
+  flex-direction: column;
+  gap: 4px;
+  cursor: default;
+}
+.aliado-item--pronto .aliado-logo { height: 26px; opacity: 0.55; }
+.aliado-pronto {
+  color: rgba(16, 17, 43, 0.6);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 /* ===== Sección "Conoce nuestras marcas" (debajo de Servicios) =====
@@ -189,6 +304,229 @@
 /* "Ver todas las marcas": bajo las tarjetas, centrado */
 .marcas-todas {
   margin-top: var(--tras-titulo);
+}
+
+/* ===== Services intro (sección blanca) ===== */
+.services-intro {
+  background: #fff;
+  padding: var(--sec) 40px;
+  text-align: center;
+  margin-top: -1px;
+  scroll-margin-top: 40px;   /* respiro al aterrizar desde el enlace "Servicios" */
+}
+
+.services-intro p {
+  color: #10112b;
+  font-weight: 500;
+  font-size: 32px;
+  margin-bottom: var(--tras-titulo);
+}
+
+/* ===== Tarjetas de servicio (Seguridad y defensa / Broadcast) ===== */
+.services-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 64px;
+  margin-bottom: 48px;
+}
+
+.service-card {
+  display: flex;
+  align-items: stretch;
+  width: 300px;
+  height: 365px;
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: left;
+  transition: width 0.45s ease;
+}
+
+.service-card:hover {
+  width: 640px;
+}
+
+.service-left {
+  flex-shrink: 0;
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 20px;   /* las 4 esquinas curvas */
+}
+
+.service-label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 20px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+/* Ambas etiquetas en un solo renglón y con el mismo espaciado (junto) */
+.service-label span {
+  white-space: nowrap;
+}
+
+.service-card--green {
+  background: #3E4A54;
+}
+
+.service-card--blue {
+  background: #3870e3;
+}
+
+.service-card--green .service-left,
+.service-card--green .service-expand { background: #3E4A54; }
+
+.service-card--blue .service-left,
+.service-card--blue .service-expand { background: #3870e3; }
+
+.service-card--green .service-img,
+.service-card--blue .service-img {
+  border-bottom: none;
+}
+
+.service-expand {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  width: 0;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  white-space: normal;
+  color: #fff;
+  transition: padding 0.45s ease;
+}
+
+.service-card:hover .service-expand {
+  padding: 32px 36px;
+}
+
+/* Nombre completo de la unidad: aparece dentro del panel al hacer hover */
+.service-fullname {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+  color: #fff;
+  opacity: 0.92;
+  max-width: 300px;
+}
+
+.service-expand p {
+  font-size: 19px;
+  line-height: 1.4;
+  max-width: 300px;
+  color: #fff;
+}
+
+.service-btn {
+  align-self: flex-start;
+  background: #fff;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s ease, color 0.25s ease,
+              transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.service-card--green .service-btn { color: #3E4A54; }
+.service-card--blue .service-btn { color: #3f61c9; }
+
+/* Hover: la pastilla se llena con el tono más oscuro de la tarjeta, el texto
+   pasa a blanco y se levanta un poco. */
+@media (hover: hover) and (pointer: fine) {
+  .service-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+  }
+  .service-card--green .service-btn:hover { background: #3E4A54; color: #fff; }
+  .service-card--blue .service-btn:hover { background: #3f61c9; color: #fff; }
+  .service-card--purple .service-btn:hover { background: #5b34c7; color: #fff; }
+}
+
+/* Nuevos negocios: violeta */
+.service-card--purple { background: #7b5cf0; }
+.service-card--purple .service-left,
+.service-card--purple .service-expand { background: #7b5cf0; }
+.service-card--purple .service-btn { color: #5b34c7; }
+
+/* Tarjeta sin foto: bloque con degradado violeta + ícono (mismo tamaño que la imagen) */
+.service-img--icono {
+  height: 300px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(140deg, #8b6bff 0%, #4f27ab 100%);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* ===== Barra de Soporte ===== */
+.soporte-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 664px;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #dc7b00;
+  border: 2px solid #dc7b00;
+  border-radius: 14px;
+  padding: 24px;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.soporte-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.soporte-label {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.soporte-label--hover { display: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .soporte-bar:hover {
+    background: transparent;
+    color: #dc7b00;
+  }
+
+  .soporte-bar:hover .soporte-icon {
+    background: #dc7b00;
+    color: #fff;
+  }
+
+  .soporte-bar:hover .soporte-label--default { display: none; }
+  .soporte-bar:hover .soporte-label--hover { display: inline; }
 }
 
 /* ===== Cómo trabajamos (FAQ) ===== */
@@ -599,26 +937,6 @@
 
 /* En pantalla ancha los 17 clientes se ven todos a la vez, fijos y
    legibles; en celular y tablet sigue la cinta en movimiento. */
-@media (min-width: 1025px) {
-  .clients-body {
-    gap: 44px;
-    max-width: 1220px;
-    margin: 0 auto;
-    padding-inline: 60px;
-    box-sizing: content-box;
-  }
-  .clients-carousel { overflow: visible; -webkit-mask-image: none; mask-image: none; }
-  .clients-track {
-    width: auto;
-    flex-wrap: wrap;
-    justify-content: center;   /* la última fila queda centrada */
-    gap: 32px 28px;
-  }
-  .clients-track.is-looping { animation: none; }
-  .clients-track > [aria-hidden="true"] { display: none; }
-  .carrusel-pausa { display: none; }   /* aquí los logos están quietos */
-  .clients-track img { flex: 0 0 calc((100% - 5 * 28px) / 6); min-width: 0; width: auto; height: 64px; }   /* 6 por fila */
-}
 
 /* Marcas: renglón de lectura cómodo */
 .marcas-texto { max-width: 64ch; }
@@ -748,4 +1066,93 @@ button.faq-question {
 @media (max-width: 768px) {
   .tagline-anio { font-size: 34px; }
   .clientes-grupo h3 { font-size: 16px; margin-bottom: 16px; }
+}
+
+/* =====================================================================
+   Movimiento de vuelta (pedido del usuario): tarjetas que se expanden,
+   carrusel de aliados y cinta de clientes, sin perder el acceso con teclado
+   ===================================================================== */
+@media (max-width: 768px) {
+  .partners-carousel { width: 100%; }
+
+  /* Servicios: mismo margen lateral para las tarjetas y la barra de Soporte */
+  .services-intro { padding: var(--sec) 24px; }
+  .services-intro p { font-size: 22px; }
+  .services-cards { gap: 24px; margin-bottom: 24px; }
+
+  .service-card,
+  .service-card:hover { width: 100%; height: auto; }
+  .service-left { width: 100%; height: auto; }
+  .service-card { flex-direction: column; }
+  .service-expand {
+    width: auto;
+    height: 0;
+    padding: 0 22px;
+  }
+  .service-card:hover .service-expand {
+    height: auto;
+    padding: 22px;
+  }
+  /* sin margen extra: queda al ras de las tarjetas de arriba */
+  .soporte-bar { width: 100%; margin: 0; flex-wrap: wrap; text-align: center; }
+}
+
+/* Unidades sigue a las tarjetas de servicio, también en blanco: no duplica el espacio */
+.services-intro + .unidades { padding-top: 0; }
+
+/* Las tarjetas de servicio también se abren al recibir el foco del teclado */
+.service-card:focus-within { width: 640px; }
+.service-card:focus-within .service-expand { padding: 32px 36px; }
+@media (max-width: 768px) {
+  .service-card:focus-within { width: 100%; }
+  .service-card:focus-within .service-expand { height: auto; padding: 22px; }
+}
+
+/* Carrusel de aliados: la casilla que lo abre se puede enfocar y activar con
+   el teclado (Espacio); el anillo se dibuja en el carrusel */
+.aliados-toggle {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+.aliados-toggle:focus-visible + .partners-viewport {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+/* Con el panel cerrado, sus enlaces no reciben foco */
+.aliados-menu { visibility: hidden; transition: transform 0.44s cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0s linear 0.44s; }
+.partners.aliados-open .aliados-menu { visibility: visible; transition-delay: 0s; }
+.aliado-item:focus-visible { outline: 2px solid #10112b; outline-offset: -4px; }
+
+/* Unidades vivas: al pasar el mouse la foto se acerca despacio y la línea
+   del color de la unidad se engrosa */
+.unidad-media {
+  position: relative;
+  overflow: hidden;
+}
+.unidad-media .unidad-img {
+  border-bottom: 0;
+  transition: transform 900ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.unidad-media::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--unidad);
+  transition: height 320ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .unidad:hover .unidad-media .unidad-img { transform: scale(1.06); }
+  .unidad:hover .unidad-media::after { height: 8px; }
+}
+.unidad:has(.unidad-link:focus-visible) .unidad-media::after { height: 8px; }
+@media (prefers-reduced-motion: reduce) {
+  .unidad-media .unidad-img { transition: none; }
+  .unidad:hover .unidad-media .unidad-img { transform: none; }
 }

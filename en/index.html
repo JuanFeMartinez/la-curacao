@@ -27,9 +27,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../estilosGlobales.css?v=c9151171">
-<link rel="stylesheet" href="../styleHome.css?v=a7d77174">
-<link rel="stylesheet" href="../movimiento.css?v=9c7ab8c9">
-<script src="../scriptsGlobales.js?v=a348d97e" defer></script>
+<link rel="stylesheet" href="../styleHome.css?v=df2c6223">
+<link rel="stylesheet" href="../movimiento.css?v=23368ccc">
+<script src="../scriptsGlobales.js?v=1895557f" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -173,21 +173,124 @@
       <p class="tagline"><span class="tagline-anio">Since 1919</span> in Colombia, with in-house engineering and lifecycle support.</p>
 
       <div class="partners">
-          <span class="partners-label">Exclusive representatives</span>
-          <div class="partners-logos">
-            <a href="marcas/sony/"><img decoding="async" width="500" height="88" src="../assets/marca-sony-blanco.webp?v=35570a9c" alt="SONY"></a>
-            <a href="marcas/liveu/"><img decoding="async" width="258" height="88" src="../assets/marca-liveu-blanco.webp?v=a2f87e59" alt="LiveU"></a>
-            <a href="marcas/amped/"><img decoding="async" width="484" height="88" src="../assets/marca-amped-blanco.webp?v=5d23dd66" alt="AMPED Software"></a>
+        <span class="partners-label">Exclusive representatives</span>
+
+        <div class="partners-clip">
+          <input type="checkbox" id="aliados-toggle" class="aliados-toggle" aria-label="View partner brands">
+
+          <!-- Carrusel (cerrado): loop de logos blancos; es el disparador -->
+          <label for="aliados-toggle" class="partners-viewport" aria-label="View partner brands">
+            <div class="partners-track">
+              <img loading="lazy" decoding="async" class="partner-logo" src="../assets/marca-sony-blanco.webp?v=35570a9c" alt="SONY">
+              <img loading="lazy" decoding="async" class="partner-logo" src="../assets/marca-liveu-blanco.webp?v=a2f87e59" alt="LiveU">
+              <img loading="lazy" decoding="async" class="partner-logo" src="../assets/marca-amped-blanco.webp?v=5d23dd66" alt="AMPED">
+            </div>
+            <span class="partners-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M18 15l-6-6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="partners-hint" aria-hidden="true">View brands ↗</span>
+          </label>
+
+          <!-- Panel (abierto): sube cubriendo el carrusel; marcas clicables -->
+          <div class="aliados-menu">
+            <a href="marcas/sony/" class="aliado-item">
+              <img loading="lazy" decoding="async" class="aliado-logo aliado-logo--azul" src="../assets/marca-sony-azulhome.webp?v=e173df2e" alt="SONY">
+              <img loading="lazy" decoding="async" class="aliado-logo aliado-logo--color" src="../assets/marca-sony-color.webp?v=28c39c8d" alt="" aria-hidden="true">
+            </a>
+            <a href="marcas/liveu/" class="aliado-item">
+              <img loading="lazy" decoding="async" class="aliado-logo aliado-logo--azul" src="../assets/marca-liveu-azulhome.webp?v=6ea685fc" alt="LiveU">
+              <img loading="lazy" decoding="async" class="aliado-logo aliado-logo--color" src="../assets/marca-liveu-color.webp?v=3461b271" alt="" aria-hidden="true">
+            </a>
+            <a href="marcas/amped/" class="aliado-item">
+              <img loading="lazy" decoding="async" class="aliado-logo aliado-logo--azul" src="../assets/marca-amped-azulhome.webp?v=73913d2b" alt="AMPED Software">
+              <img loading="lazy" decoding="async" class="aliado-logo aliado-logo--color" src="../assets/marca-amped-blanco.webp?v=5d23dd66" alt="" aria-hidden="true">
+            </a>
           </div>
         </div>
+      </div>
     </div>
   </section>
 
-  <section class="unidades" id="servicios">
+  <section class="services-intro" id="servicios">
+    <p>We offer services in three main areas:</p>
+
+    <div class="services-cards">
+      <div class="service-card service-card--blue">
+        <div class="service-left">
+          <img loading="lazy" decoding="async" class="service-img" src="../assets/service-broadcast.webp?v=2ee0e421" alt="Broadcast">
+          <div class="service-label">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M7 8L4 5M17 8l3-3" stroke-linecap="round"/>
+              <rect x="3" y="8" width="18" height="12" rx="2"/>
+            </svg>
+            <span>Broadcast & audiovisual</span>
+          </div>
+        </div>
+        <div class="service-expand">
+          <span class="service-fullname">Broadcast & Audiovisual Production Business Unit</span>
+          <p>Professional solutions for production, broadcasting and technical support in broadcast environments.</p>
+          <a href="broadcast/" class="service-btn">View solutions</a>
+        </div>
+      </div>
+
+      <div class="service-card service-card--green">
+        <div class="service-left">
+          <img loading="lazy" decoding="async" class="service-img" src="../assets/service-seguridad.webp?v=43db7af5" alt="Security & defense">
+          <div class="service-label">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 3l7 3v5c0 4.5-3 8.5-7 9.5-4-1-7-5-7-9.5V6l7-3z"/>
+              <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Security & defense</span>
+          </div>
+        </div>
+        <div class="service-expand">
+          <span class="service-fullname">Security & Defense Business Unit</span>
+          <p>Equipment and strategic solutions for security and defense operations.</p>
+          <a href="seguridad-y-defensa/" class="service-btn">View solutions</a>
+        </div>
+      </div>
+
+      <div class="service-card service-card--purple">
+        <div class="service-left">
+          <div class="service-img service-img--icono">
+            <svg viewBox="0 0 24 24" width="84" height="84" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.7.7 1 1.4 1 2.5h6c0-1.1.3-1.8 1-2.5A6 6 0 0012 3z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="service-label">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.7.7 1 1.4 1 2.5h6c0-1.1.3-1.8 1-2.5A6 6 0 0012 3z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>New Business</span>
+          </div>
+        </div>
+        <div class="service-expand">
+          <span class="service-fullname">New Business unit</span>
+          <p>Feasibility analysis, validation and adoption of new technologies and international partnerships.</p>
+          <a href="nuevos-negocios/" class="service-btn">View solutions</a>
+        </div>
+      </div>
+    </div>
+
+    <a href="soporte/" class="soporte-bar">
+      <span class="soporte-icon">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2-2 2.5-2.5z" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="soporte-label soporte-label--default">Support</span>
+      <span class="soporte-label soporte-label--hover">go to Support</span>
+    </a>
+  </section>
+
+  <section class="unidades">
     <h2>Our business units</h2>
     <div class="unidades-grid">
       <article class="unidad unidad--broadcast">
-        <img loading="lazy" decoding="async" class="unidad-img" src="../assets/service-broadcast.webp?v=2ee0e421" alt="">
+        <div class="unidad-media">
+          <img loading="lazy" decoding="async" class="unidad-img" src="../assets/service-broadcast.webp?v=2ee0e421" alt="">
+        </div>
         <div class="unidad-cuerpo">
           <h3>Broadcast and audiovisual production</h3>
           <p>We design, integrate and support broadcast infrastructures, including TV studios, control rooms and editing and transmission systems, tailored to each client.</p>
@@ -196,7 +299,9 @@
         </div>
       </article>
       <article class="unidad unidad--syd">
-        <img loading="lazy" decoding="async" class="unidad-img" src="../assets/service-seguridad.webp?v=43db7af5" alt="">
+        <div class="unidad-media">
+          <img loading="lazy" decoding="async" class="unidad-img" src="../assets/service-seguridad.webp?v=43db7af5" alt="">
+        </div>
         <div class="unidad-cuerpo">
           <h3>Security & defense</h3>
           <p>We specialize in the procurement, deployment and integration of tactical technology solutions for defense organizations, public safety and emergency response.</p>
@@ -206,7 +311,9 @@
         </div>
       </article>
       <article class="unidad unidad--soporte">
-        <img loading="lazy" decoding="async" class="unidad-img" src="../assets/soporte-servicio.webp?v=4fb9bdc7" alt="">
+        <div class="unidad-media">
+          <img loading="lazy" decoding="async" class="unidad-img" src="../assets/soporte-servicio.webp?v=4fb9bdc7" alt="">
+        </div>
         <div class="unidad-cuerpo">
           <h3>Technical support</h3>
           <p>We provide specialized assistance in the configuration, maintenance and optimization of multimedia systems.</p>
@@ -215,10 +322,12 @@
         </div>
       </article>
       <article class="unidad unidad--nuevos">
-        <div class="unidad-img unidad-img--icono" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="84" height="84" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.7.7 1 1.4 1 2.5h6c0-1.1.3-1.8 1-2.5A6 6 0 0012 3z" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+        <div class="unidad-media">
+          <div class="unidad-img unidad-img--icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="84" height="84" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.7.7 1 1.4 1 2.5h6c0-1.1.3-1.8 1-2.5A6 6 0 0012 3z" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+          </div>
         </div>
         <div class="unidad-cuerpo">
           <h3>New Business</h3>
