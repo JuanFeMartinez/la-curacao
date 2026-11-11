@@ -54,6 +54,8 @@ Estado al 13 de octubre de 2026. ✅ = hecho en el código · 🔧 = lo haces t�
 | M2 | Zonas táctiles de 24 px o más en celular | ✅ A 390 px, ningún enlace, botón ni campo visible mide menos de 24 px en las 31 páginas: pie (contacto, secciones y enlaces legales), casilla y enlace de autorización del formulario (también en el registro de Seguridad y defensa), "Sitio oficial ↗" y "Conoce la unidad…". Se usó padding con margen negativo, así que el texto no se movió; solo la casilla pasó de 20 a 24 px. |
 | M3 | Más texto útil en el inicio | ✅ Nueva sección "Nuestras unidades de negocio" (Broadcast, Seguridad y defensa, Soporte y Nuevos negocios), con enlace a cada página, y una línea que nombra y enlaza a Sony, LiveU y Amped Software. Todas las frases salen literalmente de las páginas de cada unidad y de cada marca. El inicio pasó de unas 270 a unas 510 palabras visibles; sigue con un solo H1, sin desbordamiento a 390 px y con 0 violaciones de axe. |
 | M4 | Página de Nuevos negocios | 🔧 La estructura está lista, pero falta contenido real: foto del hero y tres bloques (título, párrafo y foto) dentro de comentarios `PENDIENTE` en `nuevos-negocios/index.html`, con sus estilos ya preparados en `nuevos-negocios.css`. El público no ve texto de relleno. La tarjeta del inicio se queda con el ícono hasta tener la foto. |
+| M5 | Barra de contacto fija en celular | ⏸️ Pendiente de aprobación de Felipe; no se implementó. |
+| M6 | Despliegue fuera de DreamHost | ✅ `_redirects` (las mismas 301 de `.htaccess`; las rutas que daban 410 quedan en 404), `_headers` (seguridad y caché) y `construir.sh`, que arma `_sitio/` sin `lanzamiento`, `.claude`, `.impeccable`, `assets-originales`, `.git` ni `.htaccess`. Cada regla de `.htaccess` tiene su equivalente o una nota que explica por qué no lo necesita. `.htaccess` no se tocó. No se desplegó nada. |
 
 ---
 
@@ -86,7 +88,7 @@ Mientras `FORM_ENDPOINT` esté vacío, el formulario abre el correo de la person
 
 ### 3. Google Search Console — 10 minutos
 1. search.google.com/search-console → **Agregar propiedad → Dominio** → `curacao.com.co`.
-2. Verifica con el registro TXT que te da Google, agregándolo en el DNS del dominio (panel de DreamHost → Websites → DNS).
+2. Verifica con el registro TXT que te da Google, agregándolo en el DNS del dominio. Desde noviembre de 2026 el DNS está en **Cloudflare** (DNS → Records → Add record → TXT), no en DreamHost.
 3. **Sitemaps** → envía `https://curacao.com.co/sitemap.xml`.
 4. Después del lanzamiento, en **Inspección de URLs** pide indexar la página de inicio.
 
@@ -99,7 +101,12 @@ bing.com/webmasters → **Importar desde Google Search Console**. Trae el sitio 
 3. Categoría principal sugerida: "Proveedor de equipos audiovisuales"; secundarias: "Empresa de integración de sistemas" y "Servicio técnico de equipos electrónicos".
 4. Sube logo, foto de la sede y fotos de proyectos. Google verifica por video, llamada o carta.
 
-### 6. Lanzamiento en DreamHost (cuando la gerencia apruebe)
+### 6. Lanzamiento (cuando la gerencia apruebe)
+El hosting final no está decidido. El sitio queda listo para las dos opciones:
+- **Cloudflare Pages:** conecta el repositorio, con el comando de compilación `bash construir.sh` y la carpeta de salida `_sitio`. `_redirects` y `_headers` reemplazan a `.htaccess`. En Cloudflare activa **SSL/TLS → Always Use HTTPS** y crea una **Redirect Rule** de `www.curacao.com.co` a `https://curacao.com.co` que conserve la ruta (ver las notas dentro de `_redirects`). Después, comprueba lo mismo del punto 5 de abajo.
+- **Servidor Apache (DreamHost u otro):** sigue los pasos de abajo.
+
+#### Si se usa DreamHost
 1. **Respaldo del WordPress actual**: Panel → Websites → Backups (archivos y base de datos). Guárdalo.
 2. Sube el contenido del sitio a la carpeta de curacao.com.co: todo **menos** `.git`, `.claude`, `.impeccable`, `assets-originales` y `lanzamiento`. **Incluye `.htaccess`.**
 3. Retira los archivos de WordPress de esa carpeta (quedan en el respaldo).

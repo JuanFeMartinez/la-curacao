@@ -1,0 +1,58 @@
+# =====================================================================
+#  REDIRECCIONES — formato de Cloudflare Pages (equivale a la sección 4
+#  de .htaccess). Si el sitio queda en un servidor Apache, manda .htaccess
+#  y este archivo se ignora.
+#  Formato: origen  destino  código. Gana la primera regla que coincide,
+#  por eso las rutas específicas van antes que las generales.
+# =====================================================================
+
+# ---- Sitio anterior (WordPress) -> páginas nuevas (301) ----
+# /, /broadcast/ y /contacto/ conservan su dirección.
+/quienes-somos                             /nosotros/   301
+/quienes-somos/                            /nosotros/   301
+/contacto-2                                /contacto/   301
+/contacto-2/                               /contacto/   301
+/trabaja-con-nosotros                      /contacto/   301
+/trabaja-con-nosotros/                     /contacto/   301
+/broadcast/ingenieria-y-soporte            /soporte/    301
+/broadcast/ingenieria-y-soporte/           /soporte/    301
+/proyectos/ingenieria-y-soporte            /soporte/    301
+/proyectos/ingenieria-y-soporte/           /soporte/    301
+/broadcast/productos-y-soluciones          /broadcast/  301
+/broadcast/productos-y-soluciones/*        /broadcast/  301
+/broadcast/novedades                       /broadcast/  301
+/broadcast/novedades/*                     /broadcast/  301
+/broadcast/medios-de-almacenamiento        /broadcast/  301
+/broadcast/medios-de-almacenamiento/*      /broadcast/  301
+/lshowcase-categories/broadcast            /broadcast/  301
+/lshowcase-categories/broadcast/           /broadcast/  301
+/ord                                       /soporte/    301
+/ord/*                                     /soporte/    301
+/client-types                              /soporte/    301
+/client-types/*                            /soporte/    301
+/proyectos                                 /            301
+/proyectos/*                               /            301
+/lshowcase-categories                      /            301
+/lshowcase-categories/*                    /            301
+/home                                      /            301
+/home/*                                    /            301
+/wp-sitemap.xml                            /sitemap.xml 301
+/wp-sitemap-*                              /sitemap.xml 301
+/sitemap_index.xml                         /sitemap.xml 301
+
+# ---- Reglas de .htaccess sin equivalente aquí (no son un olvido) ----
+# * https y sin www: se configuran en Cloudflare, no en este archivo
+#   (SSL/TLS -> "Always Use HTTPS", y una Redirect Rule de www.curacao.com.co
+#   a https://curacao.com.co conservando la ruta).
+# * /carpeta/index.html -> /carpeta/: Cloudflare Pages ya lo hace solo.
+# * ?p=, ?page_id= y ?elementor_library= en la raíz: este archivo no mira la
+#   query string. Si hace falta, se hace con una Redirect Rule de Cloudflare
+#   (URI query contiene "page_id=", "p=" o "elementor_library=" -> /, 301).
+# * Contenido de prueba y rutas de WordPress (nulla-imperdiet…, blog, category,
+#   author, offer-types, feed, comments, wp-admin, wp-content, wp-includes,
+#   wp-json, wp-login.php, xmlrpc.php): en .htaccess responden 410. Aquí no hay
+#   410, así que se dejan sin regla y responden 404 con la página propia.
+#   NO se redirigen al inicio a propósito: Google trataría esa redirección
+#   como un 404 suave y tardaría más en retirarlas.
+# * Carpetas internas (.git, .claude, .impeccable, assets-originales,
+#   lanzamiento): no llegan al sitio publicado porque construir.sh las excluye.

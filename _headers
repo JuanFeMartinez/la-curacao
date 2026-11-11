@@ -1,0 +1,39 @@
+# =====================================================================
+#  CABECERAS — formato de Cloudflare Pages (equivale a las secciones de
+#  caché y seguridad de .htaccess). En Apache manda .htaccess.
+# =====================================================================
+
+# ---- Seguridad (todas las rutas) ----
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+# ---- Caché del navegador (los mismos tiempos de .htaccess) ----
+# Las páginas HTML no necesitan regla: Cloudflare Pages ya las sirve con
+# revalidación en cada visita (max-age=0, must-revalidate), igual que el
+# "no-cache" de .htaccess.
+
+# CSS y JS: un día
+/*.css
+  Cache-Control: public, max-age=86400
+/*.js
+  Cache-Control: public, max-age=86400
+
+# Imágenes: un mes
+/assets/*
+  Cache-Control: public, max-age=2592000
+
+# Sitemap y robots: un día
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+# ---- Reglas de .htaccess que aquí no aplican ----
+# * Options -Indexes: Cloudflare Pages nunca lista carpetas.
+# * ErrorDocument 404: Cloudflare Pages sirve 404.html por su cuenta.
+# * Compresión (mod_deflate): Cloudflare comprime solo (gzip y brotli).
+# * Charset y tipos MIME (.webp, .webmanifest): Cloudflare Pages ya los envía bien.
