@@ -46,6 +46,12 @@ Estado al 13 de octubre de 2026. ✅ = hecho en el código · 🔧 = lo haces t�
 | 40 | Página de gracias | ✅ `/contacto/gracias/` (no indexable). |
 | 41 | Medir conversiones | ✅ Evento `generate_lead` al llegar a gracias tras un envío real, más `clic_whatsapp`, `clic_telefono` y `clic_correo` · 🔧 Paso 2 para marcarlas |
 
+### Mejoras de noviembre de 2026 (ver `MEJORAS-PENDIENTES.md`)
+
+| # | Mejora | Estado |
+|---|---|---|
+| M1 | Landmark `<main>` y "Saltar al contenido" | ✅ Las 31 páginas (ES + EN) tienen un solo `<main id="contenido">` y un enlace para saltar al contenido que aparece con el teclado. El botón de WhatsApp va dentro de su propio `<aside>`. Axe (WCAG 2.2 AA + buenas prácticas): 0 violaciones. |
+
 ---
 
 ## Lo que tienes que hacer tú
