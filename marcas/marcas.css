@@ -254,3 +254,8 @@ body.marca-amped .marca-hero {
   .marca-galeria-grid { gap: 18px; }
   .marca-galeria figcaption { font-size: 15px; }
 }
+
+/* ===== Zona táctil de "Conoce la unidad…" en celular ===== */
+@media (max-width: 768px) {
+  .marcas-rama-intro a { padding-block: 4px; }
+}

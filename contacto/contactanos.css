@@ -292,3 +292,9 @@
   .contacto-accion-tipo { font-size: 17px; }
   .contacto-accion-dato { font-size: 14px; }
 }
+
+/* ===== Zonas táctiles: casilla de 24 px y enlace de la política más alto ===== */
+.contacto-form__autorizo input { width: 24px; height: 24px; margin-top: 0; }
+@media (max-width: 768px) {
+  .contacto-form__autorizo a { padding-block: 4px; }
+}

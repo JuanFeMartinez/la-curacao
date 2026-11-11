@@ -51,6 +51,7 @@ Estado al 13 de octubre de 2026. ✅ = hecho en el código · 🔧 = lo haces t�
 | # | Mejora | Estado |
 |---|---|---|
 | M1 | Landmark `<main>` y "Saltar al contenido" | ✅ Las 31 páginas (ES + EN) tienen un solo `<main id="contenido">` y un enlace para saltar al contenido que aparece con el teclado. El botón de WhatsApp va dentro de su propio `<aside>`. Axe (WCAG 2.2 AA + buenas prácticas): 0 violaciones. |
+| M2 | Zonas táctiles de 24 px o más en celular | ✅ A 390 px, ningún enlace, botón ni campo visible mide menos de 24 px en las 31 páginas: pie (contacto, secciones y enlaces legales), casilla y enlace de autorización del formulario (también en el registro de Seguridad y defensa), "Sitio oficial ↗" y "Conoce la unidad…". Se usó padding con margen negativo, así que el texto no se movió; solo la casilla pasó de 20 a 24 px. |
 
 ---
 

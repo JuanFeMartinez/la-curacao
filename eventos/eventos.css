@@ -154,3 +154,8 @@
   .evento-cabeza h3 { font-size: 23px; }
   .evento-cuerpo { padding: 18px 20px 20px; }
 }
+
+/* ===== Zona táctil de "Sitio oficial" en celular ===== */
+@media (max-width: 768px) {
+  .evento-link { padding-block: 6px; margin-block: auto -6px; }
+}

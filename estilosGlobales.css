@@ -1576,9 +1576,10 @@ html.con-aviso-cookies .whatsapp-flotante {
 }
 .syd-acceso input:focus { outline: none; border-color: #3E4A54; box-shadow: 0 0 0 4px rgba(62, 74, 84, 0.16); background: #fff; }
 .syd-acceso .syd-acceso__autorizo { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; font-size: 14px; color: #4a4f63; }
-.syd-acceso .syd-acceso__autorizo input { width: 18px; height: 18px; margin-top: 2px; accent-color: #3E4A54; }
+.syd-acceso .syd-acceso__autorizo a { padding-block: 4px; }
+.syd-acceso .syd-acceso__autorizo input { flex-shrink: 0; width: 24px; height: 24px; margin-top: 0; accent-color: #3E4A54; }
 .syd-acceso__enviar { font: inherit; font-weight: 700; font-size: 17px; color: #fff; background: #3E4A54; border: 0; border-radius: 10px; padding: 14px; cursor: pointer; }
-.syd-acceso__volver { font: inherit; font-size: 15px; color: #3E4A54; background: none; border: 0; cursor: pointer; justify-self: start; padding: 0; }
+.syd-acceso__volver { font: inherit; font-size: 15px; color: #3E4A54; background: none; border: 0; cursor: pointer; justify-self: start; padding: 6px 0; margin: -6px 0; }
 .syd-acceso__nota { font-size: 13px !important; }
 /* En la propia página, mientras no haya registro, el contenido no se ve */
 html.syd-bloqueado main > section:not(.hero),
@@ -1607,3 +1608,13 @@ html.syd-bloqueado body > footer { filter: blur(10px); pointer-events: none; use
 }
 .saltar-contenido:focus { transform: none; outline: 3px solid #5690fc; outline-offset: 2px; }
 main:focus { outline: none; }
+
+/* ===== Zonas táctiles de 24 px o más en celular (WCAG 2.2, 2.5.8) =====
+   El padding agranda el área tocable y el margen negativo lo compensa,
+   así que nada se mueve a la vista. */
+@media (max-width: 768px) {
+  .footer-contact a { display: inline-block; padding-block: 4px; margin-block: -4px; }
+  .footer-col a:not(.footer-col-title),
+  .footer-legal a,
+  .footer-cookies { padding-block: 6px; margin-block: -6px; }
+}
