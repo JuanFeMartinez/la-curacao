@@ -655,11 +655,34 @@
   /* La barra fija de contacto no tapa el bloque azul de la primera vista:
      el hero cede el alto de la barra */
   .hero {
-    height: calc(58vh - var(--alto-barra, 0px) + 16px);
-    height: calc(58dvh - var(--alto-barra, 0px) + 16px);
+    height: calc(52vh - var(--alto-barra, 0px) + 16px);   /* deja sitio al botón de cotización */
+    height: calc(52dvh - var(--alto-barra, 0px) + 16px);
   }
   .hero-followup {
     min-height: calc(42vh + 10px - var(--alto-barra, 0px));
     min-height: calc(42dvh + 10px - var(--alto-barra, 0px));
   }
+}
+
+/* ===== Acción principal del inicio: pedir una cotización ===== */
+.cta-principal {
+  display: inline-flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 0 30px;
+  border-radius: 999px;
+  background: #10112b;
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1), background-color 220ms ease;
+}
+.cta-principal:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.cta-principal:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .cta-principal:hover { transform: translateY(-2px); background: #23265a; }
+}
+@media (max-width: 768px) {
+  .cta-principal { width: 100%; max-width: 340px; justify-content: center; }
 }

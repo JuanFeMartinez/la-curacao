@@ -1693,3 +1693,36 @@ main:focus { outline: none; }
    palabras huérfanas (los navegadores que no lo soportan lo ignoran) */
 h1, h2, h3 { text-wrap: balance; }
 p, li { text-wrap: pretty; }
+
+/* ===== "Contáctanos" del menú: es la acción principal, se ve como botón ===== */
+.site-header nav > a[href$="contacto/"] {
+  padding: 8px 18px;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  line-height: 1.2;
+}
+.site-header nav > a[href$="contacto/"]:hover { background: #fff; color: #2f5cdb; transform: none; }
+
+/* ===== Franja de contacto: llamar o escribir ===== */
+.contact-strip-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 0 28px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  transition: background-color 200ms ease, color 200ms ease, transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.contact-strip-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.contact-strip-btn:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .contact-strip-btn:hover { background: #fff; color: var(--accent-fuerte, #2f5cdb); }
+}
+@media (max-width: 768px) {
+  .contact-strip-inner { gap: 16px; }
+  .contact-strip-btn { min-height: 52px; font-size: 17px; }
+}
