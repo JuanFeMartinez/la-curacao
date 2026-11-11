@@ -1688,3 +1688,8 @@ main:focus { outline: none; }
 
   .aviso-cookies { bottom: calc(var(--alto-barra) + 12px); }
 }
+
+/* Titulares sin una palabra sola en el último renglón y párrafos sin
+   palabras huérfanas (los navegadores que no lo soportan lo ignoran) */
+h1, h2, h3 { text-wrap: balance; }
+p, li { text-wrap: pretty; }

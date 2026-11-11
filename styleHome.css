@@ -193,8 +193,8 @@
 
 /* ===== Cómo trabajamos (FAQ) ===== */
 .how-we-work {
-  background: #eef0f6;
-  padding: 0 60px var(--sec);
+  background: #fff;
+  padding: var(--sec) 60px;
   margin-top: -1px;
 }
 
@@ -576,4 +576,90 @@
   .unidad-link { padding-block: 6px; }
   .marcas-texto { font-size: 17px; }
   .marcas-texto a { padding-block: 4px; }
+}
+
+/* =====================================================================
+   Ritmo del inicio (/impeccable layout)
+   Orden: unidades (blanco) -> clientes (blanco, sigue sin espacio extra)
+   -> marcas (gris) -> cómo trabajamos (blanco) -> quiénes somos (blanco,
+   sigue sin espacio extra) -> franja azul de contacto, la única de cierre.
+   ===================================================================== */
+
+/* Todas las secciones comparten el mismo ancho de contenido */
+.unidades-grid { max-width: 1220px; }
+
+/* Clientes: título simple en vez de franja azul, para que el único bloque
+   azul de cierre sea "¡Contáctanos!". Va justo después de las unidades. */
+.clients-header {
+  background: transparent;
+  padding: 0 20px;
+}
+.clients-header h2 { color: #10112b; }
+.clients-body { padding: var(--tras-titulo) 0 var(--sec); }
+
+/* En pantalla ancha los 17 clientes se ven todos a la vez, fijos y
+   legibles; en celular y tablet sigue la cinta en movimiento. */
+@media (min-width: 1025px) {
+  .clients-body {
+    display: flex;
+    flex-direction: row;       /* la regla global la pone en columna */
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;   /* la última fila queda centrada */
+    gap: 36px 28px;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding-inline: 60px;
+    box-sizing: content-box;
+  }
+  .clients-carousel,
+  .clients-track { display: contents; }
+  .clients-track.is-looping { animation: none; }
+  .clients-track > [aria-hidden="true"] { display: none; }
+  .clients-track img { flex: 0 0 calc((100% - 5 * 28px) / 6); min-width: 0; width: auto; height: 64px; }   /* 6 + 6 + 5 */
+}
+@media (min-width: 1280px) {
+  .clients-track img { flex-basis: calc((100% - 8 * 28px) / 9); }   /* 9 + 8 */
+}
+
+/* Marcas: renglón de lectura cómodo */
+.marcas-texto { max-width: 64ch; }
+
+/* Quiénes somos sigue a otra sección blanca: no duplica el espacio */
+.who-we-are { padding-top: 0; }
+
+/* Preguntas frecuentes: espaciado natural (sin alto fijo) y una foto que
+   no aplasta la columna de preguntas en pantallas medianas */
+.how-we-work-grid { align-items: center; }
+.faq-list {
+  height: auto;
+  justify-content: flex-start;
+  gap: 16px;
+}
+.how-we-work-img {
+  flex: 0 1 42%;
+  min-width: 0;
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+.faq-answer-inner p { max-width: 68ch; }
+
+@media (max-width: 768px) {
+  .how-we-work { padding: var(--sec) 24px; }
+  /* Primero las preguntas, después la foto */
+  .how-we-work-grid { flex-direction: column; }
+  .how-we-work-img { flex: none; height: 220px; aspect-ratio: auto; }
+  .who-we-are { padding-top: 0; }
+  .who-content { max-width: 480px; margin-inline: auto; }
+
+  /* La barra fija de contacto no tapa el bloque azul de la primera vista:
+     el hero cede el alto de la barra */
+  .hero {
+    height: calc(58vh - var(--alto-barra, 0px) + 16px);
+    height: calc(58dvh - var(--alto-barra, 0px) + 16px);
+  }
+  .hero-followup {
+    min-height: calc(42vh + 10px - var(--alto-barra, 0px));
+    min-height: calc(42dvh + 10px - var(--alto-barra, 0px));
+  }
 }
