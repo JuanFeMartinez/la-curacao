@@ -59,155 +59,40 @@
   text-transform: uppercase;
 }
 
-/* ---- Carrusel de "Representantes exclusivos" ----
-   Logos blancos en loop sobre el azul; al hacer clic sube un panel con las
-   marcas clicables. El clip recorta el panel mientras está abajo. ---- */
-.partners-clip {
-  position: relative;
-  width: 100%;
-  height: 92px;
-  overflow: hidden;
-}
-
-.partners-viewport {
-  position: absolute;
-  inset: 0;
-  display: block;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.partners-track {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 60px;
+/* ---- Logos de "Representantes exclusivos": fijos y enlazados a cada marca ---- */
+.partners-logos {
   display: flex;
   align-items: center;
-  gap: 64px;
-  width: max-content;
-  padding: 0 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 40px;
 }
-
-/* La clase la añade prepararCarruseles() tras clonar el contenido */
-.partners-track.is-looping {
-  animation: partners-scroll 20s linear infinite;
+.partners-logos a {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 6px 4px;
+  border-radius: 8px;
+  opacity: 0.9;
+  transition: opacity 200ms ease, transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
 }
-
-@keyframes partners-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-.partner-logo {
-  height: 44px;
+.partners-logos img {
+  height: 40px;
   width: auto;
-  max-width: 200px;
-  object-fit: contain;
-  flex-shrink: 0;
-}
-
-/* Indicador permanente de que se puede abrir (chevron hacia arriba) */
-.partners-badge {
-  position: absolute;
-  left: 50%;
-  bottom: 8px;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.16);
-  color: #fff;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-}
-
-/* Refuerzo al pasar el mouse: velo azul oscuro + texto "Ver marcas" */
-.partners-hint {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: rgba(8, 22, 74, 0.6);
-  color: #fff;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.5px;
-  opacity: 0;
-  transition: opacity 0.28s ease;
-  pointer-events: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .partners-viewport:hover .partners-hint { opacity: 1; }
-  .partners-viewport:hover .partners-track { animation-play-state: paused; }
-  .partners-viewport:hover .partners-badge { opacity: 0; }
-}
-
-/* Panel que sube al hacer clic, con las marcas clicables */
-.aliados-menu {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 92px;
-  z-index: 2;
-  display: flex;
-  gap: 8px;
-  padding: 9px;
-  background: #12329e;
-  border-radius: 14px;
-  transform: translateY(100%);
-  transition: transform 0.44s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-.partners.aliados-open .aliados-menu {
-  transform: translateY(0);
-}
-
-.aliado-item {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  border-radius: 10px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-
-.aliado-logo {
-  height: 34px;
-  width: auto;
-  max-width: 120px;
+  max-width: 150px;
   object-fit: contain;
 }
-
-.aliado-logo--color { display: none; }
-
+/* Los tres logos van en una sola fila */
+.partners { width: auto; max-width: 100%; }
+@media (max-width: 768px) {
+  .partners-logos { gap: 6px 14px; }
+  .partners-logos a { padding: 6px 2px; }
+  .partners-logos img { height: 26px; max-width: 100px; }
+}
+.partners-logos a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; opacity: 1; }
+.partners-logos a:active { transform: scale(0.96); }
 @media (hover: hover) and (pointer: fine) {
-  .aliado-item:not(.aliado-item--pronto):hover { background: #0d0d0d; }
-  .aliado-item:not(.aliado-item--pronto):hover .aliado-logo--azul { display: none; }
-  .aliado-item:not(.aliado-item--pronto):hover .aliado-logo--color { display: block; }
-}
-
-/* Marca sin página todavía: no es un enlace, se marca "Próximamente" */
-.aliado-item--pronto {
-  flex-direction: column;
-  gap: 4px;
-  cursor: default;
-}
-.aliado-item--pronto .aliado-logo { height: 26px; opacity: 0.55; }
-.aliado-pronto {
-  color: rgba(16, 17, 43, 0.6);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  .partners-logos a:hover { opacity: 1; transform: translateY(-2px); }
 }
 
 /* ===== Sección "Conoce nuestras marcas" (debajo de Servicios) =====
@@ -304,229 +189,6 @@
 /* "Ver todas las marcas": bajo las tarjetas, centrado */
 .marcas-todas {
   margin-top: var(--tras-titulo);
-}
-
-/* ===== Services intro (sección blanca) ===== */
-.services-intro {
-  background: #fff;
-  padding: var(--sec) 40px;
-  text-align: center;
-  margin-top: -1px;
-  scroll-margin-top: 40px;   /* respiro al aterrizar desde el enlace "Servicios" */
-}
-
-.services-intro p {
-  color: #10112b;
-  font-weight: 500;
-  font-size: 32px;
-  margin-bottom: var(--tras-titulo);
-}
-
-/* ===== Tarjetas de servicio (Seguridad y defensa / Broadcast) ===== */
-.services-cards {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 64px;
-  margin-bottom: 48px;
-}
-
-.service-card {
-  display: flex;
-  align-items: stretch;
-  width: 300px;
-  height: 365px;
-  border-radius: 20px;
-  overflow: hidden;
-  text-align: left;
-  transition: width 0.45s ease;
-}
-
-.service-card:hover {
-  width: 640px;
-}
-
-.service-left {
-  flex-shrink: 0;
-  width: 300px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.service-img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 20px;   /* las 4 esquinas curvas */
-}
-
-.service-label {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 20px 20px;
-  color: #fff;
-  font-weight: 700;
-  font-size: 17px;
-}
-
-/* Ambas etiquetas en un solo renglón y con el mismo espaciado (junto) */
-.service-label span {
-  white-space: nowrap;
-}
-
-.service-card--green {
-  background: #3E4A54;
-}
-
-.service-card--blue {
-  background: #3870e3;
-}
-
-.service-card--green .service-left,
-.service-card--green .service-expand { background: #3E4A54; }
-
-.service-card--blue .service-left,
-.service-card--blue .service-expand { background: #3870e3; }
-
-.service-card--green .service-img,
-.service-card--blue .service-img {
-  border-bottom: none;
-}
-
-.service-expand {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-  width: 0;
-  height: 100%;
-  padding: 0;
-  overflow: hidden;
-  white-space: normal;
-  color: #fff;
-  transition: padding 0.45s ease;
-}
-
-.service-card:hover .service-expand {
-  padding: 32px 36px;
-}
-
-/* Nombre completo de la unidad: aparece dentro del panel al hacer hover */
-.service-fullname {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  line-height: 1.3;
-  color: #fff;
-  opacity: 0.92;
-  max-width: 300px;
-}
-
-.service-expand p {
-  font-size: 19px;
-  line-height: 1.4;
-  max-width: 300px;
-  color: #fff;
-}
-
-.service-btn {
-  align-self: flex-start;
-  background: #fff;
-  border-radius: 999px;
-  padding: 10px 22px;
-  font-weight: 700;
-  font-size: 15px;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: background 0.25s ease, color 0.25s ease,
-              transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.service-card--green .service-btn { color: #3E4A54; }
-.service-card--blue .service-btn { color: #3f61c9; }
-
-/* Hover: la pastilla se llena con el tono más oscuro de la tarjeta, el texto
-   pasa a blanco y se levanta un poco. */
-@media (hover: hover) and (pointer: fine) {
-  .service-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
-  }
-  .service-card--green .service-btn:hover { background: #3E4A54; color: #fff; }
-  .service-card--blue .service-btn:hover { background: #3f61c9; color: #fff; }
-  .service-card--purple .service-btn:hover { background: #5b34c7; color: #fff; }
-}
-
-/* Nuevos negocios: violeta */
-.service-card--purple { background: #7b5cf0; }
-.service-card--purple .service-left,
-.service-card--purple .service-expand { background: #7b5cf0; }
-.service-card--purple .service-btn { color: #5b34c7; }
-
-/* Tarjeta sin foto: bloque con degradado violeta + ícono (mismo tamaño que la imagen) */
-.service-img--icono {
-  height: 300px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(140deg, #8b6bff 0%, #4f27ab 100%);
-  color: rgba(255, 255, 255, 0.92);
-}
-
-/* ===== Barra de Soporte ===== */
-.soporte-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  width: 664px;
-  max-width: 100%;
-  margin: 0 auto;
-  background: #dc7b00;
-  border: 2px solid #dc7b00;
-  border-radius: 14px;
-  padding: 24px;
-  color: #fff;
-  text-decoration: none;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.soporte-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  transition: background 0.3s ease;
-}
-
-.soporte-label {
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: 2px;
-}
-
-.soporte-label--hover { display: none; }
-
-@media (hover: hover) and (pointer: fine) {
-  .soporte-bar:hover {
-    background: transparent;
-    color: #dc7b00;
-  }
-
-  .soporte-bar:hover .soporte-icon {
-    background: #dc7b00;
-    color: #fff;
-  }
-
-  .soporte-bar:hover .soporte-label--default { display: none; }
-  .soporte-bar:hover .soporte-label--hover { display: inline; }
 }
 
 /* ===== Cómo trabajamos (FAQ) ===== */
@@ -777,29 +439,6 @@
   }
 
   .partners { align-items: center; width: 100%; }
-  .partners-carousel { width: 100%; }
-
-  /* Servicios: mismo margen lateral para las tarjetas y la barra de Soporte */
-  .services-intro { padding: var(--sec) 24px; }
-  .services-intro p { font-size: 22px; }
-  .services-cards { gap: 24px; margin-bottom: 24px; }
-
-  .service-card,
-  .service-card:hover { width: 100%; height: auto; }
-  .service-left { width: 100%; height: auto; }
-  .service-card { flex-direction: column; }
-  .service-expand {
-    width: auto;
-    height: 0;
-    padding: 0 22px;
-  }
-  .service-card:hover .service-expand {
-    height: auto;
-    padding: 22px;
-  }
-  /* sin margen extra: queda al ras de las tarjetas de arriba */
-  .soporte-bar { width: 100%; margin: 0; flex-wrap: wrap; text-align: center; }
-
   .how-we-work { padding: 0 24px var(--sec); }
   .how-we-work h2 { font-size: var(--h2); margin-bottom: var(--tras-titulo); }
   .how-we-work-grid { flex-direction: column-reverse; gap: 32px; }
@@ -816,13 +455,17 @@
   .who-content p { font-size: 18px; }
 }
 
-/* ===== Resumen de las unidades de negocio (texto para buscadores y lectores) ===== */
-.unidades-resumen {
+/* ===== Unidades de negocio: una sola cuadrícula =====
+   Cada unidad aparece una vez, con un solo nombre: foto, texto y un enlace
+   que cubre toda la tarjeta. Nada se esconde detrás del mouse. */
+.unidades {
   background: #fff;
-  padding: 0 40px var(--sec);   /* sigue a "Servicios", también blanca */
+  padding: var(--sec) 40px;
+  margin-top: -1px;
   text-align: center;
+  scroll-margin-top: 40px;   /* respiro al aterrizar desde el enlace "Servicios" */
 }
-.unidades-resumen h2 {
+.unidades > h2 {
   color: #10112b;
   font-size: var(--h2);
   font-weight: 700;
@@ -830,39 +473,82 @@
 }
 .unidades-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
-  max-width: 1220px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 1100px;
   margin: 0 auto;
   text-align: left;
 }
 .unidad {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 28px 24px;
   background: #fff;
   border: 1px solid #e3e8f2;
-  border-top: 5px solid var(--unidad);
-  border-radius: 18px;
+  border-radius: 20px;
+  overflow: hidden;
   box-shadow: 0 6px 18px rgba(16, 17, 43, 0.06);
+  transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 260ms ease;
 }
 .unidad--broadcast { --unidad: #3870e3; }
 .unidad--syd       { --unidad: #3E4A54; }
 .unidad--soporte   { --unidad: #c05600; }
 .unidad--nuevos    { --unidad: #5b34c7; }
-.unidad h3 { color: #10112b; font-size: 22px; font-weight: 700; line-height: 1.25; }
-.unidad p { color: #3b3f52; font-size: 16px; line-height: 1.55; }
-.unidad a {
+
+/* La foto lleva el color de la unidad en su borde inferior: así se reconoce
+   la unidad sin repetir su nombre en otra parte */
+.unidad-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  border-bottom: 4px solid var(--unidad);
+}
+.unidad-img--icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(140deg, #8b6bff 0%, #4f27ab 100%);
+  color: rgba(255, 255, 255, 0.92);
+}
+.unidad-cuerpo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 26px 28px 28px;
+}
+.unidad h3 { color: #10112b; font-size: 24px; font-weight: 700; line-height: 1.25; }
+.unidad p {
+  color: #3b3f52;
+  font-size: 16.5px;
+  line-height: 1.6;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+.unidad-link {
   margin-top: auto;
   padding-top: 6px;
   color: var(--unidad);
   font-weight: 700;
   font-size: 16px;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
+/* El enlace cubre toda la tarjeta */
+.unidad-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.unidad-link:focus-visible { outline: none; }
+.unidad:has(.unidad-link:focus-visible) { outline: 3px solid var(--unidad); outline-offset: 3px; }
+.unidad:active { transform: scale(0.99); }
 @media (hover: hover) and (pointer: fine) {
-  .unidad a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .unidad:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(16, 17, 43, 0.14); }
+  .unidad:hover .unidad-link { text-decoration: underline; text-underline-offset: 4px; }
 }
 
 /* Línea que nombra a las marcas */
@@ -873,33 +559,21 @@
   line-height: 1.6;
   max-width: 860px;
   margin: 0 auto var(--tras-titulo);
-}
-.marcas-texto a { color: #2f5cdb; font-weight: 700; text-underline-offset: 3px; }
-
-@media (max-width: 1100px) {
-  .unidades-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 768px) {
-  .unidades-resumen { padding: 0 24px var(--sec); }
-  .unidades-grid { grid-template-columns: 1fr; gap: 16px; }
-  .unidad { padding: 22px 20px; }
-  .unidad h3 { font-size: 20px; }
-  .unidad a { padding-block: 6px; }
-  .marcas-texto { font-size: 17px; }
-  .marcas-texto a { padding-block: 4px; }
-}
-
-/* Texto justificado (con guiones para evitar huecos) y títulos de la misma
-   altura, para que los párrafos de las tarjetas arranquen parejos */
-.unidad p,
-.marcas-texto {
   text-align: justify;
+  text-align-last: center;
   hyphens: auto;
   -webkit-hyphens: auto;
 }
-.marcas-texto { text-align-last: center; }
-/* Dos columnas anchas: el justificado no deja huecos y las tarjetas quedan en una cuadrícula pareja */
-.unidades-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1100px; }
+.marcas-texto a { color: #2f5cdb; font-weight: 700; text-underline-offset: 3px; }
+
 @media (max-width: 768px) {
-  .unidades-grid { grid-template-columns: 1fr; }
+  .unidades { padding: var(--sec) 24px; }
+  .unidades-grid { grid-template-columns: 1fr; gap: 18px; }
+  .unidad-img { aspect-ratio: 16 / 8; }
+  .unidad-cuerpo { padding: 22px 20px 24px; }
+  .unidad h3 { font-size: 21px; }
+  .unidad p { font-size: 16px; }
+  .unidad-link { padding-block: 6px; }
+  .marcas-texto { font-size: 17px; }
+  .marcas-texto a { padding-block: 4px; }
 }

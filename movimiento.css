@@ -238,9 +238,7 @@ a.lang-opt:active {
 .marca-btn-oficial,
 .track-order-btn,
 .mv-btn,
-.phone-pill,
-.soporte-bar,
-.aliado-item {
+.phone-pill {
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -345,18 +343,6 @@ body.marca-liveu .contact-btn:hover { color: #fff; }
   transition-duration: var(--t-press);
 }
 
-/* Barra de Soporte (Home): es grande, así que el gesto es más pequeño */
-.soporte-bar {
-  transition: background-color var(--t-hover) ease, color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
-}
-.soporte-bar:active { transform: scale(0.99); }
-
-/* Logos del mini-menú de aliados */
-.aliado-item {
-  transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
-}
-.aliado-item:active { transform: scale(0.95); }
-
 /* Redes sociales del footer: hover solo con mouse */
 .footer-social a {
   transition: transform var(--t-hover) var(--ease-out), opacity var(--t-hover) ease;
@@ -409,30 +395,6 @@ a.marca-card:active { transform: scale(0.99); }
   transition-duration: var(--t-press);
 }
 
-/* Tarjetas de servicio (Home): se expanden con curva de panel en 320ms
-   y el texto entra al final, escalonado, para que no se vea re-acomodarse
-   mientras la tarjeta cambia de ancho. El ancho sigue siendo layout: es
-   el gesto central del diseño (la tarjeta empuja a las vecinas) y no
-   tiene equivalente con transform sin rediseñarlo.
-   Solo en escritorio con mouse: en móvil el texto debe verse de una. */
-.service-card { transition: width 320ms var(--ease-panel); }
-.service-expand { transition: padding 320ms var(--ease-panel); }
-
-@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
-  .service-expand > * {
-    opacity: 0;
-    transform: translateX(-8px);
-    transition: opacity 120ms ease, transform 120ms ease;
-  }
-  .service-card:hover .service-expand > * {
-    opacity: 1;
-    transform: none;
-    transition: opacity 240ms ease, transform 320ms var(--ease-out);
-  }
-  .service-card:hover .service-expand > :nth-child(1) { transition-delay: 100ms; }
-  .service-card:hover .service-expand > :nth-child(2) { transition-delay: 130ms; }
-  .service-card:hover .service-expand > :nth-child(3) { transition-delay: 160ms; }
-}
 
 
 /* ---------------------------------------------------------------------
@@ -482,10 +444,6 @@ a.marca-card:active { transform: scale(0.99); }
   isolation: isolate;
   clip-path: inset(0 round 16px);
 }
-.service-card {
-  isolation: isolate;
-  clip-path: inset(0 round 20px);
-}
 .support-card { isolation: isolate; }   /* tiene sombra en hover: clip-path la cortaría */
 
 /* Cabecera de marca en táctil: al apoyar el dedo cambia de tono al
@@ -525,9 +483,6 @@ a.marca-card:active { transform: scale(0.99); }
   opacity: 1;
   transition: opacity 220ms ease 70ms;
 }
-
-/* Mini-menú de aliados (Home): sube como una hoja */
-.aliados-menu { transition: transform var(--t-panel) var(--ease-panel); }
 
 /* Misión ↔ Visión (Nosotros): fundido con un desenfoque leve, que mezcla
    los dos estados en vez de mostrar dos tarjetas encimadas. */
@@ -634,8 +589,7 @@ a.marca-card:active { transform: scale(0.99); }
 
   .site-header.nav-open nav > * { animation: none; }
 
-  .clients-track,
-  .partners-track { animation-play-state: paused !important; }
+  .clients-track { animation-play-state: paused !important; }
 
   .page-loader__logo { animation: none; }
   .phone-pill:hover .icon-circle svg { animation: none !important; }
@@ -659,13 +613,10 @@ a.marca-card:active { transform: scale(0.99); }
   .aviso-cookies { animation-name: vt-fundido; }
   .aviso-cookies.is-saliendo { transform: none; }
 
-  .service-expand > *,
   .brand-body-inner,
   .mv-card { transform: none !important; filter: none !important; }
 
   /* Lo que cambia de tamaño lo hace de una, sin animar */
-  .service-card,
-  .service-expand { transition-duration: 0s !important; }
   .contact-btn::before,
   .contact-btn::after,
   .who-btn::before,
