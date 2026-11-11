@@ -601,26 +601,23 @@
    legibles; en celular y tablet sigue la cinta en movimiento. */
 @media (min-width: 1025px) {
   .clients-body {
-    display: flex;
-    flex-direction: row;       /* la regla global la pone en columna */
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;   /* la última fila queda centrada */
-    gap: 36px 28px;
+    gap: 44px;
     max-width: 1220px;
     margin: 0 auto;
     padding-inline: 60px;
     box-sizing: content-box;
   }
-  .clients-carousel,
-  .clients-track { display: contents; }
+  .clients-carousel { overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  .clients-track {
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;   /* la última fila queda centrada */
+    gap: 32px 28px;
+  }
   .clients-track.is-looping { animation: none; }
   .clients-track > [aria-hidden="true"] { display: none; }
   .carrusel-pausa { display: none; }   /* aquí los logos están quietos */
-  .clients-track img { flex: 0 0 calc((100% - 5 * 28px) / 6); min-width: 0; width: auto; height: 64px; }   /* 6 + 6 + 5 */
-}
-@media (min-width: 1280px) {
-  .clients-track img { flex-basis: calc((100% - 8 * 28px) / 9); }   /* 9 + 8 */
+  .clients-track img { flex: 0 0 calc((100% - 5 * 28px) / 6); min-width: 0; width: auto; height: 64px; }   /* 6 por fila */
 }
 
 /* Marcas: renglón de lectura cómodo */
@@ -686,4 +683,69 @@
 }
 @media (max-width: 768px) {
   .cta-principal { width: 100%; max-width: 340px; justify-content: center; }
+}
+
+/* =====================================================================
+   Segunda ronda de crítica (inicio)
+   ===================================================================== */
+
+/* La cotización es lo que más resalta en la franja azul; el teléfono queda
+   como alternativa en contorno */
+.cta-principal { background: #fff; color: #10112b; }
+@media (hover: hover) and (pointer: fine) {
+  .cta-principal:hover { background: #eef0f6; }
+}
+.hero-followup .phone-pill {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.75);
+}
+.hero-followup .phone-pill .icon-circle { background: rgba(255, 255, 255, 0.2); color: #fff; }
+.hero-followup .phone-pill .phone-number { color: #fff; }
+
+/* "Desde 1919": la antigüedad es lo que ningún competidor puede copiar */
+.tagline-anio {
+  display: block;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+/* Aviso de registro en la tarjeta de Seguridad y defensa */
+.unidad p.unidad-acceso {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  text-align: left;
+  color: #3E4A54;
+  font-size: 14px;
+  font-weight: 700;
+}
+.unidad-acceso + .unidad-link { margin-top: 0; }
+
+/* Clientes agrupados: medios y telecomunicaciones / gobierno y defensa */
+.clientes-grupo h3 {
+  text-align: center;
+  color: #4a4f63;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+/* Preguntas frecuentes: el título envuelve un botón real */
+.faq-titulo { margin: 0; font: inherit; }
+button.faq-question {
+  width: 100%;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .tagline-anio { font-size: 34px; }
+  .clientes-grupo h3 { font-size: 16px; margin-bottom: 16px; }
 }

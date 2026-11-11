@@ -25,7 +25,7 @@
   var T = EN ? {
     wa: 'Message us on WhatsApp',
     waTexto: 'Hello, I would like more information about your solutions.',
-    barra: 'Contact us', zonaContacto: 'Contact',
+    barra: 'Request a quote', zonaContacto: 'Contact',
     abrirMenu: 'Open menu', cerrarMenu: 'Close menu',
     pausarLogos: 'Pause logos', reanudarLogos: 'Resume logos',
     cookies: 'We use analytics cookies to understand how the site is used and improve it. You can accept or reject them.',
@@ -37,7 +37,7 @@
   } : {
     wa: 'Escríbenos por WhatsApp',
     waTexto: 'Hola, quiero más información sobre sus soluciones.',
-    barra: 'Contáctanos', zonaContacto: 'Contacto',
+    barra: 'Solicita una cotización', zonaContacto: 'Contacto',
     abrirMenu: 'Abrir menú', cerrarMenu: 'Cerrar menú',
     pausarLogos: 'Pausar logos', reanudarLogos: 'Reanudar logos',
     cookies: 'Usamos cookies de analítica para entender cómo se usa el sitio y mejorarlo. Puedes aceptarlas o rechazarlas.',
@@ -189,6 +189,15 @@
     zona.appendChild(a);
     zona.appendChild(barra);
     document.body.appendChild(zona);
+
+    // En el inicio la barra no repite el botón de cotización mientras este
+    // se ve en pantalla: aparece cuando el visitante ya pasó la primera vista
+    var cta = document.querySelector('.cta-principal');
+    if (cta && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entradas) {
+        document.documentElement.classList.toggle('cta-visible', entradas[0].isIntersecting);
+      }).observe(cta);
+    }
   }
 
   /* ---- Formulario de contacto ----
@@ -295,13 +304,15 @@
       form: 'Register to continue. Our team will contact you if you need more information.',
       nombre: 'Full name', correo: 'Email', tel: 'Phone', entidad: 'Organization or company', cargo: 'Position',
       autorizo: 'I authorize the processing of my personal data according to the', politica: 'Privacy policy',
-      enviar: 'See information', volver: '← Back to options', inicio: 'Back to home', cerrar: 'Close'
+      enviar: 'See information', volver: '← Back to options', inicio: 'Back to home', cerrar: 'Close',
+      error: 'We could not send your registration. Please try again or write to us at info@curacao.com.co.'
     } : {
       etq: 'Acceso exclusivo', titulo: 'Seguridad y defensa', intro: 'Elige lo que te interesa.',
       form: 'Regístrate para continuar. Nuestro equipo te contactará si necesitas más información.',
       nombre: 'Nombre completo', correo: 'Correo electrónico', tel: 'Teléfono', entidad: 'Entidad o empresa', cargo: 'Cargo',
       autorizo: 'Autorizo el tratamiento de mis datos personales según la', politica: 'Política de privacidad',
-      enviar: 'Ver información', volver: '← Volver a las opciones', inicio: 'Volver al inicio', cerrar: 'Cerrar'
+      enviar: 'Ver información', volver: '← Volver a las opciones', inicio: 'Volver al inicio', cerrar: 'Cerrar',
+      error: 'No pudimos enviar tu registro. Inténtalo de nuevo o escríbenos a info@curacao.com.co.'
     };
     var html = document.documentElement;
     var enSyD = location.pathname.indexOf(RUTA) > -1;
@@ -309,8 +320,25 @@
     var politica = document.querySelector('a[href$="politica-de-privacidad/"]');
     var inicio = document.querySelector('a.logo-block');
     var caja = null;
+    var origen = null;   // elemento que tenía el foco antes de abrir
 
-    function cerrar() { if (caja && caja.parentNode) caja.parentNode.removeChild(caja); caja = null; }
+    // Mientras la ventana está abierta, todo lo demás queda inerte: el foco
+    // y el lector de pantalla solo recorren la ventana (aria-modal real).
+    function fondoInerte(si) {
+      Array.prototype.forEach.call(document.body.children, function (el) {
+        if (el === caja || el.tagName === 'SCRIPT') return;
+        if (si) el.setAttribute('inert', ''); else el.removeAttribute('inert');
+      });
+    }
+    function cerrar() {
+      var habia = !!caja;
+      if (caja && caja.parentNode) caja.parentNode.removeChild(caja);
+      caja = null;
+      if (!habia) return;
+      fondoInerte(false);
+      if (origen && document.contains(origen) && origen.focus) origen.focus();
+      origen = null;
+    }
     function ir(base, ancla) {
       if (enSyD && location.pathname === base) {
         html.classList.remove('syd-bloqueado'); cerrar();
@@ -322,7 +350,9 @@
     }
 
     function abrir(base, bloqueante) {
+      var previo = origen || document.activeElement;
       cerrar();
+      origen = previo;
       caja = document.createElement('div');
       caja.className = 'syd-acceso';
       caja.setAttribute('role', 'dialog');
@@ -338,7 +368,11 @@
         '<div class="syd-acceso__cab"><div><span class="syd-acceso__etq">' + L.etq + '</span><h2>' + L.titulo + '</h2></div>' + accion + '</div>' +
         '<div class="syd-acceso__paso"><p>' + L.intro + '</p><div class="syd-acceso__opciones">' + opciones + '</div></div></div>';
       document.body.appendChild(caja);
+      fondoInerte(true);
       var paso = caja.querySelector('.syd-acceso__paso');
+      // El foco entra a la ventana, en la primera opción
+      var primera = caja.querySelector('.syd-acceso__opcion');
+      if (primera) primera.focus();
 
       function formulario(o) {
         paso.innerHTML = '<p>' + L.form + '</p>' +
@@ -351,6 +385,7 @@
           '<label class="syd-acceso__autorizo"><input type="checkbox" name="autorizo" value="si" required><span>' + L.autorizo + ' ' +
             (politica ? '<a href="' + politica.getAttribute('href') + '" target="_blank" rel="noopener">' + L.politica + '</a>' : L.politica) + '. *</span></label>' +
           '<input type="text" name="sitio_web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px">' +
+          '<p class="syd-acceso__error" role="alert"></p>' +
           '<button type="submit" class="syd-acceso__enviar">' + L.enviar + '</button>' +
           '<button type="button" class="syd-acceso__volver">' + L.volver + '</button>' +
           '</form>';
@@ -368,8 +403,19 @@
           d.set('tiempo', String(Math.round((Date.now() - t0) / 1000) + 3));
           var listo = function () { guardar('lc-syd', '1'); medir('generate_lead', { formulario: 'acceso_syd' }); ir(base, o[0]); };
           if (!CONFIG.FORM_ENDPOINT) { listo(); return; }
-          f.querySelector('.syd-acceso__enviar').disabled = true;
-          fetch(CONFIG.FORM_ENDPOINT, { method: 'POST', body: new URLSearchParams(d) }).then(listo, listo);
+          var enviar = f.querySelector('.syd-acceso__enviar');
+          var aviso = f.querySelector('.syd-acceso__error');
+          enviar.disabled = true;
+          if (aviso) aviso.textContent = '';
+          // Igual que el formulario de contacto: solo se da por enviado si el
+          // servidor lo confirma. Si falla, se dice y se conserva lo escrito.
+          fetch(CONFIG.FORM_ENDPOINT, { method: 'POST', body: new URLSearchParams(d) })
+            .then(function (r) { return r.json(); })
+            .then(function (res) { if (!res || !res.ok) throw new Error('rechazado'); listo(); })
+            .catch(function () {
+              enviar.disabled = false;
+              if (aviso) aviso.textContent = L.error;
+            });
         });
       }
 
@@ -654,8 +700,11 @@
     Array.prototype.forEach.call(items, function (item) {
       var q = item.querySelector('.faq-question');
       if (!q) return;
-      q.setAttribute('role', 'button');
-      q.setAttribute('tabindex', '0');
+      var esBoton = q.tagName === 'BUTTON';   // en el inicio ya es un <button> real
+      if (!esBoton) {
+        q.setAttribute('role', 'button');
+        q.setAttribute('tabindex', '0');
+      }
       q.setAttribute('aria-expanded', 'false');
 
       function alternar() {
@@ -668,9 +717,11 @@
       }
 
       q.addEventListener('click', alternar);
-      q.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); alternar(); }
-      });
+      if (!esBoton) {
+        q.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); alternar(); }
+        });
+      }
     });
   }
 
