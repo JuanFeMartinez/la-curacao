@@ -27,6 +27,7 @@
     waTexto: 'Hello, I would like more information about your solutions.',
     barra: 'Contact us', zonaContacto: 'Contact',
     abrirMenu: 'Open menu', cerrarMenu: 'Close menu',
+    pausarLogos: 'Pause logos', reanudarLogos: 'Resume logos',
     cookies: 'We use analytics cookies to understand how the site is used and improve it. You can accept or reject them.',
     cookiesMas: 'Privacy policy',
     aceptar: 'Accept', rechazar: 'Reject',
@@ -38,6 +39,7 @@
     waTexto: 'Hola, quiero más información sobre sus soluciones.',
     barra: 'Contáctanos', zonaContacto: 'Contacto',
     abrirMenu: 'Abrir menú', cerrarMenu: 'Cerrar menú',
+    pausarLogos: 'Pausar logos', reanudarLogos: 'Reanudar logos',
     cookies: 'Usamos cookies de analítica para entender cómo se usa el sitio y mejorarlo. Puedes aceptarlas o rechazarlas.',
     cookiesMas: 'Política de privacidad',
     aceptar: 'Aceptar', rechazar: 'Rechazar',
@@ -436,6 +438,23 @@
       }
 
       track.classList.add('is-looping');
+    });
+
+    // Botón para detener las cintas (WCAG 2.2.2: lo que se mueve más de 5 s
+    // necesita una forma de pausarlo). Uno por bloque de clientes.
+    Array.prototype.forEach.call(document.querySelectorAll('.clients-body'), function (bloque) {
+      if (!bloque.querySelector('.clients-track.is-looping')) return;
+      var boton = document.createElement('button');
+      boton.type = 'button';
+      boton.className = 'carrusel-pausa';
+      function poner(pausado) {
+        bloque.classList.toggle('is-pausado', pausado);
+        boton.setAttribute('aria-pressed', pausado ? 'true' : 'false');
+        boton.textContent = pausado ? T.reanudarLogos : T.pausarLogos;
+      }
+      boton.addEventListener('click', function () { poner(!bloque.classList.contains('is-pausado')); });
+      poner(false);
+      bloque.appendChild(boton);
     });
   }
 

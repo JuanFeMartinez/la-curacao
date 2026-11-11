@@ -1767,3 +1767,32 @@ p, li { text-wrap: pretty; }
   to { opacity: 0; visibility: hidden; }
 }
 .page-loader { animation: loader-retirada 300ms ease 3.5s forwards; }
+
+/* Cintas de logos: se detienen con el botón "Pausar logos" (lo crea el JS),
+   al pasar el mouse o al enfocar algo dentro */
+.clients-body.is-pausado .clients-track,
+.clients-carousel:hover .clients-track,
+.clients-carousel:focus-within .clients-track { animation-play-state: paused; }
+.carrusel-pausa {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 20px;
+  background: none;
+  border: 1.5px solid #d6dbe9;
+  border-radius: 999px;
+  color: #4a4f63;
+  font: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color 200ms ease, color 200ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .carrusel-pausa:hover { border-color: #4a4f63; color: #10112b; }
+}
+/* Con "reducir movimiento" las cintas ya están quietas: el botón sobra */
+@media (prefers-reduced-motion: reduce) {
+  .carrusel-pausa { display: none; }
+}

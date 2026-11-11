@@ -616,6 +616,7 @@
   .clients-track { display: contents; }
   .clients-track.is-looping { animation: none; }
   .clients-track > [aria-hidden="true"] { display: none; }
+  .carrusel-pausa { display: none; }   /* aquí los logos están quietos */
   .clients-track img { flex: 0 0 calc((100% - 5 * 28px) / 6); min-width: 0; width: auto; height: 64px; }   /* 6 + 6 + 5 */
 }
 @media (min-width: 1280px) {
