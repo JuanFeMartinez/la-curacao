@@ -580,7 +580,7 @@
     if (prefiereReducido || !('IntersectionObserver' in window)) return;
 
     var SELECTORES = [
-      '.services-intro > p', '.service-card', '.soporte-bar', '.unidades > h2', '.unidad', '.how-we-work > h2',
+      '.services-intro > p', '.service-card', '.soporte-bar', '.how-we-work > h2',
       '.marcas-section > h2', '.marca-card',
       '.faq-item', '.how-we-work-img', '.who-grid',
       '.clients-header', '.clients-body', '.contact-strip-inner',

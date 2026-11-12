@@ -793,102 +793,6 @@
   .who-content p { font-size: 18px; }
 }
 
-/* ===== Unidades de negocio: una sola cuadrícula =====
-   Cada unidad aparece una vez, con un solo nombre: foto, texto y un enlace
-   que cubre toda la tarjeta. Nada se esconde detrás del mouse. */
-.unidades {
-  background: #fff;
-  padding: var(--sec) 40px;
-  margin-top: -1px;
-  text-align: center;
-  scroll-margin-top: 40px;   /* respiro al aterrizar desde el enlace "Servicios" */
-}
-.unidades > h2 {
-  color: #10112b;
-  font-size: var(--h2);
-  font-weight: 700;
-  margin-bottom: var(--tras-titulo);
-}
-.unidades-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
-  max-width: 1100px;
-  margin: 0 auto;
-  text-align: left;
-}
-.unidad {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border: 1px solid #e3e8f2;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(16, 17, 43, 0.06);
-  transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 260ms ease;
-}
-.unidad--broadcast { --unidad: #3870e3; }
-.unidad--syd       { --unidad: #3E4A54; }
-.unidad--soporte   { --unidad: #c05600; }
-.unidad--nuevos    { --unidad: #5b34c7; }
-
-/* La foto lleva el color de la unidad en su borde inferior: así se reconoce
-   la unidad sin repetir su nombre en otra parte */
-.unidad-img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 7;
-  object-fit: cover;
-  border-bottom: 4px solid var(--unidad);
-}
-.unidad-img--icono {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(140deg, #8b6bff 0%, #4f27ab 100%);
-  color: rgba(255, 255, 255, 0.92);
-}
-.unidad-cuerpo {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 26px 28px 28px;
-}
-.unidad h3 { color: #10112b; font-size: 24px; font-weight: 700; line-height: 1.25; }
-.unidad p {
-  color: #3b3f52;
-  font-size: 16.5px;
-  line-height: 1.6;
-  text-align: justify;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-}
-.unidad-link {
-  margin-top: auto;
-  padding-top: 6px;
-  color: var(--unidad);
-  font-weight: 700;
-  font-size: 16px;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-}
-/* El enlace cubre toda la tarjeta */
-.unidad-link::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-}
-.unidad-link:focus-visible { outline: none; }
-.unidad:has(.unidad-link:focus-visible) { outline: 3px solid var(--unidad); outline-offset: 3px; }
-.unidad:active { transform: scale(0.99); }
-@media (hover: hover) and (pointer: fine) {
-  .unidad:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(16, 17, 43, 0.14); }
-  .unidad:hover .unidad-link { text-decoration: underline; text-underline-offset: 4px; }
-}
-
 /* Línea que nombra a las marcas */
 .marcas-section > h2:has(+ .marcas-texto) { margin-bottom: var(--tras-titulo-texto); }
 .marcas-texto {
@@ -905,13 +809,6 @@
 .marcas-texto a { color: #2f5cdb; font-weight: 700; text-underline-offset: 3px; }
 
 @media (max-width: 768px) {
-  .unidades { padding: var(--sec) 24px; }
-  .unidades-grid { grid-template-columns: 1fr; gap: 18px; }
-  .unidad-img { aspect-ratio: 16 / 8; }
-  .unidad-cuerpo { padding: 22px 20px 24px; }
-  .unidad h3 { font-size: 21px; }
-  .unidad p { font-size: 16px; }
-  .unidad-link { padding-block: 6px; }
   .marcas-texto { font-size: 17px; }
   .marcas-texto a { padding-block: 4px; }
 }
@@ -922,9 +819,6 @@
    -> marcas (gris) -> cómo trabajamos (blanco) -> quiénes somos (blanco,
    sigue sin espacio extra) -> franja azul de contacto, la única de cierre.
    ===================================================================== */
-
-/* Todas las secciones comparten el mismo ancho de contenido */
-.unidades-grid { max-width: 1220px; }
 
 /* Clientes: título simple en vez de franja azul, para que el único bloque
    azul de cierre sea "¡Contáctanos!". Va justo después de las unidades. */
@@ -1030,19 +924,6 @@
   margin-bottom: 6px;
 }
 
-/* Aviso de registro en la tarjeta de Seguridad y defensa */
-.unidad p.unidad-acceso {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: auto;
-  text-align: left;
-  color: #3E4A54;
-  font-size: 14px;
-  font-weight: 700;
-}
-.unidad-acceso + .unidad-link { margin-top: 0; }
-
 /* Clientes agrupados: medios y telecomunicaciones / gobierno y defensa */
 .clientes-grupo h3 {
   text-align: center;
@@ -1097,9 +978,6 @@ button.faq-question {
   .soporte-bar { width: 100%; margin: 0; flex-wrap: wrap; text-align: center; }
 }
 
-/* Unidades sigue a las tarjetas de servicio, también en blanco: no duplica el espacio */
-.services-intro + .unidades { padding-top: 0; }
-
 /* Las tarjetas de servicio también se abren al recibir el foco del teclado */
 .service-card:focus-within { width: 640px; }
 .service-card:focus-within .service-expand { padding: 32px 36px; }
@@ -1127,32 +1005,13 @@ button.faq-question {
 .partners.aliados-open .aliados-menu { visibility: visible; transition-delay: 0s; }
 .aliado-item:focus-visible { outline: 2px solid #10112b; outline-offset: -4px; }
 
-/* Unidades vivas: al pasar el mouse la foto se acerca despacio y la línea
-   del color de la unidad se engrosa */
-.unidad-media {
-  position: relative;
-  overflow: hidden;
-}
-.unidad-media .unidad-img {
-  border-bottom: 0;
-  transition: transform 900ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-.unidad-media::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 4px;
-  background: var(--unidad);
-  transition: height 320ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-@media (hover: hover) and (pointer: fine) {
-  .unidad:hover .unidad-media .unidad-img { transform: scale(1.06); }
-  .unidad:hover .unidad-media::after { height: 8px; }
-}
-.unidad:has(.unidad-link:focus-visible) .unidad-media::after { height: 8px; }
-@media (prefers-reduced-motion: reduce) {
-  .unidad-media .unidad-img { transition: none; }
-  .unidad:hover .unidad-media .unidad-img { transform: none; }
+/* Aviso de registro dentro de la tarjeta de Seguridad y defensa */
+.service-acceso {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0.92;
 }
