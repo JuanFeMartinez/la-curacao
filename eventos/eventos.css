@@ -159,3 +159,16 @@
 @media (max-width: 768px) {
   .evento-link { padding-block: 6px; margin-block: auto -6px; }
 }
+
+/* ===== Franjas de color parejas en cada fila =====
+   Cada tarjeta ocupa tres filas de la cuadrícula (foto, franja, cuerpo) y las
+   comparte con sus vecinas: si un nombre ocupa dos líneas, todas las franjas de
+   esa fila crecen igual y el texto de abajo arranca a la misma altura. */
+@supports (grid-template-rows: subgrid) {
+  .evento {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+}
