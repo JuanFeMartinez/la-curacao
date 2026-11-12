@@ -733,7 +733,8 @@ a.lang-opt { cursor: pointer; }
 .hero--compacto {
   height: auto;
   min-height: 0;
-  padding: calc(var(--nav-height) + 64px) 60px 72px;
+  /* Mismo espacio arriba y abajo: el título queda centrado y bajo el logo */
+  padding: calc(var(--nav-height) + 64px) 60px;
   background: linear-gradient(140deg, #4372f0 0%, var(--accent) 55%, #2148b8 100%);
 }
 .hero--compacto h1 {
@@ -1341,7 +1342,7 @@ html.con-aviso-cookies .whatsapp-flotante {
   .footer-col-title { font-size: 22px; }
   .footer-col a:not(.footer-col-title) { font-size: 18px; }
 
-  .hero--compacto { padding: calc(var(--nav-height) + 32px) 24px 48px; }
+  .hero--compacto { padding: calc(var(--nav-height) + 32px) 24px; }
   .texto-legal { padding: var(--sec) 24px calc(var(--sec) + var(--pie)); }
   .texto-legal__cuerpo { font-size: 17px; }
   .texto-legal h2 { font-size: 21px; margin-top: 40px; }
@@ -1437,15 +1438,17 @@ html.con-aviso-cookies .whatsapp-flotante {
 .hero--center:not(.hero--compacto) {
   height: auto;
   min-height: max(420px, 58vh);
-  padding-top: calc(var(--nav-height) + 64px);   /* el logo con "Since 1919" baja más que la barra */
-  padding-bottom: 48px;
+  /* Mismo espacio arriba y abajo: el contenido queda centrado en el hero y
+     siempre por debajo del logo con "Since 1919" */
+  padding-top: calc(var(--nav-height) + 64px);
+  padding-bottom: calc(var(--nav-height) + 64px);
 }
 @media (max-width: 768px) {
   .hero--center:not(.hero--compacto) {
     min-height: max(320px, 46vh);
     min-height: max(320px, 46dvh);
     padding-top: calc(var(--nav-height) + 20px);
-    padding-bottom: 40px;
+    padding-bottom: calc(var(--nav-height) + 20px);
   }
 }
 
