@@ -495,8 +495,11 @@
       boton.className = 'carrusel-pausa';
       function poner(pausado) {
         bloque.classList.toggle('is-pausado', pausado);
-        boton.setAttribute('aria-pressed', pausado ? 'true' : 'false');
-        boton.textContent = pausado ? T.reanudarLogos : T.pausarLogos;
+        boton.setAttribute('aria-label', pausado ? T.reanudarLogos : T.pausarLogos);
+        boton.title = pausado ? T.reanudarLogos : T.pausarLogos;
+        boton.innerHTML = pausado
+          ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>'
+          : '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.2" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.2" fill="currentColor"/></svg>';
       }
       boton.addEventListener('click', function () { poner(!bloque.classList.contains('is-pausado')); });
       poner(false);

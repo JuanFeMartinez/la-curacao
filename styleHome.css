@@ -1030,3 +1030,11 @@ button.faq-question {
   .service-card:hover,
   .service-card:focus-within { width: 100%; }
 }
+
+/* Texto de marcas: centrado y sin guiones (justificado se veía apretado) */
+.marcas-texto {
+  text-align: center;
+  text-align-last: auto;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}

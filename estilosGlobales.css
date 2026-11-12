@@ -1860,3 +1860,14 @@ p, li { text-wrap: pretty; }
 /* Mensaje de error del registro de Seguridad y defensa */
 .syd-acceso__error:empty { display: none; }
 .syd-acceso__error { color: #b0263f; font-size: 15px; font-weight: 600; line-height: 1.45; }
+
+/* Botón de pausa de las cintas: círculo con ícono de pausa / reproducir */
+.carrusel-pausa {
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-height: 0;
+  padding: 0;
+  border-radius: 50%;
+}
+.carrusel-pausa svg { width: 18px; height: 18px; display: block; }
