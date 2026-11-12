@@ -1015,3 +1015,18 @@ button.faq-question {
   font-weight: 700;
   opacity: 0.92;
 }
+
+/* Tarjetas de servicio con más texto: el panel se abre a 700 px y el
+   párrafo baja a 16,5 px para que todo quepa en el alto de la tarjeta */
+.service-card:hover,
+.service-card:focus-within { width: 700px; }
+.service-expand { gap: 14px; }
+.service-expand p {
+  font-size: 16.5px;
+  line-height: 1.45;
+  max-width: 340px;
+}
+@media (max-width: 768px) {
+  .service-card:hover,
+  .service-card:focus-within { width: 100%; }
+}
